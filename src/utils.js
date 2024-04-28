@@ -64,6 +64,12 @@ function parseSlotCraftJson(obj) {
                 performance: "",
             };
 
+            if (curmod.module == 'FgExitModule') {
+                statecfg.statedata[curmod.name].bquick = false;
+                statecfg.statedata[curmod.name].toui = true;
+                statecfg.statedata[curmod.name].exitmodule = curmod.module;
+            }
+
             curmod.key = parseFloat(curmod.key);
 
             lst.push(curmod);

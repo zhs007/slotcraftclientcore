@@ -1,8 +1,8 @@
 {
   "name": "slotcraftclientcore",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "slotcraft client core",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "jest",
     "build": "webpack --mode=production --node-env=production",
