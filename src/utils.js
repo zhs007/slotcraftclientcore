@@ -41,8 +41,8 @@ function parseMsgScene(clientdata, sceneindex) {
     return scene;
 }
 
-function parseSlotCraftJson(obj) {
-    if (!obj || !obj['moduleMatching']) {
+function parseSlotCraftJson(objModule) {
+    if (!objModule) {
         return null;
     }
 
@@ -53,7 +53,7 @@ function parseSlotCraftJson(obj) {
 
     // let lst = [];
 
-    let objModule = obj['moduleMatching'];
+    // let objModule = obj['moduleMatching'];
     for (let i = 0; i < objModule.length; i++) {
         const curmod = objModule[i];
 
