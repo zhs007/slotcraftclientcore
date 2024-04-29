@@ -51,7 +51,7 @@ function parseSlotCraftJson(obj) {
         statelist: [],
     };
 
-    let lst = [];
+    // let lst = [];
 
     let objModule = obj['moduleMatching'];
     for (let i = 0; i < objModule.length; i++) {
@@ -70,19 +70,21 @@ function parseSlotCraftJson(obj) {
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
             }
 
-            curmod.key = parseFloat(curmod.key);
+            // curmod.key = parseFloat(curmod.key);
 
-            lst.push(curmod);
+            // lst.push(curmod);
+
+            statecfg.statelist.push(curmod.name);
         }
     }
 
-    lst.sort((a, b) => {
-        return a.key - b.key;
-    })
+    // lst.sort((a, b) => {
+    //     return a.key - b.key;
+    // })
 
-    for (let i = 0; i < lst.length; i++) {
-        statecfg.statelist.push(lst[i].name);
-    }
+    // for (let i = 0; i < lst.length; i++) {
+    //     statecfg.statelist.push(lst[i].name);
+    // }
 
     return statecfg;
 }
