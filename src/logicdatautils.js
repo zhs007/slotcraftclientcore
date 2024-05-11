@@ -8,7 +8,7 @@ function parseCell(logicData, cell) {
         const type = cell.label;
 
         if (logicData.mapComponents[name] && logicData.mapComponents[name].type != type) {
-            return 'There already exists a component with the same name but a different type. - ' + name;
+            return 'There already exists a component with the same name but a different type (in different bet method). - ' + name;
         }
 
         logicData.mapComponents[name] = {
