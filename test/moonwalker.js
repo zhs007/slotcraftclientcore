@@ -1138,2685 +1138,2990 @@ var statedata = {
 
 var statelist = ["bg-spin", "bg-walk", "bg-top", "bg-paysc", "bg-win", "bg-fgtrigger", "fg-spin", "fg-walkdown", "fg-walk", "fg-top", "fg-paysc", "fg-win", "fg-fgtrigger"];
 
-var orbs = true;
-// var cfgdata = {
-//   "10": {
-//       "Components": [
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-paylines",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "bgreels",
-//                   "isExpandReel": false
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-paysc",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "W"
-//                   ],
-//                   "type": "countscatter",
-//                   "betType": "bet",
-//                   "minNum": 3,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "S",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "bg-rollsym",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": "fg-spin"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-paylines",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "fgreels",
-//                   "isExpandReel": false
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "symbolCollection2",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "foreachComponent": "fg-checkbookof",
-//                   "maxSymbolNum": 0,
-//                   "initSymbols": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-start",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "rollSymbol",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "weight": "fgbookofsymbol",
-//                   "srcSymbolCollection": "",
-//                   "ignoreSymbolCollection": "fg-syms",
-//                   "targetSymbolCollection": "fg-syms"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-paysc",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-syms",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "W"
-//                   ],
-//                   "type": "countscatter",
-//                   "betType": "bet",
-//                   "minNum": 3,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "S",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "fg-rollsym",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-syms",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "rollSymbol",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "weight": "fgbookofsymbol",
-//                   "srcSymbolCollection": "",
-//                   "ignoreSymbolCollection": "fg-syms",
-//                   "targetSymbolCollection": "fg-syms"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-replacereel",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "mask",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "num": 5,
-//                   "perMaskAwards": null,
-//                   "mapSPMaskAwards": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "noPay",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "fg-bookof",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "fg-bookof",
-//                   "isReverse": false,
-//                   "needDiscardResults": true,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-paybookof",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "replaceReelWithMask",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "J",
-//                   "mask": "fg-bookof"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           }
-//       ],
-//       "MapComponents": {
-//           "bg-paysc": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "W"
-//                   ],
-//                   "type": "countscatter",
-//                   "betType": "bet",
-//                   "minNum": 3,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "S",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "bg-rollsym",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "fg-paylines": {
-//               "config": {
-//                   "defaultNextComponent": "fg-paysc",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "fg-replacereel": {
-//               "config": {
-//                   "defaultNextComponent": "fg-paybookof",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "replaceReelWithMask",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "J",
-//                   "mask": "fg-bookof"
-//               }
-//           },
-//           "fg-spin": {
-//               "config": {
-//                   "defaultNextComponent": "fg-paylines",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "fgreels",
-//                   "isExpandReel": false
-//               }
-//           },
-//           "fg-bookof": {
-//               "config": {
-//                   "defaultNextComponent": "fg-replacereel",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "mask",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "num": 5,
-//                   "perMaskAwards": null,
-//                   "mapSPMaskAwards": null
-//               }
-//           },
-//           "fg-rollsym": {
-//               "config": {
-//                   "defaultNextComponent": "fg-syms",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "rollSymbol",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "weight": "fgbookofsymbol",
-//                   "srcSymbolCollection": "",
-//                   "ignoreSymbolCollection": "fg-syms",
-//                   "targetSymbolCollection": "fg-syms"
-//               }
-//           },
-//           "fg-checkbookof": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "noPay",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "fg-bookof",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "fg-bookof",
-//                   "isReverse": false,
-//                   "needDiscardResults": true,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "fg-paybookof": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "bg-spin": {
-//               "config": {
-//                   "defaultNextComponent": "bg-paylines",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "bgreels",
-//                   "isExpandReel": false
-//               }
-//           },
-//           "fg-paysc": {
-//               "config": {
-//                   "defaultNextComponent": "fg-syms",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "W"
-//                   ],
-//                   "type": "countscatter",
-//                   "betType": "bet",
-//                   "minNum": 3,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "S",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "fg-rollsym",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "fg-syms": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "symbolCollection2",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "foreachComponent": "fg-checkbookof",
-//                   "maxSymbolNum": 0,
-//                   "initSymbols": null
-//               }
-//           },
-//           "bg-rollsym": {
-//               "config": {
-//                   "defaultNextComponent": "fg-start",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "rollSymbol",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "weight": "fgbookofsymbol",
-//                   "srcSymbolCollection": "",
-//                   "ignoreSymbolCollection": "fg-syms",
-//                   "targetSymbolCollection": "fg-syms"
-//               }
-//           },
-//           "bg-paylines": {
-//               "config": {
-//                   "defaultNextComponent": "bg-paysc",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "linesTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "J",
-//                       "H",
-//                       "G",
-//                       "F",
-//                       "E",
-//                       "D",
-//                       "C",
-//                       "B",
-//                       "A",
-//                       "W"
-//                   ],
-//                   "type": "lines",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "W"
-//                   ],
-//                   "checkWinType": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "fg-start": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": "fg-spin"
-//               }
-//           }
-//       },
-//       "Stats2": null
-//   }
-// }
-
-// var statedata = {
-//   'bg-spin': {list:['bg-spin'], module:'spinResult', performance:''},
-//   'bg-top': {list:['bg-paylines', 'bg-paysc'], module:'showWinTop', performance:''},
-//   'bg-paysc': {list:['bg-paysc'], module:'paysc', performance:''},
-//   'bg-win': {list:['bg-spin'], module:'showWinAni', performance:''},
-//   'bg-fgtrigger': {list:['bg-paysc'], module:'enterFree', performance:''},
-//   'bg-rollsym': {list:['bg-rollsym'], module:'Picksymbol', performance:''},
-//   'fg-spin': {list:['fg-spin'], module:'spinResult', performance:''},
-//   'fg-top': {list:['fg-paylines', 'fg-paysc'], module:'showWinTop', performance:''},
-//   'fg-paysc': {list:['fg-paysc'], module:'paysc', performance:''},
-//   'fg-bookof': {list:['fg-replacereel', 'fg-paybookof'], module:'bookof', performance:'', prestate:'fg-spin'},
-//   'fg-win': {list:['fg-spin'], module:'showWinAni', performance:''},
-//   'fg-fgtrigger': {list:['fg-paysc'], module:'freeExtra', performance:''},
-//   'fg-rollsym': {list:['fg-rollsym'], module:'Picksymbol', performance:''},
-// };
-
-// var statelist = ['bg-spin', 'bg-top', 'bg-paysc', 'bg-win', 'bg-fgtrigger', 'bg-rollsym', 'fg-spin', 'fg-top', 'fg-paysc', 'fg-bookof', 'fg-win', 'fg-fgtrigger', 'fg-rollsym'];
-
-var penguin = true;
-// var cfgdata = {
-//   "10": {
-//       "Components": [
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "reels0",
-//                   "isExpandReel": false
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-piggybank",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "SC"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": "bg-dropdown"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-refill",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "dropDownSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "holdSymbols": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-blueeffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "refillSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-greeneffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "replaceSymbolGroup",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "srcSymbols": [
-//                       "RH",
-//                       "RM",
-//                       "RL"
-//                   ],
-//                   "targetSymbols": [
-//                       "GH",
-//                       "GM",
-//                       "GL"
-//                   ],
-//                   "mask": ""
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-paygreen",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-piggybank.winMulti"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-remove",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-greeneffect.queue"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": ""
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "addSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "WL",
-//                   "symbolNum": 1,
-//                   "symbolNumWeight": "",
-//                   "ignoreSymbols": [
-//                       "WL",
-//                       "SC"
-//                   ]
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-payfg",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "removeSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-respin",
-//                   "targetComponents": [
-//                       "bg-payblue",
-//                       "bg-payred",
-//                       "bg-paygreen"
-//                   ],
-//                   "ignoreSymbols": null,
-//                   "awards": [
-//                       {
-//                           "awardType": "respinTimes",
-//                           "vals": [
-//                               1
-//                           ],
-//                           "strParams": [
-//                               "bg-respin"
-//                           ],
-//                           "componentVals": null,
-//                           "onTriggerRespin": ""
-//                       }
-//                   ]
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "fg-start",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "piggyBank",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "winMulti": 1
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-payred",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-blueeffect.queue"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-blue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "BH",
-//                       "BM",
-//                       "BM2",
-//                       "BL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-blue.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-payblue.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-greeneffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "queueBranch",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-replacesyms"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "queueBranch",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-addwl"
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-red",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "RH",
-//                       "RM",
-//                       "RM2",
-//                       "RL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-red.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-payred.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           {
-//               "config": {
-//                   "defaultNextComponent": "bg-green",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "GH",
-//                       "GM",
-//                       "GM2",
-//                       "GL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-green.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-paygreen.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           }
-//       ],
-//       "MapComponents": {
-//           "bg-refill": {
-//               "config": {
-//                   "defaultNextComponent": "bg-blueeffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "refillSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false
-//               }
-//           },
-//           "bg-replacesyms": {
-//               "config": {
-//                   "defaultNextComponent": "bg-greeneffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "replaceSymbolGroup",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "srcSymbols": [
-//                       "RH",
-//                       "RM",
-//                       "RL"
-//                   ],
-//                   "targetSymbols": [
-//                       "GH",
-//                       "GM",
-//                       "GL"
-//                   ],
-//                   "mask": ""
-//               }
-//           },
-//           "bg-remove": {
-//               "config": {
-//                   "defaultNextComponent": "bg-payfg",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "removeSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-respin",
-//                   "targetComponents": [
-//                       "bg-payblue",
-//                       "bg-payred",
-//                       "bg-paygreen"
-//                   ],
-//                   "ignoreSymbols": null,
-//                   "awards": [
-//                       {
-//                           "awardType": "respinTimes",
-//                           "vals": [
-//                               1
-//                           ],
-//                           "strParams": [
-//                               "bg-respin"
-//                           ],
-//                           "componentVals": null,
-//                           "onTriggerRespin": ""
-//                       }
-//                   ]
-//               }
-//           },
-//           "bg-payred": {
-//               "config": {
-//                   "defaultNextComponent": "bg-red",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "RH",
-//                       "RM",
-//                       "RM2",
-//                       "RL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-red.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-payred.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "bg-payblue": {
-//               "config": {
-//                   "defaultNextComponent": "bg-blue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "BH",
-//                       "BM",
-//                       "BM2",
-//                       "BL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-blue.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-payblue.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "bg-payfg": {
-//               "config": {
-//                   "defaultNextComponent": "bg-piggybank",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "SC"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": null,
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "",
-//                   "forceToNext": false,
-//                   "awards": null,
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": true,
-//                   "respinComponent": "fg-start",
-//                   "respinNum": 10,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           },
-//           "bg-respin": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": "bg-dropdown"
-//               }
-//           },
-//           "bg-red": {
-//               "config": {
-//                   "defaultNextComponent": "bg-paygreen",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-piggybank.winMulti"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           "bg-green": {
-//               "config": {
-//                   "defaultNextComponent": "bg-remove",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-greeneffect.queue"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           "fg-start": {
-//               "config": {
-//                   "defaultNextComponent": "",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "respin",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "mainComponent": ""
-//               }
-//           },
-//           "bg-piggybank": {
-//               "config": {
-//                   "defaultNextComponent": "fg-start",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "piggyBank",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "winMulti": 1
-//               }
-//           },
-//           "bg-blue": {
-//               "config": {
-//                   "defaultNextComponent": "bg-payred",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "collector",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "",
-//                   "maxVal": 20,
-//                   "perLevelAwards": null,
-//                   "mapSPLevelAwards": {
-//                       "-1": [
-//                           {
-//                               "awardType": "chgComponentConfigIntVal",
-//                               "vals": [
-//                                   1
-//                               ],
-//                               "strParams": [
-//                                   "bg-blueeffect.queue"
-//                               ],
-//                               "componentVals": null,
-//                               "onTriggerRespin": ""
-//                           }
-//                       ]
-//                   },
-//                   "isCycle": true
-//               }
-//           },
-//           "bg-blueeffect": {
-//               "config": {
-//                   "defaultNextComponent": "bg-greeneffect",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "queueBranch",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-replacesyms"
-//               }
-//           },
-//           "bg-greeneffect": {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "queueBranch",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "jumpToComponent": "bg-addwl"
-//               }
-//           },
-//           "bg-spin": {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "basicReels",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "reelSetWeight": "",
-//                   "reelSet": "reels0",
-//                   "isExpandReel": false
-//               }
-//           },
-//           "bg-dropdown": {
-//               "config": {
-//                   "defaultNextComponent": "bg-refill",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "dropDownSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "holdSymbols": null
-//               }
-//           },
-//           "bg-addwl": {
-//               "config": {
-//                   "defaultNextComponent": "bg-payblue",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "addSymbols",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbol": "WL",
-//                   "symbolNum": 1,
-//                   "symbolNumWeight": "",
-//                   "ignoreSymbols": [
-//                       "WL",
-//                       "SC"
-//                   ]
-//               }
-//           },
-//           "bg-paygreen": {
-//               "config": {
-//                   "defaultNextComponent": "bg-green",
-//                   "tagScenes": null,
-//                   "tagOtherScenes": null,
-//                   "targetScene": "",
-//                   "targetOtherScene": "",
-//                   "tagGlobalScenes": null,
-//                   "targetGlobalScene": "",
-//                   "tagGlobalOtherScenes": null,
-//                   "targetGlobalOtherScene": "",
-//                   "scene2Components": null,
-//                   "otherScene2Components": null,
-//                   "tagRNG": null,
-//                   "initStrVals": null,
-//                   "useFileMapping": false,
-//                   "componentType": "scatterTrigger",
-//                   "useSceneV2": false,
-//                   "targetScenes3": null,
-//                   "useSceneV3": true,
-//                   "isNeedCacheScene3": false,
-//                   "symbols": [
-//                       "GH",
-//                       "GM",
-//                       "GM2",
-//                       "GL"
-//                   ],
-//                   "type": "scatters",
-//                   "betType": "bet",
-//                   "minNum": 0,
-//                   "wildSymbols": [
-//                       "WL"
-//                   ],
-//                   "posArea": null,
-//                   "countScatterPayAs": "",
-//                   "winMulti": 1,
-//                   "jumpToComponent": "",
-//                   "piggyBankComponent": "bg-piggybank",
-//                   "forceToNext": false,
-//                   "awards": [
-//                       {
-//                           "awardType": "chgComponentConfigIntVal",
-//                           "vals": null,
-//                           "strParams": [
-//                               "bg-green.valueNum"
-//                           ],
-//                           "componentVals": [
-//                               "bg-paygreen.symbolNum"
-//                           ],
-//                           "onTriggerRespin": ""
-//                       }
-//                   ],
-//                   "symbolAwardsWeights": null,
-//                   "targetMask": "",
-//                   "isReverse": false,
-//                   "needDiscardResults": false,
-//                   "isAddRespinMode": false,
-//                   "respinComponent": "",
-//                   "respinNum": 0,
-//                   "respinNumWeight": "",
-//                   "respinNumWithScatterNum": null,
-//                   "respinNumWeightWithScatterNum": null
-//               }
-//           }
-//       },
-//       "Stats2": null
-//   }
-// };
-
-// var statedata = {
-//   'bg-spin': {list:['bg-spin'], module:'spinResult', performance:''},
-//   'bg-top': {list:['bg-paylines', 'bg-paysc'], module:'showWinTop', performance:''},
-//   'bg-paysc': {list:['bg-paysc'], module:'paysc', performance:''},
-//   'bg-win': {list:['bg-spin'], module:'showWinAni', performance:''},
-//   'bg-fgtrigger': {list:['bg-paysc'], module:'enterFree', performance:''},
-//   'bg-rollsym': {list:['bg-rollsym'], module:'Picksymbol', performance:''},
-//   'fg-spin': {list:['fg-spin'], module:'spinResult', performance:''},
-//   'fg-top': {list:['fg-paylines', 'fg-paysc'], module:'showWinTop', performance:''},
-//   'fg-paysc': {list:['fg-paysc'], module:'paysc', performance:''},
-//   'fg-bookof': {list:['fg-replacereel', 'fg-paybookof'], module:'bookof', performance:'', prestate:'fg-spin'},
-//   'fg-win': {list:['fg-spin'], module:'showWinAni', performance:''},
-//   'fg-fgtrigger': {list:['fg-paysc'], module:'freeExtra', performance:''},
-//   'fg-rollsym': {list:['fg-rollsym'], module:'Picksymbol', performance:''},
-// };
-
-// var statelist = ['bg-spin', 'bg-top', 'bg-paysc', 'bg-win', 'bg-fgtrigger', 'bg-rollsym', 'fg-spin', 'fg-top', 'fg-paysc', 'fg-bookof', 'fg-win', 'fg-fgtrigger', 'fg-rollsym'];
-
 Logic.instance.onConfig(cfgdata, statedata, statelist);
 
 moonwalker = true;
 var msgdata = {
-  msgid: "gamemoduleinfo",
-  gamemodulename: "Yb2drw8RnSvdRENf1U7_8",
-  gameid: 69004,
-  gmi: {
-    defaultScene: {
-      values: [
+  "msgid": "gamemoduleinfo",
+  "gamemodulename": "moonwalk",
+  "gameid": 61121,
+  "gmi": {
+    "defaultScene": {
+      "values": [
         {
-          values: [1, 2, 3],
+          "values": [
+            1,
+            2,
+            3
+          ]
         },
         {
-          values: [4, 5, 6],
+          "values": [
+            4,
+            5,
+            6
+          ]
         },
         {
-          values: [1, 2, 3],
+          "values": [
+            1,
+            2,
+            3
+          ]
         },
         {
-          values: [7, 8, 9],
+          "values": [
+            7,
+            8,
+            9
+          ]
         },
         {
-          values: [1, 2, 3],
-        },
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
       ],
-      indexes: [],
-      validRow: [],
+      "indexes": [],
+      "validRow": []
     },
-    replyPlay: {
-      randomNumbers: [355, 68, 108, 169, 18, 28],
-      results: [
+    "replyPlay": {
+      "randomNumbers": [
+        130,
+        246,
+        151,
+        63,
+        210,
+        266,
+        9,
+        240,
+        81,
+        287,
+        72,
+        279,
+        18,
+        150,
+        210,
+        266,
+        210,
+        182,
+        6,
+        125,
+        56,
+        90,
+        152,
+        252,
+        11,
+        275,
+        229,
+        109,
+        101,
+        28,
+        13,
+        260,
+        234,
+        80,
+        99,
+        157,
+        5,
+        6,
+        93,
+        139,
+        242,
+        128,
+        11,
+        152,
+        280,
+        29,
+        104,
+        126,
+        7,
+        247,
+        70,
+        239,
+        161,
+        44,
+        15,
+        242,
+        203,
+        101,
+        300,
+        129,
+        14,
+        253,
+        193,
+        53,
+        229,
+        163,
+        14,
+        132,
+        249,
+        249,
+        166,
+        238,
+        8,
+        70,
+        272,
+        205,
+        226,
+        53,
+        2,
+        13,
+        67,
+        107,
+        150,
+        137,
+        13,
+        18,
+        155,
+        26,
+        107,
+        295,
+        17,
+        3,
+        275,
+        125,
+        169,
+        288
+      ],
+      "results": [
         {
-          coinWin: 10,
-          cashWin: 100,
-          clientData: {
-            scenes: [
+          "coinWin": 50,
+          "cashWin": 500,
+          "clientData": {
+            "scenes": [
               {
-                values: [
+                "values": [
                   {
-                    values: [0, 8, 11],
+                    "values": [
+                      8,
+                      12,
+                      9
+                    ]
                   },
                   {
-                    values: [6, 8, 4],
+                    "values": [
+                      13,
+                      13,
+                      8
+                    ]
                   },
                   {
-                    values: [4, 6, 2],
+                    "values": [
+                      8,
+                      11,
+                      12
+                    ]
                   },
                   {
-                    values: [1, 6, 5],
+                    "values": [
+                      10,
+                      12,
+                      7
+                    ]
                   },
                   {
-                    values: [1, 7, 6],
-                  },
+                    "values": [
+                      4,
+                      7,
+                      11
+                    ]
+                  }
                 ],
-                indexes: [],
-                validRow: [],
-              },
+                "indexes": [],
+                "validRow": []
+              }
             ],
-            otherScenes: [],
-            results: [
+            "otherScenes": [],
+            "results": [
               {
-                pos: [0, 0, 1, 0, 2, 1],
-                type: 2,
-                lineIndex: 5,
-                symbol: 6,
-                mul: 10,
-                coinWin: 10,
-                cashWin: 100,
-                otherMul: 1,
-                wilds: 1,
-                symbolNums: 3,
-                value: 0,
+                "pos": [
+                  0,
+                  1,
+                  2,
+                  2,
+                  3,
+                  1
+                ],
+                "type": 1,
+                "lineIndex": -1,
+                "symbol": 12,
+                "mul": 50,
+                "coinWin": 50,
+                "cashWin": 500,
+                "otherMul": 1,
+                "wilds": 0,
+                "symbolNums": 3,
+                "value": 0
               },
+              {
+                "pos": [
+                  0,
+                  1,
+                  2,
+                  2,
+                  3,
+                  1
+                ],
+                "type": 9,
+                "lineIndex": -1,
+                "symbol": 12,
+                "mul": 0,
+                "coinWin": 0,
+                "cashWin": 0,
+                "otherMul": 0,
+                "wilds": 0,
+                "symbolNums": 3,
+                "value": 15
+              }
             ],
-            mulPos: [],
-            prizeScenes: [],
-            curGameMod: "bg",
-            curGameModParam: {
-              historyComponents: [
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
                 "bg-spin",
-                "bg-walktrigger",
-                "bg-paylines",
-                "bg-paysc",
                 "bg-payfg",
-                "bg-fgtrigger",
+                "bg-triggerfg"
               ],
-              respinComponents: [],
-              mapComponents: {
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
                 "bg-spin": {
-                  basicComponentData: {
-                    usedScenes: [0],
-                    usedOtherScenes: [],
-                    usedResults: [],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 0,
-                    cashWin: 0,
-                    targetScene: -1,
-                    runIndex: 0,
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
                   },
-                  reelSetIndex: 2,
-                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData",
-                },
-                "bg-walktrigger": {
-                  basicComponentData: {
-                    usedScenes: [],
-                    usedOtherScenes: [],
-                    usedResults: [],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 0,
-                    cashWin: 0,
-                    targetScene: -1,
-                    runIndex: 0,
-                  },
-                  nextComponent: "",
-                  symbolNum: 0,
-                  wildNum: 0,
-                  respinNum: 0,
-                  wins: 0,
-                  winMulti: 1,
-                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData",
-                },
-                "bg-paylines": {
-                  basicComponentData: {
-                    usedScenes: [],
-                    usedOtherScenes: [],
-                    usedResults: [0],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 10,
-                    cashWin: 100,
-                    targetScene: -1,
-                    runIndex: 0,
-                  },
-                  nextComponent: "",
-                  symbolNum: 3,
-                  wildNum: 1,
-                  respinNum: 0,
-                  wins: 10,
-                  winMulti: 1,
-                  "@type": "type.googleapis.com/sgc7pb.LinesTriggerData",
-                },
-                "bg-paysc": {
-                  basicComponentData: {
-                    usedScenes: [],
-                    usedOtherScenes: [],
-                    usedResults: [],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 0,
-                    cashWin: 0,
-                    targetScene: -1,
-                    runIndex: 0,
-                  },
-                  nextComponent: "",
-                  symbolNum: 0,
-                  wildNum: 0,
-                  respinNum: 0,
-                  wins: 0,
-                  winMulti: 1,
-                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
                 },
                 "bg-payfg": {
-                  basicComponentData: {
-                    usedScenes: [],
-                    usedOtherScenes: [],
-                    usedResults: [],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 0,
-                    cashWin: 0,
-                    targetScene: -1,
-                    runIndex: 0,
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 50,
+                    "cashWin": 500,
+                    "targetScene": 0,
+                    "runIndex": 0
                   },
-                  nextComponent: "",
-                  symbolNum: 0,
-                  wildNum: 0,
-                  respinNum: 0,
-                  wins: 0,
-                  winMulti: 1,
-                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                  "nextComponent": "",
+                  "symbolNum": 3,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 50,
+                  "winMulti": 1,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
                 },
-                "bg-fgtrigger": {
-                  basicComponentData: {
-                    usedScenes: [],
-                    usedOtherScenes: [],
-                    usedResults: [],
-                    usedPrizeScenes: [],
-                    srcScenes: [],
-                    coinWin: 0,
-                    cashWin: 0,
-                    targetScene: -1,
-                    runIndex: 0,
+                "bg-triggerfg": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
                   },
-                  nextComponent: "",
-                  symbolNum: 0,
-                  wildNum: 0,
-                  respinNum: 0,
-                  wins: 0,
-                  winMulti: 1,
-                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                  "nextComponent": "fg-start",
+                  "symbolNum": 3,
+                  "wildNum": 0,
+                  "respinNum": 15,
+                  "wins": 0,
+                  "winMulti": 1,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
                 },
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 15,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 0,
+                  "curAddRespinNum": 15,
+                  "totalCoinWin": 0,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                }
               },
-              mapVals: {
-                1: 5,
-                2: 3,
-                6: 10,
-                7: 0,
-                100: 1,
-                101: 1,
-                102: 1,
-                103: 1,
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
               },
-              mapStrVals: {},
-              firstComponent: "",
-              nextStepFirstComponent: "",
-              "@type": "type.googleapis.com/sgc7pb.GameParam",
+              "mapStrVals": {},
+              "firstComponent": "",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
             },
-            nextGameMod: "bg",
-            curIndex: 0,
-            parentIndex: 0,
-            modType: "",
-            prizeCoinWin: 0,
-            prizeCashWin: 0,
-            jackpotCoinWin: 0,
-            jackpotCashWin: 0,
-            jackpotType: 0,
-          },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
         },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      1,
+                      7,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      9,
+                      1
+                    ]
+                  },
+                  {
+                    "values": [
+                      8,
+                      7,
+                      1
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      6,
+                      3
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 14,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 1,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 0,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      10,
+                      7,
+                      1
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      9,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      13,
+                      10,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      11,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      4,
+                      9,
+                      3
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 13,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 2,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 0,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 30,
+          "cashWin": 300,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      3,
+                      9
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      12,
+                      4
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              },
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      3,
+                      9
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      12,
+                      4
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  0,
+                  0
+                ],
+                "type": 5,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 0,
+                "coinWin": 0,
+                "cashWin": 0,
+                "otherMul": 0,
+                "wilds": 0,
+                "symbolNums": 1,
+                "value": 0
+              },
+              {
+                "pos": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  2
+                ],
+                "type": 1,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 10,
+                "coinWin": 30,
+                "cashWin": 300,
+                "otherMul": 3,
+                "wilds": 0,
+                "symbolNums": 3,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-walktrigger",
+                "fg-walkdown",
+                "fg-paysc"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 12,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 3,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-walktrigger": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "fg-walkdown",
+                  "symbolNum": 1,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 0,
+                  "winMulti": 1,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                },
+                "fg-walkdown": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      1
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [
+                      0
+                    ],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                },
+                "fg-paysc": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 30,
+                    "cashWin": 300,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 3,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 30,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      8,
+                      1,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      13,
+                      4,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      2,
+                      6,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      1,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      12,
+                      4,
+                      9
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 11,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 4,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      1,
+                      6,
+                      5
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      9,
+                      1
+                    ]
+                  },
+                  {
+                    "values": [
+                      10,
+                      3,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      8,
+                      4
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 10,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 5,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      10,
+                      7,
+                      1
+                    ]
+                  },
+                  {
+                    "values": [
+                      12,
+                      11,
+                      3
+                    ]
+                  },
+                  {
+                    "values": [
+                      4,
+                      11,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      2,
+                      6,
+                      7
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 9,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 6,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      1,
+                      6,
+                      5
+                    ]
+                  },
+                  {
+                    "values": [
+                      4,
+                      7,
+                      0
+                    ]
+                  },
+                  {
+                    "values": [
+                      8,
+                      9,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      10,
+                      12,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      10,
+                      2
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 8,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 7,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      3,
+                      6,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      8,
+                      5,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      10,
+                      8,
+                      0
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      1,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      8,
+                      4,
+                      11
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 7,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 8,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 30,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 81,
+          "cashWin": 810,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      10,
+                      9,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      0,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      2,
+                      5,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      8,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      7,
+                      1
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  0,
+                  2,
+                  1,
+                  1,
+                  2,
+                  0
+                ],
+                "type": 2,
+                "lineIndex": 4,
+                "symbol": 2,
+                "mul": 25,
+                "coinWin": 75,
+                "cashWin": 750,
+                "otherMul": 3,
+                "wilds": 1,
+                "symbolNums": 3,
+                "value": 0
+              },
+              {
+                "pos": [
+                  0,
+                  2,
+                  1,
+                  1
+                ],
+                "type": 2,
+                "lineIndex": 9,
+                "symbol": 2,
+                "mul": 2,
+                "coinWin": 6,
+                "cashWin": 60,
+                "otherMul": 3,
+                "wilds": 1,
+                "symbolNums": 2,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-paylines"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-paylines": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0,
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 81,
+                    "cashWin": 810,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 5,
+                  "wildNum": 2,
+                  "respinNum": 0,
+                  "wins": 81,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.LinesTriggerData"
+                },
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 6,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 9,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 111,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 60,
+          "cashWin": 600,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      10,
+                      0,
+                      8
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      0,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      11,
+                      12
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      7,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      10,
+                      2,
+                      6
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  0,
+                  1,
+                  1,
+                  1
+                ],
+                "type": 2,
+                "lineIndex": 0,
+                "symbol": 0,
+                "mul": 10,
+                "coinWin": 30,
+                "cashWin": 300,
+                "otherMul": 3,
+                "wilds": 2,
+                "symbolNums": 2,
+                "value": 0
+              },
+              {
+                "pos": [
+                  0,
+                  1,
+                  1,
+                  0,
+                  2,
+                  0
+                ],
+                "type": 2,
+                "lineIndex": 6,
+                "symbol": 7,
+                "mul": 10,
+                "coinWin": 30,
+                "cashWin": 300,
+                "otherMul": 3,
+                "wilds": 1,
+                "symbolNums": 3,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-paylines"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 5,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 10,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 171,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-paylines": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0,
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 60,
+                    "cashWin": 600,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 5,
+                  "wildNum": 3,
+                  "respinNum": 0,
+                  "wins": 60,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.LinesTriggerData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      1,
+                      7,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      6,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      1,
+                      11,
+                      9
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      4,
+                      10
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      1,
+                      11
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 4,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 11,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 171,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 210,
+          "cashWin": 2100,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      5
+                    ]
+                  },
+                  {
+                    "values": [
+                      0,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      3,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      1,
+                      11,
+                      12
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              },
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      0,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      11
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      3,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      1,
+                      11,
+                      12
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              },
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      0,
+                      6,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      3,
+                      7,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      3,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      1,
+                      11,
+                      12
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  0,
+                  0
+                ],
+                "type": 5,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 0,
+                "coinWin": 0,
+                "cashWin": 0,
+                "otherMul": 0,
+                "wilds": 0,
+                "symbolNums": 1,
+                "value": 0
+              },
+              {
+                "pos": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  2,
+                  1,
+                  2,
+                  2,
+                  2,
+                  3,
+                  2
+                ],
+                "type": 1,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 70,
+                "coinWin": 210,
+                "cashWin": 2100,
+                "otherMul": 3,
+                "wilds": 0,
+                "symbolNums": 6,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-walktrigger",
+                "fg-walkdown",
+                "fg-walk",
+                "fg-paysc"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-walktrigger": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "fg-walkdown",
+                  "symbolNum": 1,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 0,
+                  "winMulti": 1,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                },
+                "fg-walkdown": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      1,
+                      1
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [
+                      0
+                    ],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                },
+                "fg-walk": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      2
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [
+                      0
+                    ],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                },
+                "fg-paysc": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 240,
+                    "cashWin": 2400,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 6,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 210,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                },
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 3,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 12,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 381,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 0,
+          "cashWin": 0,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      3,
+                      6,
+                      8
+                    ]
+                  },
+                  {
+                    "values": [
+                      12,
+                      11,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      4,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      6,
+                      3
+                    ]
+                  },
+                  {
+                    "values": [
+                      7,
+                      8,
+                      5
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 2,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 13,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 381,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 0,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 30,
+          "cashWin": 300,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      6
+                    ]
+                  },
+                  {
+                    "values": [
+                      0,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      11,
+                      12
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      8,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      2,
+                      10,
+                      7
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              },
+              {
+                "values": [
+                  {
+                    "values": [
+                      13,
+                      13,
+                      13
+                    ]
+                  },
+                  {
+                    "values": [
+                      0,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "values": [
+                      6,
+                      11,
+                      12
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      8,
+                      2
+                    ]
+                  },
+                  {
+                    "values": [
+                      2,
+                      10,
+                      7
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  0,
+                  0
+                ],
+                "type": 5,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 0,
+                "coinWin": 0,
+                "cashWin": 0,
+                "otherMul": 0,
+                "wilds": 0,
+                "symbolNums": 1,
+                "value": 0
+              },
+              {
+                "pos": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  2
+                ],
+                "type": 1,
+                "lineIndex": -1,
+                "symbol": 13,
+                "mul": 10,
+                "coinWin": 30,
+                "cashWin": 300,
+                "otherMul": 3,
+                "wilds": 0,
+                "symbolNums": 3,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-walktrigger",
+                "fg-walkdown",
+                "fg-paysc"
+              ],
+              "respinComponents": [
+                "fg-start"
+              ],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 1,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 14,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 411,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-walktrigger": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "fg-walkdown",
+                  "symbolNum": 1,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 0,
+                  "winMulti": 1,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                },
+                "fg-walkdown": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      1,
+                      1,
+                      1
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [
+                      0
+                    ],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                },
+                "fg-paysc": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      1
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 270,
+                    "cashWin": 2700,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 3,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 30,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "fg-start",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        },
+        {
+          "coinWin": 60,
+          "cashWin": 600,
+          "clientData": {
+            "scenes": [
+              {
+                "values": [
+                  {
+                    "values": [
+                      8,
+                      11,
+                      4
+                    ]
+                  },
+                  {
+                    "values": [
+                      9,
+                      1,
+                      8
+                    ]
+                  },
+                  {
+                    "values": [
+                      5,
+                      10,
+                      8
+                    ]
+                  },
+                  {
+                    "values": [
+                      12,
+                      7,
+                      5
+                    ]
+                  },
+                  {
+                    "values": [
+                      11,
+                      12,
+                      4
+                    ]
+                  }
+                ],
+                "indexes": [],
+                "validRow": []
+              }
+            ],
+            "otherScenes": [],
+            "results": [
+              {
+                "pos": [
+                  3,
+                  0,
+                  4,
+                  1
+                ],
+                "type": 1,
+                "lineIndex": -1,
+                "symbol": 12,
+                "mul": 20,
+                "coinWin": 60,
+                "cashWin": 600,
+                "otherMul": 3,
+                "wilds": 0,
+                "symbolNums": 2,
+                "value": 0
+              }
+            ],
+            "mulPos": [],
+            "prizeScenes": [],
+            "curGameMod": "basic",
+            "curGameModParam": {
+              "historyComponents": [
+                "fg-start",
+                "fg-spin",
+                "fg-payfg"
+              ],
+              "respinComponents": [],
+              "mapComponents": {
+                "fg-start": {
+                  "triggerRespinNum": [],
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "lastRespinNum": 0,
+                  "totalRespinNum": 0,
+                  "curRespinNum": 15,
+                  "curAddRespinNum": 0,
+                  "totalCoinWin": 471,
+                  "totalCashWin": 0,
+                  "retriggerAddRespinNum": 0,
+                  "lastTriggerNum": 0,
+                  "curTriggerNum": 0,
+                  "@type": "type.googleapis.com/sgc7pb.RespinData"
+                },
+                "fg-spin": {
+                  "basicComponentData": {
+                    "usedScenes": [
+                      0
+                    ],
+                    "usedOtherScenes": [],
+                    "usedResults": [],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 0,
+                    "cashWin": 0,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "reelSetIndex": 1,
+                  "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                },
+                "fg-payfg": {
+                  "basicComponentData": {
+                    "usedScenes": [],
+                    "usedOtherScenes": [],
+                    "usedResults": [
+                      0
+                    ],
+                    "usedPrizeScenes": [],
+                    "srcScenes": [],
+                    "coinWin": 60,
+                    "cashWin": 600,
+                    "targetScene": 0,
+                    "runIndex": 0
+                  },
+                  "nextComponent": "",
+                  "symbolNum": 2,
+                  "wildNum": 0,
+                  "respinNum": 0,
+                  "wins": 60,
+                  "winMulti": 3,
+                  "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
+                }
+              },
+              "mapVals": {
+                "1": 5,
+                "2": 3,
+                "6": 10,
+                "7": 0,
+                "100": 1,
+                "101": 1,
+                "102": 1,
+                "103": 1
+              },
+              "mapStrVals": {},
+              "firstComponent": "fg-start",
+              "nextStepFirstComponent": "",
+              "@type": "type.googleapis.com/sgc7pb.GameParam"
+            },
+            "nextGameMod": "basic",
+            "curIndex": 0,
+            "parentIndex": 0,
+            "modType": "",
+            "prizeCoinWin": 0,
+            "prizeCashWin": 0,
+            "jackpotCoinWin": 0,
+            "jackpotCashWin": 0,
+            "jackpotType": 0
+          }
+        }
       ],
-      nextCommands: [],
-      nextCommandParams: [],
-      playerState: {
-        public: {
-          json: '{"curgamemod":"bg","nextm":0}',
-          "@type": "type.googleapis.com/sgc7pb.BasicPlayerPublicState2",
-        },
+      "nextCommands": [],
+      "nextCommandParams": [],
+      "playerState": {
+        "public": {
+          "curGameMod": "basic",
+          "nextM": 0,
+          "@type": "type.googleapis.com/sgc7pb.BasicPlayerPublicState"
+        }
       },
-      finished: true,
-      stake: null,
-      playStartTime: 1705991819761,
+      "finished": true,
+      "stake": null,
+      "playStartTime": 1714473303564
     },
-    playIndex: -1,
-    bet: 10,
-    lines: 10,
-    totalwin: 100,
-    playwin: 0,
-    maxWinLimit: 0,
-  },
+    "playIndex": -1,
+    "bet": 10,
+    "lines": 10,
+    "totalwin": 5210,
+    "playwin": 0,
+    "maxWinLimit": 0
+  }
 };
 
 var msgdata1 = {
@@ -15149,1643 +15454,6 @@ orbs = true;
 //     "maxWinLimit": 0
 //   }
 // }
-
-penguin = true;
-// var msgdata2 = {
-//   "msgid": "gamemoduleinfo",
-//   "gamemodulename": "QVrwqcGsXqOON6eSq6hXk",
-//   "gameid": 69008,
-//   "gmi": {
-//     "defaultScene": {
-//       "values": [
-//         {
-//           "values": [
-//             1,
-//             1,
-//             2,
-//             2,
-//             2,
-//             3,
-//             3
-//           ]
-//         },
-//         {
-//           "values": [
-//             2,
-//             2,
-//             1,
-//             1,
-//             1,
-//             3,
-//             3
-//           ]
-//         },
-//         {
-//           "values": [
-//             4,
-//             4,
-//             5,
-//             5,
-//             5,
-//             6,
-//             6
-//           ]
-//         },
-//         {
-//           "values": [
-//             5,
-//             5,
-//             4,
-//             4,
-//             4,
-//             6,
-//             6
-//           ]
-//         },
-//         {
-//           "values": [
-//             7,
-//             7,
-//             8,
-//             8,
-//             8,
-//             9,
-//             9
-//           ]
-//         },
-//         {
-//           "values": [
-//             8,
-//             8,
-//             7,
-//             7,
-//             7,
-//             9,
-//             9
-//           ]
-//         },
-//         {
-//           "values": [
-//             1,
-//             1,
-//             7,
-//             7,
-//             8,
-//             8,
-//             9
-//           ]
-//         }
-//       ],
-//       "indexes": [],
-//       "validRow": []
-//     },
-//     "replyPlay": {
-//       "randomNumbers": [
-//         86,
-//         65,
-//         208,
-//         407,
-//         363,
-//         101,
-//         236
-//       ],
-//       "results": [
-//         {
-//           "coinWin": 25,
-//           "cashWin": 250,
-//           "clientData": {
-//             "scenes": [
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       6,
-//                       6,
-//                       8,
-//                       8,
-//                       8,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10,
-//                       8,
-//                       8
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       8,
-//                       8,
-//                       8,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       6,
-//                       6,
-//                       5,
-//                       5,
-//                       5,
-//                       6,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       11,
-//                       11,
-//                       11,
-//                       6,
-//                       6,
-//                       6,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       4,
-//                       4,
-//                       8
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10,
-//                       -1,
-//                       -1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       5,
-//                       5,
-//                       5
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       11,
-//                       11,
-//                       11,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       4,
-//                       4
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               }
-//             ],
-//             "otherScenes": [],
-//             "results": [
-//               {
-//                 "pos": [
-//                   1,
-//                   0,
-//                   1,
-//                   1,
-//                   4,
-//                   0,
-//                   4,
-//                   1,
-//                   4,
-//                   5,
-//                   4,
-//                   6,
-//                   5,
-//                   3,
-//                   5,
-//                   4,
-//                   5,
-//                   5
-//                 ],
-//                 "type": 1,
-//                 "lineIndex": -1,
-//                 "symbol": 6,
-//                 "mul": 20,
-//                 "coinWin": 20,
-//                 "cashWin": 200,
-//                 "otherMul": 1,
-//                 "wilds": 0,
-//                 "symbolNums": 9,
-//                 "value": 0
-//               },
-//               {
-//                 "pos": [
-//                   1,
-//                   2,
-//                   1,
-//                   3,
-//                   1,
-//                   4,
-//                   2,
-//                   5,
-//                   2,
-//                   6,
-//                   3,
-//                   0,
-//                   3,
-//                   1,
-//                   3,
-//                   2,
-//                   6,
-//                   6
-//                 ],
-//                 "type": 1,
-//                 "lineIndex": -1,
-//                 "symbol": 8,
-//                 "mul": 5,
-//                 "coinWin": 5,
-//                 "cashWin": 50,
-//                 "otherMul": 1,
-//                 "wilds": 0,
-//                 "symbolNums": 9,
-//                 "value": 0
-//               }
-//             ],
-//             "mulPos": [],
-//             "prizeScenes": [],
-//             "curGameMod": "bg",
-//             "curGameModParam": {
-//               "historyComponents": [
-//                 "bg-spin",
-//                 "bg-payblue",
-//                 "bg-blue",
-//                 "bg-payred",
-//                 "bg-red",
-//                 "bg-paygreen",
-//                 "bg-green",
-//                 "bg-remove"
-//               ],
-//               "respinComponents": [
-//                 "bg-respin"
-//               ],
-//               "mapComponents": {
-//                 "bg-spin": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       0
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-//                 },
-//                 "bg-blue": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-payred": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [
-//                       0,
-//                       1
-//                     ],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 25,
-//                     "cashWin": 250,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 18,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 25,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-paygreen": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-green": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-payblue": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-red": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-remove": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       1
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "removedNum": 18,
-//                   "@type": "type.googleapis.com/sgc7pb.RemoveSymbolsData"
-//                 },
-//                 "bg-respin": {
-//                   "triggerRespinNum": [],
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "lastRespinNum": 1,
-//                   "totalRespinNum": 0,
-//                   "curRespinNum": 0,
-//                   "curAddRespinNum": 1,
-//                   "totalCoinWin": 0,
-//                   "totalCashWin": 0,
-//                   "retriggerAddRespinNum": 0,
-//                   "lastTriggerNum": 0,
-//                   "curTriggerNum": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.RespinData"
-//                 }
-//               },
-//               "mapVals": {
-//                 "1": 7,
-//                 "2": 7,
-//                 "7": 0,
-//                 "100": 1,
-//                 "101": 1,
-//                 "102": 1,
-//                 "103": 1
-//               },
-//               "mapStrVals": {},
-//               "firstComponent": "",
-//               "nextStepFirstComponent": "bg-respin",
-//               "@type": "type.googleapis.com/sgc7pb.GameParam"
-//             },
-//             "nextGameMod": "bg",
-//             "curIndex": 0,
-//             "parentIndex": 0,
-//             "modType": "",
-//             "prizeCoinWin": 0,
-//             "prizeCashWin": 0,
-//             "jackpotCoinWin": 0,
-//             "jackpotCashWin": 0,
-//             "jackpotType": 0
-//           }
-//         },
-//         {
-//           "coinWin": 5,
-//           "cashWin": 50,
-//           "clientData": {
-//             "scenes": [
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10,
-//                       -1,
-//                       -1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       5,
-//                       5,
-//                       5
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       11,
-//                       11,
-//                       11,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       4,
-//                       4
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       5,
-//                       5,
-//                       5,
-//                       -1,
-//                       -1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       11,
-//                       11,
-//                       11,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       4,
-//                       4,
-//                       -1
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       8,
-//                       4,
-//                       4,
-//                       5,
-//                       5,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       4,
-//                       4,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       3,
-//                       3,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       10,
-//                       5,
-//                       5,
-//                       5,
-//                       10,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       11,
-//                       11,
-//                       11,
-//                       7,
-//                       4,
-//                       4,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       4,
-//                       4,
-//                       2
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       8,
-//                       -1,
-//                       -1,
-//                       5,
-//                       5,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       3,
-//                       3,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       10,
-//                       5,
-//                       5,
-//                       5,
-//                       10,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       11,
-//                       11,
-//                       11,
-//                       7,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2,
-//                       9,
-//                       9,
-//                       2
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               }
-//             ],
-//             "otherScenes": [],
-//             "results": [
-//               {
-//                 "pos": [
-//                   1,
-//                   1,
-//                   1,
-//                   2,
-//                   2,
-//                   0,
-//                   2,
-//                   1,
-//                   5,
-//                   4,
-//                   5,
-//                   5,
-//                   6,
-//                   3,
-//                   6,
-//                   4,
-//                   6,
-//                   5
-//                 ],
-//                 "type": 1,
-//                 "lineIndex": -1,
-//                 "symbol": 4,
-//                 "mul": 5,
-//                 "coinWin": 5,
-//                 "cashWin": 50,
-//                 "otherMul": 1,
-//                 "wilds": 0,
-//                 "symbolNums": 9,
-//                 "value": 0
-//               }
-//             ],
-//             "mulPos": [],
-//             "prizeScenes": [],
-//             "curGameMod": "bg",
-//             "curGameModParam": {
-//               "historyComponents": [
-//                 "bg-respin",
-//                 "bg-dropdown",
-//                 "bg-refill",
-//                 "bg-blueeffect",
-//                 "bg-greeneffect",
-//                 "bg-payblue",
-//                 "bg-blue",
-//                 "bg-payred",
-//                 "bg-red",
-//                 "bg-paygreen",
-//                 "bg-green",
-//                 "bg-remove"
-//               ],
-//               "respinComponents": [
-//                 "bg-respin"
-//               ],
-//               "mapComponents": {
-//                 "bg-respin": {
-//                   "triggerRespinNum": [],
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "lastRespinNum": 1,
-//                   "totalRespinNum": 0,
-//                   "curRespinNum": 1,
-//                   "curAddRespinNum": 2,
-//                   "totalCoinWin": 5,
-//                   "totalCashWin": 50,
-//                   "retriggerAddRespinNum": 0,
-//                   "lastTriggerNum": 0,
-//                   "curTriggerNum": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.RespinData"
-//                 },
-//                 "bg-refill": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       2
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [
-//                       0
-//                     ],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-//                 },
-//                 "bg-red": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-paygreen": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-dropdown": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       1
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [
-//                       0
-//                     ],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-//                 },
-//                 "bg-blueeffect": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "queue": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.QueueBranchData"
-//                 },
-//                 "bg-greeneffect": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "queue": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.QueueBranchData"
-//                 },
-//                 "bg-payblue": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [
-//                       0
-//                     ],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 5,
-//                     "cashWin": 50,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 9,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 5,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-blue": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-payred": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-green": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-remove": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       1,
-//                       3
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "removedNum": 9,
-//                   "@type": "type.googleapis.com/sgc7pb.RemoveSymbolsData"
-//                 }
-//               },
-//               "mapVals": {
-//                 "1": 7,
-//                 "2": 7,
-//                 "7": 0,
-//                 "100": 1,
-//                 "101": 1,
-//                 "102": 1,
-//                 "103": 1
-//               },
-//               "mapStrVals": {},
-//               "firstComponent": "bg-respin",
-//               "nextStepFirstComponent": "bg-respin",
-//               "@type": "type.googleapis.com/sgc7pb.GameParam"
-//             },
-//             "nextGameMod": "bg",
-//             "curIndex": 0,
-//             "parentIndex": 0,
-//             "modType": "",
-//             "prizeCoinWin": 0,
-//             "prizeCashWin": 0,
-//             "jackpotCoinWin": 0,
-//             "jackpotCashWin": 0,
-//             "jackpotType": 0
-//           }
-//         },
-//         {
-//           "coinWin": 0,
-//           "cashWin": 0,
-//           "clientData": {
-//             "scenes": [
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       8,
-//                       -1,
-//                       -1,
-//                       5,
-//                       5,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       3,
-//                       3,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       10,
-//                       5,
-//                       5,
-//                       5,
-//                       10,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       11,
-//                       11,
-//                       11,
-//                       7,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2,
-//                       9,
-//                       9,
-//                       2
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       8,
-//                       5,
-//                       5,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       -1,
-//                       -1,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       3,
-//                       3,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       10,
-//                       5,
-//                       5,
-//                       5,
-//                       10,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       11,
-//                       11,
-//                       11,
-//                       7,
-//                       -1,
-//                       -1,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       2,
-//                       9,
-//                       9,
-//                       -1,
-//                       -1,
-//                       -1,
-//                       2
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               },
-//               {
-//                 "values": [
-//                   {
-//                     "values": [
-//                       9,
-//                       3,
-//                       3,
-//                       9,
-//                       9,
-//                       9,
-//                       11
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       7,
-//                       8,
-//                       8,
-//                       5,
-//                       5,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       6,
-//                       6,
-//                       1,
-//                       1,
-//                       10,
-//                       10,
-//                       10
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       3,
-//                       3,
-//                       2,
-//                       2,
-//                       1,
-//                       1
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       3,
-//                       10,
-//                       5,
-//                       5,
-//                       5,
-//                       10,
-//                       6
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       11,
-//                       11,
-//                       11,
-//                       7,
-//                       4,
-//                       7,
-//                       7
-//                     ]
-//                   },
-//                   {
-//                     "values": [
-//                       2,
-//                       9,
-//                       9,
-//                       4,
-//                       5,
-//                       5,
-//                       2
-//                     ]
-//                   }
-//                 ],
-//                 "indexes": [],
-//                 "validRow": []
-//               }
-//             ],
-//             "otherScenes": [],
-//             "results": [],
-//             "mulPos": [],
-//             "prizeScenes": [],
-//             "curGameMod": "bg",
-//             "curGameModParam": {
-//               "historyComponents": [
-//                 "bg-respin",
-//                 "bg-dropdown",
-//                 "bg-refill",
-//                 "bg-blueeffect",
-//                 "bg-greeneffect",
-//                 "bg-payblue",
-//                 "bg-blue",
-//                 "bg-payred",
-//                 "bg-red",
-//                 "bg-paygreen",
-//                 "bg-green",
-//                 "bg-payfg"
-//               ],
-//               "respinComponents": [
-//                 "bg-respin"
-//               ],
-//               "mapComponents": {
-//                 "bg-blue": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-green": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-respin": {
-//                   "triggerRespinNum": [],
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "lastRespinNum": 0,
-//                   "totalRespinNum": 0,
-//                   "curRespinNum": 2,
-//                   "curAddRespinNum": 2,
-//                   "totalCoinWin": 5,
-//                   "totalCashWin": 50,
-//                   "retriggerAddRespinNum": 0,
-//                   "lastTriggerNum": 0,
-//                   "curTriggerNum": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.RespinData"
-//                 },
-//                 "bg-dropdown": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       1,
-//                       1
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [
-//                       0
-//                     ],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-//                 },
-//                 "bg-refill": {
-//                   "basicComponentData": {
-//                     "usedScenes": [
-//                       2
-//                     ],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [
-//                       0
-//                     ],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-//                 },
-//                 "bg-blueeffect": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "queue": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.QueueBranchData"
-//                 },
-//                 "bg-greeneffect": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": 0,
-//                     "runIndex": 0
-//                   },
-//                   "queue": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.QueueBranchData"
-//                 },
-//                 "bg-payblue": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-payred": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-red": {
-//                   "val": 0,
-//                   "newCollector": 0,
-//                   "@type": "type.googleapis.com/sgc7pb.CollectorData"
-//                 },
-//                 "bg-paygreen": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 },
-//                 "bg-payfg": {
-//                   "basicComponentData": {
-//                     "usedScenes": [],
-//                     "usedOtherScenes": [],
-//                     "usedResults": [],
-//                     "usedPrizeScenes": [],
-//                     "srcScenes": [],
-//                     "coinWin": 0,
-//                     "cashWin": 0,
-//                     "targetScene": -1,
-//                     "runIndex": 0
-//                   },
-//                   "nextComponent": "",
-//                   "symbolNum": 0,
-//                   "wildNum": 0,
-//                   "respinNum": 0,
-//                   "wins": 0,
-//                   "winMulti": 1,
-//                   "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-//                 }
-//               },
-//               "mapVals": {
-//                 "1": 7,
-//                 "2": 7,
-//                 "7": 0,
-//                 "100": 1,
-//                 "101": 1,
-//                 "102": 1,
-//                 "103": 1
-//               },
-//               "mapStrVals": {},
-//               "firstComponent": "bg-respin",
-//               "nextStepFirstComponent": "",
-//               "@type": "type.googleapis.com/sgc7pb.GameParam"
-//             },
-//             "nextGameMod": "bg",
-//             "curIndex": 0,
-//             "parentIndex": 0,
-//             "modType": "",
-//             "prizeCoinWin": 0,
-//             "prizeCashWin": 0,
-//             "jackpotCoinWin": 0,
-//             "jackpotCashWin": 0,
-//             "jackpotType": 0
-//           }
-//         }
-//       ],
-//       "nextCommands": [],
-//       "nextCommandParams": [],
-//       "playerState": {
-//         "public": {
-//           "json": "{\"curgamemod\":\"bg\",\"nextm\":0}",
-//           "@type": "type.googleapis.com/sgc7pb.BasicPlayerPublicState2"
-//         }
-//       },
-//       "finished": true,
-//       "stake": null,
-//       "playStartTime": 1708498218041
-//     },
-//     "playIndex": -1,
-//     "bet": 10,
-//     "lines": 10,
-//     "totalwin": 300,
-//     "playwin": 0,
-//     "maxWinLimit": 0
-//   }
-// };
 
 function onBegin(data) {
   var type = data.curType;
