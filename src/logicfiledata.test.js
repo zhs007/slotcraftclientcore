@@ -30846,7 +30846,11 @@ test('genLogicFileData', () => {
         ]
     };
 
-    const lodicFiles = genLogicFileData(obj);
+    const lodicFiles = genLogicFileData(obj, true);
     expect(typeof lodicFiles).not.toBe('string');
     expect(lodicFiles).not.toBe(null);
+
+    const lodicFiles1 = genLogicFileData(obj, false);
+    expect(typeof lodicFiles1).not.toBe('string');
+    expect(lodicFiles1).not.toBe(null);    
 });

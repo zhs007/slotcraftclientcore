@@ -1,4 +1,26 @@
-function parseReels(data, paytable) {
+function parseValWeight(data, isAdmin) {
+    if (data.fileJson) {
+        let lst = [];
+        let arr = [];
+        let header = ['val', 'weight'];
+        arr.push(header);
+
+        for (let i = 0; i < data.fileJson.length; i++) {
+            const curdata = data.fileJson[i];
+            if (isAdmin) {
+                arr.push([curdata.val, curdata.weight]);
+            } else {
+                arr.push([curdata.val, '?']);
+            }
+        }
+
+        return arr;
+    }
+
+    return undefined;
+}
+
+function parseReels(data, paytable, isAdmin) {
     if (data.fileJson) {
         let lst = [];
         let arr = [];
@@ -8,7 +30,11 @@ function parseReels(data, paytable) {
             let mapsym = {};
 
             for (let j = 0; j < data.fileJson[i].length; j++) {
-                mapsym[data.fileJson[i][j]] = 1;
+                if (mapsym.hasOwnProperty(data.fileJson[i][j])) {
+                    mapsym[data.fileJson[i][j]]++;
+                } else {
+                    mapsym[data.fileJson[i][j]] = 1;
+                }
             }
 
             lst.push(mapsym);
@@ -22,10 +48,18 @@ function parseReels(data, paytable) {
             let curarr = [paytable[i][0]];
 
             for (let j = 0; j < lst.length; j++) {
-                if (lst[j][paytable[i][0]]) {
-                    curarr.push('n');
+                if (isAdmin) {
+                    if (lst[j][paytable[i][0]]) {
+                        curarr.push(lst[j][paytable[i][0]]);
+                    } else {
+                        curarr.push('×');
+                    }
                 } else {
-                    curarr.push('X');
+                    if (lst[j][paytable[i][0]]) {
+                        curarr.push('√');
+                    } else {
+                        curarr.push('×');
+                    }
                 }
             }
 
@@ -70,22 +104,22 @@ function parsePaytable(paytableData) {
     return undefined;
 }
 
-function genLogicFileData(repository) {
+function genLogicFileData(repository, isAdmin) {
     let logicFiles = {};
 
     if (repository.paytableList) {
         if (repository.paytableList.length == 0) {
-            return 'No paytable data.';
+            throw new Error('No paytable data.');
         }
 
         if (repository.paytableList.length > 1) {
-            return 'There are multiple paytable data.';
+            throw new Error('There are multiple paytable data.');
         }
 
         for (let i = 0; i < repository.paytableList.length; i++) {
             const arr = parsePaytable(repository.paytableList[i]);
             if (!arr) {
-                return 'Invalid paytable data.';
+                throw new Error('Invalid paytable data.');
             }
 
             logicFiles['paytable'] = arr;
@@ -96,15 +130,23 @@ function genLogicFileData(repository) {
         for (let i = 0; i < repository.otherList.length; i++) {
             const data = repository.otherList[i];
             if (logicFiles[data.fileName]) {
-                return 'Duplicate name. - ' + data.fileName;
+                throw new Error('Duplicate name. - ' + data.fileName);
             }
 
             if (data.type == 'Reels') {
-                const arr = parseReels(data, logicFiles['paytable']);
+                const arr = parseReels(data, logicFiles['paytable'], isAdmin);
                 if (!arr) {
-                    return 'Invalid reels data. - ' + data.fileName;
+                    throw new Error('Invalid Reels data. - ' + data.fileName);
                 }
 
+                logicFiles[data.fileName] = arr;
+            } else if (data.type == 'StringValWeight' || data.type == 'ReelSetWeight') {
+                const arr = parseValWeight(data, isAdmin);
+                if (!arr) {
+                    throw new Error('Invalid ' + data.type + ' data. - ' + data.fileName);
+                }
+
+                // console.log(arr);
                 logicFiles[data.fileName] = arr;
             }
         }
