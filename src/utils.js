@@ -58,8 +58,29 @@ function parseSlotCraftJson(objModule) {
         const curmod = objModule[i];
 
         if (curmod.module && curmod.module != '') {
+            let lst = [];
+            for (let j = 0; j < curmod.component.length; j++) {
+                const curcomponent = curmod.component[j];
+
+                if (typeof curcomponent == 'string') {
+                    if (curcomponent == '') {
+                        throw new Error('Invalid component (string).');
+                    }
+
+                    lst.push(curcomponent);
+                } else if (typeof curcomponent == 'object') {
+                    if (!curcomponent.value || curcomponent.value == '') {
+                        throw new Error('Invalid component (object.value).');
+                    }
+
+                    lst.push(curcomponent.value);
+                } else {
+                    throw new Error('Invalid component (type).');
+                }
+            }
+
             statecfg.statedata[curmod.name] = {
-                list: curmod.component,
+                list: lst,
                 module: curmod.module,
                 performance: "",
             };
