@@ -8,7 +8,7 @@ function parseCell(logicData, cell) {
         const type = cell.label;
 
         if (logicData.mapComponents[name] && logicData.mapComponents[name].type != type) {
-            return 'There already exists a component with the same name but a different type (in different bet method). - ' + name;
+            throw new Error('There already exists a component with the same name but a different type (in different bet method). - ' + name);
         }
 
         logicData.mapComponents[name] = {
@@ -19,7 +19,7 @@ function parseCell(logicData, cell) {
     } else if (cell.shape == 'edge') {
         if (cell.source.port == 'start-out') {
             if (logicData.startID) {
-                return 'There are multiple start components.';
+                throw new Error('There are multiple start components.');
             }
 
             logicData.startID = cell.target.cell;
@@ -43,11 +43,11 @@ function buildComponentData(logicData, betMethod) {
     }
 
     if (!logicData.startID) {
-        return 'There are no start component.';
+        throw new Error('There are no start component.');
     }
 
     if (!logicData.mapIDs[logicData.startID]) {
-        return 'There are invalid start component.';
+        throw new Error('There are invalid start component.');
     }
 
     const startComponent = logicData.mapIDs[logicData.startID];
