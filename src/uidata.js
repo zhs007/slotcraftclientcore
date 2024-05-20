@@ -28,6 +28,16 @@ class SCUIData {
             this.bNextStep = data.bNextStep;
         }
     }
+
+    isNextFreeGame() {
+        if (this.bNextStep) {
+            if (this.nextType == 'freespin' || this.nextType == 'FgModule' || this.nextType == 'FreeExtraModule' || this.nextType == 'FgExitModule') {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 exports.SCUIData = SCUIData;
