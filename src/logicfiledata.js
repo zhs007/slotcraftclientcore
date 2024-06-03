@@ -122,7 +122,12 @@ function genLogicFileData(repository, isAdmin) {
                 throw new Error('Invalid paytable data.');
             }
 
-            logicFiles['paytable'] = arr;
+            logicFiles['paytable'] = {
+                name: repository.paytableList[i].name,
+                fileName: repository.paytableList[i].fileName,
+                type: repository.paytableList[i].type,
+                data: arr,
+            };
         }
     }
 
@@ -139,7 +144,12 @@ function genLogicFileData(repository, isAdmin) {
                     throw new Error('Invalid Reels data. - ' + data.fileName);
                 }
 
-                logicFiles[data.fileName] = arr;
+                logicFiles[data.fileName] = {
+                    name: data.name,
+                    fileName: data.fileName,
+                    type: data.type,
+                    data: arr,
+                };
             } else if (data.type == 'StringValWeight' || data.type == 'ReelSetWeight') {
                 const arr = parseValWeight(data, isAdmin);
                 if (!arr) {
@@ -147,7 +157,12 @@ function genLogicFileData(repository, isAdmin) {
                 }
 
                 // console.log(arr);
-                logicFiles[data.fileName] = arr;
+                logicFiles[data.fileName] = {
+                    name: data.name,
+                    fileName: data.fileName,
+                    type: data.type,
+                    data: arr,
+                };
             }
         }
     }
