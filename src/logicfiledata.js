@@ -20,29 +20,48 @@ function parseValWeight(data, isAdmin) {
     return undefined;
 }
 
+function getMaxInReels(reelData) {
+    for (i = 1; i < 999; i++) {
+        if (!reelData.hasOwnProperty('R' + i)) {
+            return i - 1;
+        }
+    }
+
+    return -1;
+}
+
 function parseReels(data, paytable, isAdmin) {
-    if (data.fileJson) {
+    if (data.excelJson && data.excelJson.length > 0) {
         let lst = [];
         let arr = [];
+
         let header = ['symbol'];
+        let maxReel = getMaxInReels(data.excelJson[0]);
 
-        for (let i = 0; i < data.fileJson.length; i++) {
-            let mapsym = {};
-
-            for (let j = 0; j < data.fileJson[i].length; j++) {
-                if (mapsym.hasOwnProperty(data.fileJson[i][j])) {
-                    mapsym[data.fileJson[i][j]]++;
-                } else {
-                    mapsym[data.fileJson[i][j]] = 1;
-                }
-            }
-
-            lst.push(mapsym);
-
+        for (let i = 0; i < maxReel; i++) {
             header.push('r' + (i + 1));
         }
 
         arr.push(header);
+
+        for (let i = 0; i < maxReel; i++) {
+            let mapsym = {};
+
+            for (let j = 0; j < data.excelJson.length; j++) {
+                if (data.excelJson[j]['R' + (i + 1)]) {
+                    const s = data.excelJson[j]['R' + (i + 1)].trim();
+                    if (s != '') {
+                        if (mapsym.hasOwnProperty(s)) {
+                            mapsym[s]++;
+                        } else {
+                            mapsym[s] = 1;
+                        }
+                    }
+                }
+            }
+
+            lst.push(mapsym);
+        }
 
         for (let i = 1; i < paytable.length; i++) {
             let curarr = [paytable[i][0]];
@@ -69,20 +88,43 @@ function parseReels(data, paytable, isAdmin) {
         return arr;
     }
 
-    return undefined;
+    throw new Error('Empty reels data. ' + data.fileName);
+}
+
+function getMaxInPaytableSymbol(symbolData) {
+    for (i = 1; i < 999; i++) {
+        if (!symbolData.hasOwnProperty('X' + i)) {
+            return i - 1;
+        }
+    }
+
+    return -1;
+}
+
+function getMaxInPaytable(excelJson) {
+    let maxNum = -1;
+    for (let i = 0; i < excelJson.length; i++) {
+        let cur = getMaxInPaytableSymbol(excelJson[i]);
+        if (cur > maxNum) {
+            maxNum = cur;
+        }
+    }
+
+    return maxNum;
 }
 
 function parsePaytable(paytableData) {
-    if (paytableData.fileJson) {
+    if (paytableData.excelJson) {
         let arr = [];
+        let maxNum = getMaxInPaytable(paytableData.excelJson);
 
-        for (let i = 0; i < paytableData.fileJson.length; i++) {
-            const symbolData = paytableData.fileJson[i];
+        for (let i = 0; i < paytableData.excelJson.length; i++) {
+            const symbolData = paytableData.excelJson[i];
 
             if (i == 0) {
                 let header = ['symbol'];
 
-                for (let j = 0; j < symbolData.data.length; j++) {
+                for (let j = 0; j < maxNum; j++) {
                     header.push('x' + (j + 1));
                 }
 
@@ -91,8 +133,13 @@ function parsePaytable(paytableData) {
 
             let curarr = [symbolData.Symbol];
 
-            for (let j = 0; j < symbolData.data.length; j++) {
-                curarr.push(symbolData.data[j]);
+            for (let j = 0; j < maxNum; j++) {
+                const curv = parseInt(symbolData['X' + (j + 1)]);
+                if (curv == NaN) {
+                    throw new Error('Invalid paytable data. ' + symbolData.Symbol + '.' + ('X' + (j + 1)));
+                }
+
+                curarr.push(curv);
             }
 
             arr.push(curarr);
@@ -101,7 +148,7 @@ function parsePaytable(paytableData) {
         return arr;
     }
 
-    return undefined;
+    throw new Error('Empty paytable data.');
 }
 
 function genLogicFileData(repository, isAdmin) {
@@ -139,7 +186,7 @@ function genLogicFileData(repository, isAdmin) {
             }
 
             if (data.type == 'Reels') {
-                const arr = parseReels(data, logicFiles['paytable'], isAdmin);
+                const arr = parseReels(data, logicFiles['paytable'].data, isAdmin);
                 if (!arr) {
                     throw new Error('Invalid Reels data. - ' + data.fileName);
                 }
