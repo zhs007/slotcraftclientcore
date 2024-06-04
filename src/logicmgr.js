@@ -69,9 +69,18 @@ class SCLogicMgr {
         }
     }
 
+    //! 当前是否有合法的state数据，某些情况下，可能会存在不合法的数据
+    hasCurState() {
+        return (this.curStates & this.curStateIndex >= 0 && this.curStateIndex < this.curStates.length);
+    }
+
     //! 获取当前的state
     getCurState() {
-        return this.curStates[this.curStateIndex];
+        if (this.hasCurState()) {
+            return this.curStates[this.curStateIndex];
+        }
+
+        return undefined;
     }
 
     //! 判断是否有下一个state
