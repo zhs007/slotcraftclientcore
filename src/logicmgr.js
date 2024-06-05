@@ -536,33 +536,34 @@ class SCLogicMgr {
         var ctype = data.config.componentType;
         var component = null;
 
-        switch (ctype) {
-            case "basicReels":
-            case "weightReels":
-            case "removeSymbols":
-            case "dropDownSymbols":
-            case "refillSymbols":
+        switch (ctype.toLowerCase()) {
+            case "basicreels":
+            case "weightreels":
+            case "removesymbols":
+            case "dropdownsymbols":
+            case "refillsymbols":
+            case "chgsymbols":
                 {
                     component = new SCReelComponent(name, data, this);
                 }
                 break;
-            case "linesTrigger":
-            case "waysTrigger":
-            case "clusterTrigger":
-            case "scatterTrigger":
+            case "linestrigger":
+            case "waystrigger":
+            case "clustertrigger":
+            case "scattertrigger":
                 {
                     component = new SCTriggerComponent(name, data, this);
                 }
                 break;
-            case "moveSymbol":
-            case "replaceReelWithMask":
-            case "replaceSymbolGroup":
-            case "addSymbols":
+            case "movesymbol":
+            case "replacereelwithmask":
+            case "replacesymbolgroup":
+            case "addsymbols":
                 {
                     component = new SCChangeSymbolComponent(name, data, this);
                 }
                 break;
-            case "rollSymbol":
+            case "rollsymbol":
                 {
                     component = new SCRollSymbolComponent(name, data, this);
                 }
@@ -572,7 +573,7 @@ class SCLogicMgr {
                     component = new SCCollectorComponent(name, data, this);
                 }
                 break;
-            case "piggyBank":
+            case "piggybank":
                 {
                     component = new SCBankComponent(name, data, this);
                 }
