@@ -551,6 +551,7 @@ class SCLogicMgr {
             case "waystrigger":
             case "clustertrigger":
             case "scattertrigger":
+            case "symbolvalwins":
                 {
                     component = new SCTriggerComponent(name, data, this);
                 }

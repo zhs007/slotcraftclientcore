@@ -1,3 +1,5 @@
+const { isSameScene, parseMsgScene } = require('../utils.js');
+
 class SCBaseComponent {
     constructor(name, data, mgr) {
         this.name = name;
@@ -11,11 +13,36 @@ class SCBaseComponent {
 
     // 判断是否激活
     isActive(clientdata, info) {
+        // 有新的scene
+        if (this._hasScene(info)) {
+            if (info.basicComponentData.usedScenes[0] == 0 || (info.basicComponentData.usedScenes[0] >= 1 &&
+                !isSameScene(parseMsgScene(clientdata, info.basicComponentData.usedScenes[0] - 1),
+                    parseMsgScene(clientdata, info.basicComponentData.usedScenes[0])))) {
+
+                return true;
+            }
+        }
+
+        // 有新的scene
+        if (this._hasOtherScene(info)) {
+            return true;
+        }
+
         return false;
     }
 
     // 模块运行
-    run(clientdata, componentinfo, curstate) { }
+    run(clientdata, componentinfo, curstate) {
+        this.init(clientdata, componentinfo, curstate);
+
+        if (this.hasNewScene()) {
+            this.initScene();
+        }
+
+        if (this.hasNewOtherScene()) {
+            this.initOtherScene();
+        }
+    }
 
     // 添加特有的数据
     addData(clientdata, componentinfo, curstate) { }
@@ -60,6 +87,39 @@ class SCBaseComponent {
         }
     }
 
+    // 当前成员是否产生新场景
+    hasNewOtherScene() {
+        if (!this.clientdata || !this.componentinfo) {
+            return false;
+        }
+
+        if (
+            !this.componentinfo.basicComponentData ||
+            !this.componentinfo.basicComponentData.usedOtherScenes ||
+            this.componentinfo.basicComponentData.usedOtherScenes.length <= 0
+        ) {
+            return false;
+        }
+
+        var sindex = this.componentinfo.basicComponentData.usedOtherScenes[0];
+
+        if (!this.clientdata.otherScenes || this.clientdata.otherScenes.length <= sindex) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // 初始化otherScene
+    initOtherScene() {
+        var sindex = this.componentinfo.basicComponentData.usedOtherScenes[0];
+        var scenedata = this.clientdata.otherScenes[sindex];
+
+        if (this.curstate) {
+            this.curstate.initOtherScene(scenedata);
+        }
+    }
+
     // 当前成员是否产生赔付结果
     hasNewResults() {
         if (!this.clientdata || !this.componentinfo) {
@@ -100,6 +160,14 @@ class SCBaseComponent {
             info.basicComponentData &&
             info.basicComponentData.usedScenes &&
             info.basicComponentData.usedScenes.length > 0
+        );
+    }
+
+    _hasOtherScene(info) {
+        return (
+            info.basicComponentData &&
+            info.basicComponentData.usedOtherScenes &&
+            info.basicComponentData.usedOtherScenes.length > 0
         );
     }
 

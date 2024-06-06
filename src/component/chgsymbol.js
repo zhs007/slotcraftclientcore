@@ -7,25 +7,26 @@ class SCChangeSymbolComponent extends SCBaseComponent {
     }
 
     isActive(clientdata, info) {
-        // 有新的scene
-        if (this._hasScene(info)) {
-            if (info.basicComponentData.usedScenes[0] >= 1 &&
-                !isSameScene(parseMsgScene(clientdata, info.basicComponentData.usedScenes[0] - 1),
-                    parseMsgScene(clientdata, info.basicComponentData.usedScenes[0]))) {
+        // // 有新的scene
+        // if (this._hasScene(info)) {
+        //     if (info.basicComponentData.usedScenes[0] >= 1 &&
+        //         !isSameScene(parseMsgScene(clientdata, info.basicComponentData.usedScenes[0] - 1),
+        //             parseMsgScene(clientdata, info.basicComponentData.usedScenes[0]))) {
 
-                return true;
-            }
-        }
+        //         return true;
+        //     }
+        // }
+
+        // // 有新的scene
+        // if (this._hasOtherScene(info)) {
+        //     return true;
+        // }
 
         return super.isActive(clientdata, info);
     }
 
     run(clientdata, componentinfo, curstate) {
-        this.init(clientdata, componentinfo, curstate);
-
-        if (this.hasNewScene()) {
-            this.initScene();
-        }
+        super.run(clientdata, componentinfo, curstate);
     }
 }
 

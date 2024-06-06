@@ -115,6 +115,27 @@ class SCLogicState {
         }
     }
 
+    // 初始化otherScene
+    initOtherScene(sdata) {
+        if (!sdata.values || sdata.values.length <= 0) {
+            return;
+        }
+
+        this.otherscene = [];
+
+        var slen = sdata.values.length;
+
+        for (var ii = 0; ii < slen; ii += 1) {
+            var arr = [];
+
+            for (var jj = 0; jj < sdata.values[ii].values.length; jj += 1) {
+                arr.push(sdata.values[ii].values[jj]);
+            }
+
+            this.otherscene.push(arr);
+        }
+    }    
+
     // 添加一个赔付
     addResult(rdata, componentname, type) {
         var result = this._deepClone(rdata);

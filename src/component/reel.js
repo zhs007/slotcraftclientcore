@@ -6,20 +6,16 @@ class SCReelComponent extends SCBaseComponent {
     }
 
     isActive(clientdata, info) {
-        // 有新的scene
-        if (this._hasScene(info)) {
-            return true;
-        }
+        // // 有新的scene
+        // if (this._hasScene(info)) {
+        //     return true;
+        // }
 
         return super.isActive(clientdata, info);
     }
 
     run(clientdata, componentinfo, curstate) {
-        this.init(clientdata, componentinfo, curstate);
-
-        if (this.hasNewScene()) {
-            this.initScene();
-        }
+        super.run(clientdata, componentinfo, curstate);
     }
 }
 
