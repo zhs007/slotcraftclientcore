@@ -1760,7 +1760,7 @@ test('logic test 002', () => {
     let stepIndex = 0;
     let onBegin = (data) => {
         if (stepIndex == 0) {
-            expect(logic.curStates.length).toBe(2);
+            expect(logic.curStates.length).toBe(3);
             expect(logic.curStates[0].otherscene).not.toBe(null);
         }
 

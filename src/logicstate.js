@@ -136,6 +136,10 @@ class SCLogicState {
         }
     }    
 
+    initPos(pos) {
+        this.pos = pos;
+    }    
+
     // 添加一个赔付
     addResult(rdata, componentname, type) {
         var result = this._deepClone(rdata);

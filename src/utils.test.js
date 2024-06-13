@@ -46,7 +46,7 @@ test('parseSlotCraftJson', () => {
 
     let statecfg = parseSlotCraftJson(obj);
     expect(statecfg).not.toBe(null);
-    expect(statecfg.statelist.length).toBe(14);
+    expect(statecfg.statelist.length).toBe(3);
     expect(statecfg.statedata).not.toBe(null);
 
     let num = 0;

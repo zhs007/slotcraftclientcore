@@ -55,6 +55,15 @@ class SCLogicMgr {
         this.beginStep();
     }
 
+    // 获取当前的 result
+    getCurResult() {
+        if (this.cunMsgIndex >= 0 && this.curResults && this.cunMsgIndex < this.curResults.length) {
+            return this.curResults[this.cunMsgIndex];
+        }
+
+        return null;
+    }
+
     // 判断是否有下一个step
     hasNextStep() {
         return this.curResults && this.cunMsgIndex + 1 < this.curResults.length;

@@ -28,6 +28,10 @@ class SCBaseComponent {
             return true;
         }
 
+        if (this._hasPos(info)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -42,6 +46,10 @@ class SCBaseComponent {
         if (this.hasNewOtherScene()) {
             this.initOtherScene();
         }
+
+        if (this.hasPos()) {
+            this.initPos();
+        }        
     }
 
     // 添加特有的数据
@@ -155,6 +163,21 @@ class SCBaseComponent {
         }
     }
 
+    hasPos() {
+        if (!this.clientdata || !this.componentinfo) {
+            return false;
+        }
+
+        return this._hasPos(this.componentinfo);
+    }
+
+    // init position
+    initPos() {
+        if (this.curstate) {
+            this.curstate.initPos(this.componentinfo.pos);
+        }
+    }    
+
     _hasScene(info) {
         return (
             info.basicComponentData &&
@@ -181,6 +204,10 @@ class SCBaseComponent {
 
     _hasnextComponent(info) {
         return info.nextComponent != "";
+    }
+
+    _hasPos(info) {
+        return info.pos;
     }
 }
 
