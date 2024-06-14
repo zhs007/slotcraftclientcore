@@ -89,6 +89,7 @@ class SCLogicState {
     init(state) {
         this.scene = this._deepClone(state.scene);
         this.otherscene = this._deepClone(state.otherscene);
+        this.pos = this._deepClone(state.pos);
         this.coinWin = state.coinWin;
         this.cashWin = state.cashWin;
         this.respinnum = state.respinnum;
