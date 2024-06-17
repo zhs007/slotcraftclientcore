@@ -4,7 +4,13 @@ function parseCell(logicData, cell) {
     if (cell.shape == 'custom-node-width-start') {
 
     } else if (cell.shape == 'custom-node') {
-        const name = cell.data.label;
+        let name = '';
+        if (cell.componentValues) {
+            name = cell.componentValues.label;
+        } else if (cell.data) {
+            name = cell.data.label;
+        }
+
         const type = cell.label;
 
         if (logicData.mapComponents[name] && logicData.mapComponents[name].type != type) {
