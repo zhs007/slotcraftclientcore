@@ -27,9 +27,9 @@ class SCTriggerComponent extends SCBaseComponent {
             this.initResults();
         }
 
-        if (this._hasnextComponent(componentinfo)) {
-            curstate.respinnum = componentinfo.respinNum;
-        }
+        // if (this._hasnextComponent(componentinfo)) {
+        curstate.respinnum = componentinfo.respinNum;
+        // }
     }
 
     // run(clientdata, componentinfo, states, curstate) {
