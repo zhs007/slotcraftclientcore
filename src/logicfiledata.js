@@ -268,6 +268,7 @@ function parsePaytable2(paytableData) {
 
 function genLogicFileData(repository, isAdmin) {
     let logicFiles = {};
+    let arrFiles = [];
 
     if (repository.paytableData) {
         if (repository.paytableData.length == 0) {
@@ -285,6 +286,8 @@ function genLogicFileData(repository, isAdmin) {
             type: repository.paytableList[0].type,
             data: arr,
         };
+
+        arrFiles.push(logicFiles['paytable']);
     } else {
         throw new Error('No paytable data.');
     }
@@ -347,10 +350,12 @@ function genLogicFileData(repository, isAdmin) {
                     data: arr,
                 };
             }
+
+            arrFiles.push(logicFiles[data.fileName]);
         }
     }
 
-    return logicFiles;
+    return arrFiles;
 }
 
 exports.genLogicFileData = genLogicFileData
