@@ -240,7 +240,7 @@ function parsePaytable2(paytableData) {
         const symbolData = paytableData[i];
 
         if (i == 0) {
-            let header = ['symbol'];
+            let header = ['code', 'symbol'];
 
             for (let j = 0; j < maxNum; j++) {
                 header.push('x' + (j + 1));
@@ -249,7 +249,7 @@ function parsePaytable2(paytableData) {
             arr.push(header);
         }
 
-        let curarr = [symbolData.Symbol];
+        let curarr = [symbolData.Code, symbolData.Symbol];
 
         for (let j = 0; j < maxNum; j++) {
             const curv = parseInt(symbolData['X' + (j + 1)]);
