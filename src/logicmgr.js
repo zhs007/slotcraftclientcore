@@ -83,6 +83,17 @@ class SCLogicMgr {
         return (this.curStates && this.curStateIndex >= 0 && this.curStateIndex < this.curStates.length);
     }
 
+    //! 查找一个state
+    findState(module) {
+        for (let ii = 0; ii < this.curStates.length; ii++) {
+            if (this.curStates[ii].module == module) {
+                return this.curStates[ii];
+            }
+        }
+
+        return undefined;
+    }    
+
     //! 获取当前的state
     getCurState() {
         if (this.hasCurState()) {
