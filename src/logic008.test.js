@@ -1,7 +1,7 @@
 const { SCLogicMgr } = require('./logicmgr.js');
 const { parseSlotCraftJson } = require('./utils.js');
 
-test('logic test 007', () => {
+test('logic test 008', () => {
     const logic = new SCLogicMgr();
 
     const statedata = {

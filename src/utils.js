@@ -41,6 +41,28 @@ function parseMsgScene(clientdata, sceneindex) {
     return scene;
 }
 
+function parseMsgOtherScene(clientdata, otherSceneIndex) {
+    if (!clientdata.otherScenes || clientdata.otherScenes.length <= otherSceneIndex) {
+        return null;
+    }
+
+    let scenedata = clientdata.otherScenes[otherSceneIndex];
+    let scene = [];
+    var slen = scenedata.values.length;
+
+    for (var ii = 0; ii < slen; ii += 1) {
+        var arr = [];
+
+        for (var jj = 0; jj < scenedata.values[ii].values.length; jj += 1) {
+            arr.push(scenedata.values[ii].values[jj]);
+        }
+
+        scene.push(arr);
+    }
+
+    return scene;
+}
+
 function parseSlotCraftJson(objModule) {
     if (!objModule) {
         return null;
@@ -110,6 +132,18 @@ function parseSlotCraftJson(objModule) {
     return statecfg;
 }
 
+function hasState(state, mapComponents) {
+    for (const val of state.list) {
+        if (mapComponents[val]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
+exports.parseMsgOtherScene = parseMsgOtherScene;
 exports.parseSlotCraftJson = parseSlotCraftJson;
+exports.hasState = hasState;
