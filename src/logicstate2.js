@@ -3,7 +3,10 @@ const { parseMsgScene, parseMsgOtherScene, hasState } = require("./utils.js");
 // LogicState2 是 SlotCraft Client 最基础的class
 // 逻辑非常简单，就是缓存 stateData 数据里最新的数据，一种数据只会缓存一个。
 class LogicState2 {
-    constructor(curStateData, msgResult) {
+    constructor(stateName, curStateData, msgResult) {
+        this.curStateIndex = -1;
+
+        this.stateName = stateName;
         this.curStateData = curStateData;
         this.scene = null;
         this.otherScene = null;
@@ -100,17 +103,27 @@ class LogicState2 {
             );
         }
     }
+
+    calcWins() {
+        let wins = 0;
+        for (const win of this.wins) {
+            wins += win.cashWin;
+        }
+
+        return wins;
+    }
 }
 
 // LogicStep2 是 SlotCraft Client 最基础的class之一，一个step可以理解为一次respin等
 // 简单来说，step是一组state的集合，step主要由服务器逻辑拆分，但也可能被前端逻辑进一步拆分
 class LogicStep2 {
-    constructor(msgResult, mgr2) {
+    constructor(stepIndex, msgResult, mgr2) {
         this.mapStates = {};
         this.lstStates = [];
         this.curResult = msgResult; // msg
 
-        this.curStateIndex = 0;
+        this.curStepIndex = stepIndex;
+        // this.curStateIndex = 0;
 
         this._parseResult(msgResult, mgr2);
     }
@@ -124,7 +137,7 @@ class LogicStep2 {
                     msgResult.clientData.curGameModParam.mapComponents
                 )
             ) {
-                const curState = new LogicState2(curStateData, msgResult);
+                const curState = new LogicState2(key, curStateData, msgResult);
                 this.mapStates[key] = curState;
             }
         }
@@ -134,6 +147,7 @@ class LogicStep2 {
 
         for (const val of mgr2.statelist) {
             if (this.mapStates[val] && historyComponents.indexOf(val) >= 0) {
+                // this.mapStates[val].curStateIndex = this.lstStates.length;
                 this.lstStates.push(val);
             }
         }
@@ -143,13 +157,19 @@ class LogicStep2 {
         for (let si = 0; si < this.lstStates.length; si++) {
             const statename = this.lstStates[si];
             if (this.mapStates[statename].respin != null) {
-                if (si == 0 && this.mapStates[statename].curStateData.toui) {
-                    mgr2._onUIFrameworks(
+                if (this.mapStates[statename].curStateData.toui) {
+                    mgr2._onUIFGNum(
                         this.mapStates[statename].respin.curRespinNum,
-                        this.mapStates[statename].respin.totalRespinNum
+                        this.mapStates[statename].respin.curRespinNum +
+                            this.mapStates[statename].respin.lastRespinNum
                     );
                 }
+            }
+        }
 
+        for (let si = 0; si < this.lstStates.length; si++) {
+            const statename = this.lstStates[si];
+            if (this.mapStates[statename].respin != null) {
                 if (
                     this.mapStates[statename].curStateData.exitmodule &&
                     this.mapStates[statename].respin.lastRespinNum == 0 &&
@@ -170,6 +190,15 @@ class LogicStep2 {
             }
         }
     }
+
+    calcWins() {
+        let wins = 0;
+        for (const key in this.mapStates) {
+            wins += this.mapStates[key].calcWins();
+        }
+
+        return wins;
+    }
 }
 
 // LogicGameResult2 是 SlotCraft Client 最基础的class之一，一个game result可以理解为一次spin的返回
@@ -184,7 +213,7 @@ class LogicGameResult2 {
         this.curResults = null;
         this.curBet = 0;
 
-        this.curStepIndex = -1;
+        // this.curStepIndex = -1;
 
         this._parseMsg(msgdata);
     }
@@ -210,18 +239,28 @@ class LogicGameResult2 {
         for (const i in this.curResults) {
             const curResult = this.curResults[i];
 
-            const curStep = new LogicStep2(curResult, this.mgr2);
+            const curStep = new LogicStep2(
+                this.lstSteps.length,
+                curResult,
+                this.mgr2
+            );
             this.lstSteps.push(curStep);
         }
 
-        this.curStepIndex = 0;
+        // this.curStepIndex = 0;
     }
 
     async _runLogic() {
+        let curWins = 0;
+
         for (let step of this.lstSteps) {
             await step._runLogic(this, this.mgr2).catch((err) => {
                 console.error(step.name + " got " + err);
             });
+
+            curWins += step.calcWins();
+
+            this.mgr2._onUIWins(curWins);
         }
     }
 }

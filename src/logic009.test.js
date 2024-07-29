@@ -8491,10 +8491,15 @@ test("logic test 009", async () => {
     };
 
     logic.onConfig(gamecfg, statedata, statelist);
-    logic.addUIFrameworksListener((curNum, totalNum) => {
-        console.log(`${curNum} / ${totalNum}`);
-    });
-    logic.addUIFrameworksListener(async (gameResult2, step2, state2) => {
+    logic.setUIFrameworksFuncs(
+        (wins) => {
+            console.log(`${wins}`);
+        },
+        (curNum, totalNum) => {
+            console.log(`${curNum} / ${totalNum}`);
+        }
+    );
+    logic.addListener(async (gameResult2, step2, state2) => {
         console.log(gameResult2, step2, state2);
     });
 
