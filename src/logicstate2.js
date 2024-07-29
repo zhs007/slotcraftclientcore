@@ -112,6 +112,16 @@ class LogicState2 {
 
         return wins;
     }
+
+    isInComponents(components) {
+        for (const ci in components) {
+            if (this.mapComponentData[components[ci]]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 // LogicStep2 是 SlotCraft Client 最基础的class之一，一个step可以理解为一次respin等
@@ -146,7 +156,10 @@ class LogicStep2 {
             msgResult.clientData.curGameModParam.historyComponents;
 
         for (const val of mgr2.statelist) {
-            if (this.mapStates[val] && historyComponents.indexOf(val) >= 0) {
+            if (
+                this.mapStates[val] &&
+                this.mapStates[val].isInComponents(historyComponents)
+            ) {
                 // this.mapStates[val].curStateIndex = this.lstStates.length;
                 this.lstStates.push(val);
             }

@@ -1,381 +1,721 @@
-const { SCLogicMgr } = require('./logicmgr.js');
-const { parseSlotCraftJson } = require('./utils.js');
+const { SCLogicMgr2 } = require("./logicmgr2.js");
+const { parseSlotCraftJson } = require("./utils.js");
 
-test('logic test 002', () => {
-    const logic = new SCLogicMgr();
+test("logic test 002", async () => {
+    const logic = new SCLogicMgr2();
 
-    const obj = [
-        {
-            "name": "bg-spin",
-            "component": [
-                {
-                    "value": "bg-spin",
-                    "type": "WeightReels"
-                },
-                {
-                    "value": "bg-chgsym",
-                    "type": "ChgSymbols"
-                },
-                {
-                    "value": "bg-gensym",
-                    "type": "GenSymbolValsWithSymbol"
-                }
-            ],
-            "module": "SpinModule",
-            "instance": 0,
-            "key": "0.3814158632837261"
+    const statedata = {
+        "bg-spin": {
+            list: ["bg-spin", "bg-cashweight"],
+            module: "SpinModule",
+            performance: "",
         },
-        {
-            "name": "bg-paylines",
-            "component": [
-                "bg-paylines"
-            ],
-            "module": "ShowTopModule",
-            "instance": 0,
-            "key": "0.5876166289142748"
+        "bg-wildex": {
+            list: ["bg-replace"],
+            module: "SymChangeModule",
+            performance: "",
         },
-        {
-            "name": "bg-scatter",
-            "component": [
-                "bg-scatter"
-            ],
-            "module": "FgModule",
-            "instance": 0,
-            "key": "0.7428874121539344"
+        "bg-solar": {
+            list: ["bg-cashwin"],
+            module: "SymCollectCoinModule",
+            performance: "",
         },
-        {
-            "name": "fg-paylines",
-            "component": [
-                "fg-paylines"
-            ],
-            "module": "ShowTopModule",
-            "instance": 0,
-            "key": "0.17224014006967203"
+        "bg-win": {
+            list: ["bg-win"],
+            module: "ShowTopModule",
+            performance: "",
         },
-        {
-            "name": "bg-win",
-            "component": [
-                {
-                    "value": "bg-spin",
-                    "type": "WeightReels"
-                }
-            ],
-            "module": "WinAniModule",
-            "instance": 0,
-            "key": "0.8343066310906622"
+        "bg-win2": {
+            list: ["bg-win"],
+            module: "WinAniModule",
+            performance: "",
         },
-        {
-            "name": "fg-bmmask",
-            "component": [
-                {
-                    "value": "bg-symwins",
-                    "type": "SymbolValsWins"
-                }
-            ],
-            "module": "SymCollectCoinModule",
-            "instance": 0,
-            "key": "0.07917379484245868"
+        "fg-start": {
+            list: ["bg-triggerfg"],
+            module: "FgModule",
+            performance: "",
         },
-        {
-            "name": "fg-replacee",
-            "component": [
-                {
-                    "value": "fg-respin",
-                    "type": "Respin"
-                }
-            ],
-            "module": "SpinModule",
-            "instance": 0,
-            "trigger": "onStart",
-            "key": "0.8202998713512215"
+        "fg-spin": {
+            list: ["fg-spin"],
+            module: "SymChangeModule",
+            performance: "",
         },
-        {
-            "name": "bg-chgsym",
-            "component": [
-                {
-                    "value": "fg-adde",
-                    "type": "ChgSymbols"
-                },
-                {
-                    "value": "fg-genadde",
-                    "type": "GenSymbolValsWithSymbol"
-                }
-            ],
-            "module": "SymChangeModule",
-            "instance": 0,
-            "key": "0.8617102024782008"
+        "fg-end": {
+            list: ["fg-start"],
+            module: "FgExitModule",
+            performance: "",
+            bquick: false,
+            toui: true,
+            exitmodule: "FgExitModule",
         },
-        {
-            "name": "bg-gensym",
-            "component": [
-                {
-                    "value": "fg-replacee",
-                    "type": "ReplaceReelWithMask"
-                },
-                {
-                    "value": "fg-genreplacee",
-                    "type": "GenSymbolValsWithSymbol"
-                }
-            ],
-            "module": "SymChangeModule",
-            "instance": 0,
-            "key": "0.48497312574376705"
-        },
-        {
-            "name": "bg-symwins",
-            "component": [
-                "bg-symwins"
-            ],
-            "instance": 0,
-            "key": "0.45309493842148063"
-        },
-        {
-            "name": "fg-chgsym",
-            "component": [
-                "fg-chgsym"
-            ],
-            "instance": 0,
-            "key": "0.009466296857344902"
-        },
-        {
-            "name": "fg-gensym",
-            "component": [
-                "fg-gensym"
-            ],
-            "instance": 0,
-            "key": "0.6769211128574766"
-        },
-        {
-            "name": "fg-triggermm",
-            "component": [
-                "fg-triggermm"
-            ],
-            "instance": 0,
-            "key": "0.945116564088825"
-        },
-        {
-            "name": "fg-adde",
-            "component": [
-                "fg-adde"
-            ],
-            "module": "FreeExtraModule",
-            "instance": 0,
-            "key": "0.7808461912722771"
-        },
-        {
-            "name": "fg-triggercollect",
-            "component": [
-                "fg-triggercollect"
-            ],
-            "instance": 0,
-            "key": "0.6951897777058755"
-        },
-        {
-            "name": "fg-collect",
-            "component": [
-                "fg-collect"
-            ],
-            "instance": 0,
-            "key": "0.8528755513330726"
-        },
-        {
-            "name": "fg-respin",
-            "component": [
-                "fg-respin"
-            ],
-            "instance": 0,
-            "key": "0.7380851317773824"
-        },
-        {
-            "name": "fg-triggerbm",
-            "component": [
-                "fg-triggerbm"
-            ],
-            "instance": 0,
-            "key": "0.654544801082267"
-        },
-        {
-            "name": "fg-genadde",
-            "component": [
-                "fg-genadde"
-            ],
-            "instance": 0,
-            "key": "0.6490698742170962"
-        },
-        {
-            "name": "fg-triggere",
-            "component": [
-                "fg-triggere"
-            ],
-            "instance": 0,
-            "key": "0.7866726856922213"
-        },
-        {
-            "name": "fg-symwins",
-            "component": [
-                "fg-symwins"
-            ],
-            "instance": 0,
-            "key": "0.9226625577898238"
-        },
-        {
-            "name": "fg-genreplacee",
-            "component": [
-                "fg-genreplacee"
-            ],
-            "instance": 0,
-            "key": "0.5147672475271128"
-        },
-        {
-            "name": "fg-start",
-            "component": [
-                "fg-start"
-            ],
-            "module": "FgExitModule",
-            "instance": 0,
-            "key": "0.5382864355219705"
-        }
+    };
+    const statelist = [
+        "bg-spin",
+        "bg-wildex",
+        "bg-solar",
+        "bg-win",
+        "bg-win2",
+        "fg-start",
+        "fg-spin",
+        "fg-end",
     ];
 
-    const statecfg = parseSlotCraftJson(obj);
-    expect(statecfg).not.toBe(null);
-
     const gamecfg = {
-        "20": {
-            "Components": [
+        50: {
+            Components: [
                 {
-                    "config": {
-                        "defaultNextComponent": "bg-chgsym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "weightReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSetWeight": "bgreelweight",
-                        "isExpandReel": false
-                    }
+                    config: {
+                        defaultNextComponent: "bg-cashweight",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "basicReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSet: "reel0",
+                        isExpandReel: false,
+                        awards: null,
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "bg-scatter",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "WL",
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "E",
-                            "F",
-                            "G",
-                            "H",
-                            "J",
-                            "K"
-                        ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                    config: {
+                        defaultNextComponent: "bg-triggerfg",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["A", "B", "C", "D", "E", "F", "G"],
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "SC"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 3,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "SC",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-start",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": true,
-                        "respinComponent": "fg-start",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": {
-                            "3": 10,
-                            "4": 15,
-                            "5": 20
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "weightBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        forceBranch: "",
+                        weight: "solarweights",
+                        mapBranchs: {
+                            solar: {
+                                awards: null,
+                                jumpToComponent: "bg-cashwin",
+                            },
+                            normal: { awards: null, jumpToComponent: "bg-win" },
                         },
-                        "respinNumWeightWithScatterNum": null
-                    }
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-spin"
-                    }
+                    config: {
+                        defaultNextComponent: "bg-wildex",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["SC"],
+                        weight: "cashweights",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: true,
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "fg-chgsym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "fg-reel1",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
+                    config: {
+                        defaultNextComponent: "bg-win",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: null,
+                        type: "normal",
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "fg-triggercollect",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
+                    config: {
+                        defaultNextComponent: "bg-solartrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["WL"],
+                        type: "countscatterReels",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: [],
+                        posArea: null,
+                        countScatterPayAs: "WL",
+                        winMulti: 1,
+                        jumpToComponent: "bg-wildexmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [],
+                        symbolAwardsWeights: null,
+                        targetMask: "bg-wildexmask",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 3,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-replace",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-solartrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "replaceReelWithMask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "WL",
+                        mask: "bg-wildexmask",
+                        ignoreSymbols: ["SC"],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 5,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-start",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [3],
+                                strParams: ["fg-start.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 3,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-spin",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-checkcol",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["SC"],
+                        weight: "cashweights",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: true,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "reelTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "SC",
+                        type: "columnNumber",
+                        wildSymbols: null,
+                        minSymbolNum: 4,
+                        targetMask: "",
+                        mapBranchs: {
+                            3: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot0.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            4: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot1.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            5: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot2.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                        },
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot0",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 500,
+                        winMulti: 0,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot1",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 2500,
+                        winMulti: 0,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-checkrow",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot2",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-checkrow",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 500000,
+                        winMulti: 0,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-column0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "reelTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "SC",
+                        type: "row",
+                        wildSymbols: null,
+                        minSymbolNum: 5,
+                        targetMask: "",
+                        mapBranchs: {
+                            1: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column0.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            2: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column1.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            3: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column2.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            4: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column3.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                        },
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-column1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum0",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-mul0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul0.multi"],
+                                componentVals: ["fg-rollnum0.outputInt"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 0,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-column2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum1",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-mul1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul1.multi"],
+                                componentVals: ["fg-rollnum1.outputInt"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 1,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-column3",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum2",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-mul2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul2.multi"],
+                                componentVals: ["fg-rollnum2.outputInt"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 2,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum3",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-mul3",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul3.multi"],
+                                componentVals: ["fg-rollnum3.outputInt"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 3,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: [
                             "WL",
                             "A",
                             "B",
@@ -384,1403 +724,1134 @@ test('logic test 002', () => {
                             "E",
                             "F",
                             "G",
-                            "H",
-                            "J",
-                            "K"
+                            "BN",
                         ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-replacee",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "mask",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "num": 5,
-                        "perMaskAwards": null,
-                        "mapSPMaskAwards": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-genreplacee",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "replaceReelWithMask",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbol": "E",
-                        "mask": "fg-bmmask"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "bg-gensym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "bgchgsymweight",
-                        "controllers": null,
-                        "jumpToComponent": ""
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "bg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "bgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "bg-paylines",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "OM"
-                        ],
-                        "type": "collector"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-gensym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "fgchgsymweight",
-                        "controllers": null,
-                        "jumpToComponent": ""
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-paylines",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-triggerbm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "MM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-respin",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
+                        blankSymbol: "BN",
+                        weight: "changeweights",
+                        maxNumber: 0,
+                        isAlwaysGen: true,
+                        controllers: [
                             {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": [
-                                    1
-                                ],
-                                "strParams": [
-                                    "fg-respin.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "setComponentConfigIntVal",
+                                vals: [3],
+                                strParams: ["fg-start.lastTriggerNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                        jumpToComponent: "fg-cashweight",
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "WL",
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "F",
-                            "G",
-                            "H",
-                            "J",
-                            "K",
-                            "SC"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "fgaddeweight",
-                        "controllers": [
-                            {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": [
-                                    1
-                                ],
-                                "strParams": [
-                                    "fg-respin.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
-                        ],
-                        "jumpToComponent": "fg-genadde"
-                    }
+                    config: {
+                        defaultNextComponent: "bg-win",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatterReels",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "bg-solarmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "fg-collect",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "OM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": [
-                            "MM",
-                            "BM"
-                        ],
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
-                            {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": null,
-                                "strParams": [
-                                    "fg-collect.valueNum"
-                                ],
-                                "componentVals": [
-                                    "fg-triggercollect.symbolNum"
-                                ],
-                                "onTriggerRespin": ""
-                            }
-                        ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                    config: {
+                        defaultNextComponent: "bg-solarweights",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
                 },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-triggermm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "collector",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbol": "",
-                        "maxVal": 12,
-                        "perLevelAwards": null,
-                        "mapSPLevelAwards": null,
-                        "isCycle": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-triggerbm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-adde"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "BM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-triggere",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-bmmask",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "fg-bmmask",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "OM",
-                            "MM",
-                            "BM"
-                        ],
-                        "type": "collector"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
-                }
             ],
-            "MapComponents": {
-                "bg-chgsym": {
-                    "config": {
-                        "defaultNextComponent": "bg-gensym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "bgchgsymweight",
-                        "controllers": null,
-                        "jumpToComponent": ""
-                    }
+            MapComponents: {
+                "fg-jackpot1": {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 2500,
+                        winMulti: 0,
+                    },
                 },
-                "fg-collect": {
-                    "config": {
-                        "defaultNextComponent": "fg-triggermm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "collector",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbol": "",
-                        "maxVal": 12,
-                        "perLevelAwards": null,
-                        "mapSPLevelAwards": null,
-                        "isCycle": false
-                    }
+                "fg-triggerjackpot0": {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot0",
+                    },
                 },
-                "fg-genadde": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
+                "bg-replace": {
+                    config: {
+                        defaultNextComponent: "bg-solartrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "replaceReelWithMask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "WL",
+                        mask: "bg-wildexmask",
+                        ignoreSymbols: ["SC"],
+                    },
                 },
-                "fg-symwins": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "OM",
-                            "MM",
-                            "BM"
-                        ],
-                        "type": "collector"
-                    }
-                },
-                "bg-scatter": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "SC"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 3,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "SC",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-start",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": true,
-                        "respinComponent": "fg-start",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": {
-                            "3": 10,
-                            "4": 15,
-                            "5": 20
-                        },
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                "fg-start": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-spin"
-                    }
-                },
-                "fg-paylines": {
-                    "config": {
-                        "defaultNextComponent": "fg-triggercollect",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "WL",
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "E",
-                            "F",
-                            "G",
-                            "H",
-                            "J",
-                            "K"
-                        ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                "fg-bmmask": {
-                    "config": {
-                        "defaultNextComponent": "fg-replacee",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "mask",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "num": 5,
-                        "perMaskAwards": null,
-                        "mapSPMaskAwards": null
-                    }
-                },
-                "fg-gensym": {
-                    "config": {
-                        "defaultNextComponent": "fg-paylines",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
-                },
-                "fg-adde": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "WL",
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "F",
-                            "G",
-                            "H",
-                            "J",
-                            "K",
-                            "SC"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "fgaddeweight",
-                        "controllers": [
+                "fg-rollnum1": {
+                    config: {
+                        defaultNextComponent: "fg-mul1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
                             {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": [
-                                    1
-                                ],
-                                "strParams": [
-                                    "fg-respin.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul1.multi"],
+                                componentVals: ["fg-rollnum1.outputInt"],
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "jumpToComponent": "fg-genadde"
-                    }
-                },
-                "fg-triggerbm": {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "BM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-triggere",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                "bg-spin": {
-                    "config": {
-                        "defaultNextComponent": "bg-chgsym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "weightReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSetWeight": "bgreelweight",
-                        "isExpandReel": false
-                    }
-                },
-                "bg-paylines": {
-                    "config": {
-                        "defaultNextComponent": "bg-scatter",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "WL",
-                            "A",
-                            "B",
-                            "C",
-                            "D",
-                            "E",
-                            "F",
-                            "G",
-                            "H",
-                            "J",
-                            "K"
-                        ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                "fg-replacee": {
-                    "config": {
-                        "defaultNextComponent": "fg-genreplacee",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "replaceReelWithMask",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbol": "E",
-                        "mask": "fg-bmmask"
-                    }
-                },
-                "bg-gensym": {
-                    "config": {
-                        "defaultNextComponent": "bg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "bgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
-                },
-                "fg-genreplacee": {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "E"
-                        ],
-                        "weight": "fgcashweight",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
+                    },
                 },
                 "fg-spin": {
-                    "config": {
-                        "defaultNextComponent": "fg-chgsym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "fg-reel1",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
-                },
-                "bg-symwins": {
-                    "config": {
-                        "defaultNextComponent": "bg-paylines",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "OM"
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: [
+                            "WL",
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G",
+                            "BN",
                         ],
-                        "type": "collector"
-                    }
-                },
-                "fg-chgsym": {
-                    "config": {
-                        "defaultNextComponent": "fg-gensym",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
-                        ],
-                        "blankSymbol": "BN",
-                        "weight": "fgchgsymweight",
-                        "controllers": null,
-                        "jumpToComponent": ""
-                    }
-                },
-                "fg-respin": {
-                    "config": {
-                        "defaultNextComponent": "fg-triggerbm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-adde"
-                    }
-                },
-                "fg-triggermm": {
-                    "config": {
-                        "defaultNextComponent": "fg-triggerbm",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "MM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-respin",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
+                        blankSymbol: "BN",
+                        weight: "changeweights",
+                        maxNumber: 0,
+                        isAlwaysGen: true,
+                        controllers: [
                             {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": [
-                                    1
-                                ],
-                                "strParams": [
-                                    "fg-respin.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "setComponentConfigIntVal",
+                                vals: [3],
+                                strParams: ["fg-start.lastTriggerNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                        jumpToComponent: "fg-cashweight",
+                    },
                 },
-                "fg-triggercollect": {
-                    "config": {
-                        "defaultNextComponent": "fg-collect",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "OM"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": [
-                            "MM",
-                            "BM"
-                        ],
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
+                "bg-solartrigger": {
+                    config: {
+                        defaultNextComponent: "bg-win",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatterReels",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "bg-solarmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "bg-solarmask": {
+                    config: {
+                        defaultNextComponent: "bg-solarweights",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
+                },
+                "bg-cashweight": {
+                    config: {
+                        defaultNextComponent: "bg-wildex",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["SC"],
+                        weight: "cashweights",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: true,
+                    },
+                },
+                "fg-rollnum0": {
+                    config: {
+                        defaultNextComponent: "fg-mul0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
                             {
-                                "awardType": "chgComponentConfigIntVal",
-                                "vals": null,
-                                "strParams": [
-                                    "fg-collect.valueNum"
-                                ],
-                                "componentVals": [
-                                    "fg-triggercollect.symbolNum"
-                                ],
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul0.multi"],
+                                componentVals: ["fg-rollnum0.outputInt"],
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                    },
                 },
-                "fg-triggere": {
-                    "config": {
-                        "defaultNextComponent": "fg-symwins",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "E"
+                "fg-jackpot0": {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 500,
+                        winMulti: 0,
+                    },
+                },
+                "fg-triggerjackpot1": {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot1",
+                    },
+                },
+                "fg-column1": {
+                    config: {
+                        defaultNextComponent: "fg-column2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum1",
+                    },
+                },
+                "fg-rollnum3": {
+                    config: {
+                        defaultNextComponent: "fg-mul3",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul3.multi"],
+                                componentVals: ["fg-rollnum3.outputInt"],
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 1,
-                        "wildSymbols": null,
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-bmmask",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "fg-bmmask",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                }
+                    },
+                },
+                "bg-cashwin": {
+                    config: {
+                        defaultNextComponent: "bg-win",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: null,
+                        type: "normal",
+                    },
+                },
+                "fg-start": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-spin",
+                    },
+                },
+                "fg-cashweight": {
+                    config: {
+                        defaultNextComponent: "fg-checkcol",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["SC"],
+                        weight: "cashweights",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: true,
+                    },
+                },
+                "fg-checkrow": {
+                    config: {
+                        defaultNextComponent: "fg-column0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "reelTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "SC",
+                        type: "row",
+                        wildSymbols: null,
+                        minSymbolNum: 5,
+                        targetMask: "",
+                        mapBranchs: {
+                            4: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column3.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            1: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column0.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            2: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column1.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            3: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-column2.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                        },
+                    },
+                },
+                "fg-mul1": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 1,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                "fg-mul2": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 2,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                "bg-solarweights": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "weightBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        forceBranch: "",
+                        weight: "solarweights",
+                        mapBranchs: {
+                            solar: {
+                                awards: null,
+                                jumpToComponent: "bg-cashwin",
+                            },
+                            normal: { awards: null, jumpToComponent: "bg-win" },
+                        },
+                    },
+                },
+                "bg-wildex": {
+                    config: {
+                        defaultNextComponent: "bg-solartrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["WL"],
+                        type: "countscatterReels",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: [],
+                        posArea: null,
+                        countScatterPayAs: "WL",
+                        winMulti: 1,
+                        jumpToComponent: "bg-wildexmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [],
+                        symbolAwardsWeights: null,
+                        targetMask: "bg-wildexmask",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 3,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-column2": {
+                    config: {
+                        defaultNextComponent: "fg-column3",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum2",
+                    },
+                },
+                "fg-mul3": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 3,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                "fg-triggerjackpot2": {
+                    config: {
+                        defaultNextComponent: "fg-checkrow",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-jackpot2",
+                    },
+                },
+                "bg-win": {
+                    config: {
+                        defaultNextComponent: "bg-triggerfg",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["A", "B", "C", "D", "E", "F", "G"],
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "bg-wildexmask": {
+                    config: {
+                        defaultNextComponent: "bg-replace",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
+                },
+                "bg-triggerfg": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 5,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-start",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [3],
+                                strParams: ["fg-start.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 3,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-checkcol": {
+                    config: {
+                        defaultNextComponent: "fg-triggerjackpot0",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "reelTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "SC",
+                        type: "columnNumber",
+                        wildSymbols: null,
+                        minSymbolNum: 4,
+                        targetMask: "",
+                        mapBranchs: {
+                            4: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot1.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            5: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot2.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                            3: {
+                                awards: [
+                                    {
+                                        awardType: "chgComponentConfigIntVal",
+                                        vals: [1],
+                                        strParams: ["fg-triggerjackpot0.queue"],
+                                        componentVals: null,
+                                        onTriggerRespin: "",
+                                    },
+                                ],
+                                jumpToComponent: "",
+                            },
+                        },
+                    },
+                },
+                "fg-jackpot2": {
+                    config: {
+                        defaultNextComponent: "fg-checkrow",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "jackpot",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        wins: 500000,
+                        winMulti: 0,
+                    },
+                },
+                "fg-column0": {
+                    config: {
+                        defaultNextComponent: "fg-column1",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum0",
+                    },
+                },
+                "fg-mul0": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbolVals",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "mul",
+                        sourceType: "row",
+                        positionCollection: "",
+                        winResultComponents: null,
+                        maxNumber: 0,
+                        maxVal: 999999,
+                        minVal: 0,
+                        row: 0,
+                        column: 0,
+                        multi: 1,
+                    },
+                },
+                "bg-spin": {
+                    config: {
+                        defaultNextComponent: "bg-cashweight",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "basicReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSet: "reel0",
+                        isExpandReel: false,
+                        awards: null,
+                    },
+                },
+                "fg-column3": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-rollnum3",
+                    },
+                },
+                "fg-rollnum2": {
+                    config: {
+                        defaultNextComponent: "fg-mul2",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "rollNumber",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        weight: "cashmutiweights",
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-mul2.multi"],
+                                componentVals: ["fg-rollnum2.outputInt"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                    },
+                },
             },
-            "Stats2": null
-        }
+            Stats2: null,
+        },
     };
     const msg = {
-        "msgid": "gamemoduleinfo",
-        "gamemodulename": "ztUJjwPBn4Po2g0-LnTTO",
-        "gameid": 69028,
-        "gmi": {
-            "defaultScene": {
-                "values": [
+        msgid: "gamemoduleinfo",
+        gamemodulename: "solarreels",
+        gameid: 61143,
+        gmi: {
+            defaultScene: {
+                values: [
                     {
-                        "values": [
-                            1,
-                            2,
-                            3
-                        ]
+                        values: [1, 2, 3, 4],
                     },
                     {
-                        "values": [
-                            4,
-                            6,
-                            7
-                        ]
+                        values: [5, 6, 7, 8],
                     },
                     {
-                        "values": [
-                            1,
-                            2,
-                            3
-                        ]
+                        values: [2, 3, 4, 5],
                     },
                     {
-                        "values": [
-                            8,
-                            9,
-                            10
-                        ]
+                        values: [3, 4, 5, 6],
                     },
                     {
-                        "values": [
-                            1,
-                            2,
-                            3
-                        ]
-                    }
+                        values: [4, 5, 6, 7],
+                    },
                 ],
-                "indexes": [],
-                "validRow": []
+                indexes: [],
+                validRow: [],
             },
-            "replyPlay": {
-                "randomNumbers": [
-                    1232,
-                    26,
-                    18,
-                    51,
-                    36,
-                    5,
-                    17,
-                    4,
-                    21,
-                    20,
-                    372,
-                    2464
-                ],
-                "results": [
+            replyPlay: {
+                randomNumbers: [7, 93, 29, 16, 56, 730, 19],
+                results: [
                     {
-                        "coinWin": 40,
-                        "cashWin": 4000,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 15,
+                        cashWin: 1500,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                5,
-                                                5,
-                                                4
-                                            ]
+                                            values: [8, 7, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                9,
-                                                10,
-                                                2
-                                            ]
+                                            values: [2, 5, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                6
-                                            ]
+                                            values: [7, 7, 5, 3],
                                         },
                                         {
-                                            "values": [
-                                                9,
-                                                10,
-                                                5
-                                            ]
+                                            values: [6, 7, 4, 7],
                                         },
                                         {
-                                            "values": [
-                                                2,
-                                                6,
-                                                5
-                                            ]
-                                        }
+                                            values: [1, 7, 6, 6],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [150, 0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [0, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 8,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
                                 },
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                5,
-                                                5,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                9,
-                                                10,
-                                                2
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                6
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                9,
-                                                10,
-                                                11
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                2,
-                                                6,
-                                                0
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [
+                                    pos: [0, 2, 1, 2, 2, 2],
+                                    type: 2,
+                                    lineIndex: 2,
+                                    symbol: 5,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 500,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                20,
-                                                20,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "results": [
+                                    pos: [0, 2, 1, 1, 2, 2],
+                                    type: 2,
+                                    lineIndex: 11,
+                                    symbol: 5,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 500,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
                                 {
-                                    "pos": [
-                                        0,
-                                        0,
-                                        0,
-                                        1
-                                    ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 1,
-                                    "coinWin": 40,
-                                    "cashWin": 4000,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 2,
-                                    "value": 0
-                                }
+                                    pos: [0, 3, 1, 2, 2, 2],
+                                    type: 2,
+                                    lineIndex: 19,
+                                    symbol: 5,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 500,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "bg-spin",
-                                    "bg-chgsym",
-                                    "bg-gensym",
-                                    "bg-symwins"
+                                    "bg-cashweight",
+                                    "bg-solartrigger",
+                                    "bg-solarmask",
+                                    "bg-solarweights",
+                                    "bg-win",
                                 ],
-                                "respinComponents": [],
-                                "mapComponents": {
+                                respinComponents: [],
+                                mapComponents: {
                                     "bg-spin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                0
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0,
-                                            "output": 0,
-                                            "strOutput": ""
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "reelSetIndex": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.WeightReelsData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "bg-chgsym": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0,
-                                            "output": 0,
-                                            "strOutput": ""
+                                    "bg-cashweight": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "bg-gensym": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [
-                                                0
-                                            ],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0,
-                                            "output": 0,
-                                            "strOutput": ""
+                                    "bg-solartrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        nextComponent: "bg-solarmask",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
                                     },
-                                    "bg-symwins": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 40,
-                                            "cashWin": 4000,
-                                            "targetScene": 0,
-                                            "runIndex": 0,
-                                            "output": 0,
-                                            "strOutput": ""
+                                    "bg-solarmask": {
+                                        vals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "bg-solarweights": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "wins": 40,
-                                        "symbolNum": 2,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
-                                    }
+                                        value: "normal",
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.WeightBranchData",
+                                    },
+                                    "bg-win": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [1, 2, 3],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 15,
+                                            cashWin: 1500,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "",
+                                        symbolNum: 9,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 15,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.LinesTriggerData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 3,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 4,
+                                    6: 50,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "",
-                                "nextStepFirstComponent": "",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "",
+                                nextStepFirstComponent: "",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
                 ],
-                "nextCommands": [],
-                "nextCommandParams": [],
-                "playerState": {
-                    "public": {
-                        "json": "{\"curgamemod\":\"basic\",\"nextm\":0}",
-                        "@type": "type.googleapis.com/sgc7pb.BasicPlayerPublicState2"
-                    }
+                nextCommands: [],
+                nextCommandParams: [],
+                playerState: {
+                    public: {
+                        curGameMod: "basic",
+                        nextM: 0,
+                        "@type":
+                            "type.googleapis.com/sgc7pb.BasicPlayerPublicState",
+                    },
                 },
-                "finished": true,
-                "stake": null,
-                "playStartTime": 1717654914573
+                finished: true,
+                stake: null,
+                playStartTime: 1722246598964,
             },
-            "playIndex": -1,
-            "bet": 100,
-            "lines": 20,
-            "totalwin": 4000,
-            "playwin": 0,
-            "maxWinLimit": 0
-        }
+            playIndex: -1,
+            bet: 100,
+            lines: 50,
+            totalwin: 1500,
+            playwin: 0,
+            maxWinLimit: 0,
+        },
     };
 
-    logic.onConfig(gamecfg, statecfg.statedata, statecfg.statelist);
-
-    let stepIndex = 0;
-    let onBegin = (data) => {
-        if (stepIndex == 0) {
-            expect(logic.curStates.length).toBe(3);
-            expect(logic.curStates[0].otherscene).not.toBe(null);
+    logic.onConfig(gamecfg, statedata, statelist);
+    logic.setUIFrameworksFuncs(
+        (wins) => {
+            console.log(`${wins}`);
+        },
+        (curNum, totalNum) => {
+            console.log(`${curNum} / ${totalNum}`);
         }
+    );
+    logic.addListener(async (gameResult2, step2, state2) => {
+        console.log(gameResult2, step2, state2);
 
-        const type = data.curType;
-
-        while (logic.hasNextState()) {
-            logic.nextState();
+        if (step2.curStepIndex == 0) {
+            expect(step2.lstStates.length).toBe(3);
         }
+    });
 
-        stepIndex++;
-
-        logic.endStep();
-    };
-
-    let onEnd = (data) => {
-        const type = data.curType;
-    };
-
-    logic.addStepBeginListener(onBegin);
-    logic.addStepEndListener(onEnd);
-
-    logic.onMessage(msg);
+    await logic.onMessage(msg).then(() => {
+        console.log("Done!");
+    });
 });

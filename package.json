@@ -1,6 +1,6 @@
 {
   "name": "slotcraftclientcore",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "slotcraft client core",
   "main": "./src/index.js",
   "scripts": {

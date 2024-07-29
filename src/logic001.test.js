@@ -1,6119 +1,8509 @@
-const { SCLogicMgr } = require('./logicmgr.js');
-const { parseSlotCraftJson } = require('./utils.js');
+const { SCLogicMgr2 } = require("./logicmgr2.js");
+const { parseSlotCraftJson } = require("./utils.js");
 
-test('logic test 001', () => {
-    const logic = new SCLogicMgr();
+test("logic test 001", async () => {
+    const logic = new SCLogicMgr2();
 
-    const obj = [
-        {
-            "name": "bg-spin",
-            "component": [
-                {
-                    "value": "bg-spin",
-                    "type": "BasicReels"
-                }
-            ],
-            "module": "SpinModule",
-            "instance": 0,
-            "key": "0.42159376390611847"
+    const statedata = {
+        "bg-spin": {
+            list: ["bg-spin", "bg-chgsym", "bg-gensym"],
+            module: "SpinModule",
+            performance: "",
         },
-        {
-            "name": "bg-win",
-            "component": [
-                {
-                    "value": "bg-win",
-                    "type": "LinesTrigger"
-                }
-            ],
-            "module": "ShowTopModule",
-            "instance": 0,
-            "key": "0.06832762088722766"
+        "bg-paylines": {
+            list: ["bg-paylines"],
+            module: "ShowTopModule",
+            performance: "",
         },
-        {
-            "name": "bg-solarweights",
-            "component": [
-                {
-                    "value": "bg-respintrigger",
-                    "type": "ScatterTrigger"
-                }
-            ],
-            "module": "FgModule",
-            "instance": 0,
-            "key": "0.6762678434891143"
+        "fg-bmmask": {
+            list: ["bg-symwins"],
+            module: "SymCollectCoinModule",
+            performance: "",
         },
-        {
-            "name": "fg-spin",
-            "component": [
-                {
-                    "value": "fg-adde",
-                    "type": "ChgSymbols"
-                }
-            ],
-            "module": "SpinModule",
-            "instance": 0,
-            "key": "0.8030062252428682"
+        "bg-scatter": {
+            list: ["bg-scatter"],
+            module: "FgModule",
+            performance: "",
         },
-        {
-            "name": "fg-exit",
-            "component": [
-                {
-                    "value": "fg-start",
-                    "type": "Respin"
-                }
-            ],
-            "module": "FgExitModule",
-            "instance": 0,
-            "trigger": "onEnding",
-            "key": "0.912701909038945"
-        }
+        "fg-paylines": {
+            list: ["fg-paylines"],
+            module: "ShowTopModule",
+            performance: "",
+        },
+        "bg-win": {
+            list: ["bg-spin"],
+            module: "WinAniModule",
+            performance: "",
+        },
+        "fg-spin": {
+            list: ["fg-spin", "fg-gensym", "fg-chgmm", "fg-chgbm", "fg-chgwl"],
+            module: "SpinModule",
+            performance: "",
+        },
+        "fg-replacee": {
+            list: ["fg-respin"],
+            module: "SpinModule",
+            performance: "",
+        },
+        "bg-chgsym": {
+            list: ["fg-adde", "fg-genadde"],
+            module: "SymChangeModule",
+            performance: "",
+        },
+        "bg-gensym": {
+            list: ["fg-replacee", "fg-genreplacee"],
+            module: "SymChangeModule",
+            performance: "",
+        },
+        "fg-symwins": {
+            list: ["fg-symwins"],
+            module: "SymCollectCoinModule",
+            performance: "",
+        },
+        "fg-adde": {
+            list: ["fg-adde"],
+            module: "FreeExtraModule",
+            performance: "",
+        },
+        "fg-start": {
+            list: ["fg-start"],
+            module: "FgExitModule",
+            performance: "",
+            bquick: false,
+            toui: true,
+            exitmodule: "FgExitModule",
+        },
+    };
+    const statelist = [
+        "bg-spin",
+        "bg-paylines",
+        "fg-bmmask",
+        "bg-scatter",
+        "fg-paylines",
+        "bg-win",
+        "fg-spin",
+        "fg-replacee",
+        "bg-chgsym",
+        "bg-gensym",
+        "fg-symwins",
+        "fg-adde",
+        "fg-start",
     ];
 
-    const statecfg = parseSlotCraftJson(obj);
-    expect(statecfg).not.toBe(null);
-
     const gamecfg = {
-        "10": {
-            "Components": [
+        20: {
+            Components: [
                 {
-                    "config": {
-                        "defaultNextComponent": "bg-cashweight",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "reel0",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
+                    config: {
+                        defaultNextComponent: "bg-chgom",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "weightReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSetWeight: "bgreelweight",
+                        isExpandReel: false,
+                    },
                 },
                 {
-                    "config": {
-                        "defaultNextComponent": "bg-respintrigger",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "H1",
-                            "M1",
-                            "M2",
-                            "L1",
-                            "L2",
-                            "L3",
-                            "L4"
-                        ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "weightBranch",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "weight": "solarweights",
-                        "mapBranchs": {
-                            "normal": {
-                                "awards": null,
-                                "jumpToComponent": "bg-win"
-                            },
-                            "solar": {
-                                "awards": null,
-                                "jumpToComponent": "bg-cashwin"
-                            }
-                        }
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "bg-solarweights",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "Cash"
-                        ],
-                        "weight": "cashweights",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "bg-win",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": null,
-                        "type": "normal"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "Cash"
-                        ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 5,
-                        "wildSymbols": [],
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-reel",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
-                            {
-                                "awardType": "setComponentConfigIntVal",
-                                "vals": [
-                                    3
-                                ],
-                                "strParams": [
-                                    "fg-start.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
-                        ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 3,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-cashwin",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-adde"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "H1",
-                            "M1",
-                            "M2",
+                    config: {
+                        defaultNextComponent: "bg-scatter",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: [
                             "WL",
-                            "L1",
-                            "L2",
-                            "L3",
-                            "L4"
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
                         ],
-                        "blankSymbol": "BN",
-                        "weight": "changeweights",
-                        "controllers": [
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 3,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "SC",
+                        winMulti: 1,
+                        jumpToComponent: "fg-start",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
                             {
-                                "awardType": "setComponentConfigIntVal",
-                                "vals": [
-                                    3
-                                ],
-                                "strParams": [
-                                    "fg-start.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
-                        ],
-                        "jumpToComponent": "fg-cashwin"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "Cash"
-                        ],
-                        "type": "collector"
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-start",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "Cash"
-                        ],
-                        "weight": "cashweights",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
-                },
-                {
-                    "config": {
-                        "defaultNextComponent": "fg-cashweight",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "reel0",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
-                }
-            ],
-            "MapComponents": {
-                "bg-spin": {
-                    "config": {
-                        "defaultNextComponent": "bg-cashweight",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "reel0",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
-                },
-                "bg-solarweights": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "weightBranch",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "weight": "solarweights",
-                        "mapBranchs": {
-                            "normal": {
-                                "awards": null,
-                                "jumpToComponent": "bg-win"
+                                awardType: "setComponentConfigIntVal",
+                                vals: [10],
+                                strParams: ["fg-start.retriggerAddRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
                             },
-                            "solar": {
-                                "awards": null,
-                                "jumpToComponent": "bg-cashwin"
-                            }
-                        }
-                    }
-                },
-                "bg-cashweight": {
-                    "config": {
-                        "defaultNextComponent": "bg-solarweights",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "Cash"
                         ],
-                        "weight": "cashweights",
-                        "defaultVal": 0,
-                        "isUseSource": false,
-                        "isAlwaysGen": false
-                    }
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: true,
+                        respinComponent: "fg-start",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: {
+                            5: 20,
+                            3: 10,
+                            4: 15,
+                        },
+                        respinNumWeightWithScatterNum: null,
+                    },
                 },
-                "bg-cashwin": {
-                    "config": {
-                        "defaultNextComponent": "bg-win",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": null,
-                        "type": "normal"
-                    }
+                {
+                    config: {
+                        defaultNextComponent: "fg-chgmm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "basicReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSet: "fg-reel1",
+                        isExpandReel: false,
+                        awards: null,
+                    },
                 },
-                "bg-respintrigger": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "scatterTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "Cash"
+                {
+                    config: {
+                        defaultNextComponent: "fg-collector",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: [
+                            "WL",
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
                         ],
-                        "type": "countscatter",
-                        "betType": "noPay",
-                        "symbolValsMulti": "",
-                        "minNum": 5,
-                        "wildSymbols": [],
-                        "posArea": null,
-                        "countScatterPayAs": "",
-                        "winMulti": 1,
-                        "jumpToComponent": "fg-reel",
-                        "piggyBankComponent": "",
-                        "forceToNext": false,
-                        "awards": [
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-replacee",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "bgcashweight",
+                        defaultVal: 0,
+                        isUseSource: false,
+                        isAlwaysGen: true,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-paylines",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: ["OM"],
+                        type: "collector",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-paylines",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: false,
+                        isAlwaysGen: true,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["MM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-respin",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
                             {
-                                "awardType": "setComponentConfigIntVal",
-                                "vals": [
-                                    3
-                                ],
-                                "strParams": [
-                                    "fg-start.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: ["fg-triggermm.symbolNum"],
+                                onTriggerRespin: "",
+                            },
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-respin.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "isAddRespinMode": false,
-                        "respinComponent": "",
-                        "respinNum": 3,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggerbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-adde",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["BM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-triggere",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: ["fg-triggerbm.symbolNum"],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: false,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["E"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-bmmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "fg-bmmask",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: ["MM", "BM"],
+                        type: "collector",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: false,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-genreplacee",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "replaceReelWithMask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "E",
+                        mask: "fg-bmmask",
+                        ignoreSymbols: ["OM", "MM", "BM"],
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-spin",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-cointrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "collector",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "",
+                        maxVal: 12,
+                        perLevelAwards: null,
+                        mapSPLevelAwards: {
+                            4: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [2],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                            8: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [3],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                            12: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [10],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                        },
+                        isCycle: false,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-chgwl",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "bgchgomweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "bg-gensym",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "bg-gensym",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "bgchgwlweight",
+                        maxNumber: 0,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-chgbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgmmweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-nowlbranch.queue"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        jumpToComponent: "",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-chgwl",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-gensym",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-nowlbranch",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgbmweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-nowlbranch.queue"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        jumpToComponent: "",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-gensym",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgwlweight",
+                        maxNumber: 0,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "",
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "fg-triggercollector",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["E"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-triggermm",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["MM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: ["BM"],
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: [
+                                    "fg-triggercollector.symbolNum",
+                                ],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: [
+                            "WL",
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
+                            "SC",
+                        ],
+                        blankSymbol: "BN",
+                        weight: "fgaddeweight5",
+                        maxNumber: 0,
+                        isAlwaysGen: true,
+                        controllers: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-respin.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        jumpToComponent: "fg-genadde",
+                    },
+                },
+            ],
+            MapComponents: {
+                "fg-bmmask": {
+                    config: {
+                        defaultNextComponent: "fg-replacee",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "mask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        num: 5,
+                        perMaskAwards: null,
+                        mapSPMaskAwards: null,
+                    },
+                },
+                "fg-genadde": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: false,
+                    },
                 },
                 "fg-start": {
-                    "config": {
-                        "defaultNextComponent": "fg-cashwin",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "respin",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "mainComponent": "fg-adde"
-                    }
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-spin",
+                    },
+                },
+                "bg-chgwl": {
+                    config: {
+                        defaultNextComponent: "bg-gensym",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "bgchgwlweight",
+                        maxNumber: 0,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "",
+                    },
+                },
+                "bg-paylines": {
+                    config: {
+                        defaultNextComponent: "bg-scatter",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: [
+                            "WL",
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
+                        ],
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-respin": {
+                    config: {
+                        defaultNextComponent: "fg-triggerbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "respin",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        mainComponent: "fg-adde",
+                    },
+                },
+                "fg-replacee": {
+                    config: {
+                        defaultNextComponent: "fg-genreplacee",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "replaceReelWithMask",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "E",
+                        mask: "fg-bmmask",
+                        ignoreSymbols: ["OM", "MM", "BM"],
+                    },
+                },
+                "fg-chgbm": {
+                    config: {
+                        defaultNextComponent: "fg-nowlbranch",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgbmweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-nowlbranch.queue"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        jumpToComponent: "",
+                    },
+                },
+                "bg-scatter": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["SC"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 3,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "SC",
+                        winMulti: 1,
+                        jumpToComponent: "fg-start",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [10],
+                                strParams: ["fg-start.retriggerAddRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: true,
+                        respinComponent: "fg-start",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: {
+                            3: 10,
+                            4: 15,
+                            5: 20,
+                        },
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-collector": {
+                    config: {
+                        defaultNextComponent: "fg-cointrigger",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "collector",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbol: "",
+                        maxVal: 12,
+                        perLevelAwards: null,
+                        mapSPLevelAwards: {
+                            4: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [2],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                            8: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [3],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                            12: [
+                                {
+                                    awardType: "chgComponentConfigIntVal",
+                                    vals: [1],
+                                    strParams: ["fg-start.lastTriggerNum"],
+                                    componentVals: null,
+                                    onTriggerRespin: "",
+                                },
+                                {
+                                    awardType: "setComponentConfigIntVal",
+                                    vals: [10],
+                                    strParams: ["fg-symwins.winMulti"],
+                                    componentVals: null,
+                                    onTriggerRespin: "fg-start",
+                                },
+                            ],
+                        },
+                        isCycle: false,
+                    },
+                },
+                "bg-symwins": {
+                    config: {
+                        defaultNextComponent: "bg-paylines",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: ["OM"],
+                        type: "collector",
+                    },
+                },
+                "fg-triggermm": {
+                    config: {
+                        defaultNextComponent: "fg-triggerbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["MM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-respin",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: ["fg-triggermm.symbolNum"],
+                                onTriggerRespin: "",
+                            },
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-respin.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-cointrigger": {
+                    config: {
+                        defaultNextComponent: "fg-triggercollector",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["E"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-triggermm",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-triggercollector": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["MM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: ["BM"],
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: [
+                                    "fg-triggercollector.symbolNum",
+                                ],
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-triggere": {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["E"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-bmmask",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "fg-bmmask",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
+                },
+                "fg-symwins": {
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "symbolValWins",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        betType: "bet",
+                        winMulti: 1,
+                        symbols: ["MM", "BM"],
+                        type: "collector",
+                    },
+                },
+                "fg-genreplacee": {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: true,
+                        isAlwaysGen: false,
+                    },
+                },
+                "bg-chgom": {
+                    config: {
+                        defaultNextComponent: "bg-chgwl",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "bgchgomweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "bg-gensym",
+                    },
+                },
+                "fg-chgmm": {
+                    config: {
+                        defaultNextComponent: "fg-chgbm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgmmweight",
+                        maxNumber: 1,
+                        isAlwaysGen: false,
+                        controllers: [
+                            {
+                                awardType: "setComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-nowlbranch.queue"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
+                        ],
+                        jumpToComponent: "",
+                    },
+                },
+                "bg-spin": {
+                    config: {
+                        defaultNextComponent: "bg-chgom",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "weightReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSetWeight: "bgreelweight",
+                        isExpandReel: false,
+                    },
+                },
+                "fg-spin": {
+                    config: {
+                        defaultNextComponent: "fg-chgmm",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "basicReels",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        reelSet: "fg-reel1",
+                        isExpandReel: false,
+                        awards: null,
+                    },
+                },
+                "bg-gensym": {
+                    config: {
+                        defaultNextComponent: "bg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "bgcashweight",
+                        defaultVal: 0,
+                        isUseSource: false,
+                        isAlwaysGen: true,
+                    },
+                },
+                "fg-nowlbranch": {
+                    config: {
+                        defaultNextComponent: "fg-chgwl",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "queueBranch",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        jumpToComponent: "fg-gensym",
+                    },
+                },
+                "fg-chgwl": {
+                    config: {
+                        defaultNextComponent: "fg-gensym",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: ["E"],
+                        blankSymbol: "BN",
+                        weight: "fgchgwlweight",
+                        maxNumber: 0,
+                        isAlwaysGen: false,
+                        controllers: null,
+                        jumpToComponent: "",
+                    },
                 },
                 "fg-adde": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "chgSymbols",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "H1",
-                            "M1",
-                            "M2",
+                    config: {
+                        defaultNextComponent: "",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "chgSymbols",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        chgSymbolsType: "normal",
+                        symbols: [
                             "WL",
-                            "L1",
-                            "L2",
-                            "L3",
-                            "L4"
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
+                            "SC",
                         ],
-                        "blankSymbol": "BN",
-                        "weight": "changeweights",
-                        "controllers": [
+                        blankSymbol: "BN",
+                        weight: "fgaddeweight5",
+                        maxNumber: 0,
+                        isAlwaysGen: true,
+                        controllers: [
                             {
-                                "awardType": "setComponentConfigIntVal",
-                                "vals": [
-                                    3
-                                ],
-                                "strParams": [
-                                    "fg-start.lastRespinNum"
-                                ],
-                                "componentVals": null,
-                                "onTriggerRespin": ""
-                            }
+                                awardType: "chgComponentConfigIntVal",
+                                vals: [1],
+                                strParams: ["fg-respin.lastRespinNum"],
+                                componentVals: null,
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "jumpToComponent": "fg-cashwin"
-                    }
+                        jumpToComponent: "fg-genadde",
+                    },
                 },
-                "fg-reel": {
-                    "config": {
-                        "defaultNextComponent": "fg-cashweight",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "basicReels",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "reelSet": "reel0",
-                        "isExpandReel": false,
-                        "awards": null
-                    }
+                "fg-paylines": {
+                    config: {
+                        defaultNextComponent: "fg-collector",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "linesTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: [
+                            "WL",
+                            "A",
+                            "B",
+                            "C",
+                            "D",
+                            "E",
+                            "F",
+                            "G",
+                            "H",
+                            "J",
+                            "K",
+                        ],
+                        type: "lines",
+                        betType: "bet",
+                        symbolValsMulti: "",
+                        minNum: 0,
+                        wildSymbols: ["WL"],
+                        checkWinType: "left2right",
+                        winMulti: 1,
+                        jumpToComponent: "",
+                        forceToNext: false,
+                        awards: null,
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        piggyBankComponent: "",
+                        isAddRespinMode: false,
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
                 },
-                "bg-win": {
-                    "config": {
-                        "defaultNextComponent": "bg-respintrigger",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "linesTrigger",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "symbols": [
-                            "H1",
-                            "M1",
-                            "M2",
-                            "L1",
-                            "L2",
-                            "L3",
-                            "L4"
-                        ],
-                        "type": "lines",
-                        "betType": "bet",
-                        "symbolValsMulti": "",
-                        "minNum": 0,
-                        "wildSymbols": [
-                            "WL"
-                        ],
-                        "checkWinType": "left2right",
-                        "winMulti": 1,
-                        "jumpToComponent": "",
-                        "forceToNext": false,
-                        "awards": null,
-                        "symbolAwardsWeights": null,
-                        "targetMask": "",
-                        "isReverse": false,
-                        "piggyBankComponent": "",
-                        "isAddRespinMode": false,
-                        "respinNum": 0,
-                        "respinNumWeight": "",
-                        "respinNumWithScatterNum": null,
-                        "respinNumWeightWithScatterNum": null
-                    }
+                "fg-gensym": {
+                    config: {
+                        defaultNextComponent: "fg-paylines",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "genSymbolValsWithSymbol",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        type: "normal",
+                        symbols: ["E"],
+                        weight: "fgcashweight",
+                        defaultVal: 0,
+                        isUseSource: false,
+                        isAlwaysGen: true,
+                    },
                 },
-                "fg-cashwin": {
-                    "config": {
-                        "defaultNextComponent": "",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "symbolValWins",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "betType": "bet",
-                        "winMulti": 1,
-                        "symbols": [
-                            "Cash"
+                "fg-triggerbm": {
+                    config: {
+                        defaultNextComponent: "fg-symwins",
+                        tagRNG: null,
+                        initStrVals: null,
+                        useFileMapping: false,
+                        componentType: "scatterTrigger",
+                        targetScenes3: null,
+                        targetOtherScenes3: null,
+                        symbols: ["BM"],
+                        type: "countscatter",
+                        betType: "noPay",
+                        symbolValsMulti: "",
+                        minNum: 1,
+                        wildSymbols: null,
+                        posArea: null,
+                        countScatterPayAs: "",
+                        winMulti: 1,
+                        jumpToComponent: "fg-triggere",
+                        piggyBankComponent: "",
+                        forceToNext: false,
+                        awards: [
+                            {
+                                awardType: "chgComponentConfigIntVal",
+                                vals: null,
+                                strParams: ["fg-collector.valueNum"],
+                                componentVals: ["fg-triggerbm.symbolNum"],
+                                onTriggerRespin: "",
+                            },
                         ],
-                        "type": "collector"
-                    }
+                        symbolAwardsWeights: null,
+                        targetMask: "",
+                        isReverse: false,
+                        isAddRespinMode: false,
+                        respinComponent: "",
+                        respinNum: 0,
+                        respinNumWeight: "",
+                        respinNumWithScatterNum: null,
+                        respinNumWeightWithScatterNum: null,
+                    },
                 },
-                "fg-cashweight": {
-                    "config": {
-                        "defaultNextComponent": "fg-start",
-                        "tagRNG": null,
-                        "initStrVals": null,
-                        "useFileMapping": false,
-                        "componentType": "genSymbolValsWithSymbol",
-                        "targetScenes3": null,
-                        "targetOtherScenes3": null,
-                        "type": "normal",
-                        "symbols": [
-                            "Cash"
-                        ],
-                        "weight": "cashweights",
-                        "defaultVal": 0,
-                        "isUseSource": true,
-                        "isAlwaysGen": false
-                    }
-                }
             },
-            "Stats2": null
-        }
+            Stats2: null,
+        },
     };
     const msg = {
-        "msgid": "gamemoduleinfo",
-        "gamemodulename": "_y7ECQoRo6ZAWlaYpCqm0",
-        "gameid": 69053,
-        "gmi": {
-            "defaultScene": {
-                "values": [
+        msgid: "gamemoduleinfo",
+        gamemodulename: "ztUJjwPBn4Po2g0-LnTTO",
+        gameid: 69028,
+        gmi: {
+            defaultScene: {
+                values: [
                     {
-                        "values": [
-                            1,
-                            2,
-                            3,
-                            4
-                        ]
+                        values: [1, 2, 3],
                     },
                     {
-                        "values": [
-                            5,
-                            6,
-                            7,
-                            8
-                        ]
+                        values: [4, 6, 7],
                     },
                     {
-                        "values": [
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
+                        values: [1, 2, 3],
                     },
                     {
-                        "values": [
-                            3,
-                            4,
-                            5,
-                            6
-                        ]
+                        values: [8, 9, 10],
                     },
                     {
-                        "values": [
-                            4,
-                            5,
-                            6,
-                            7
-                        ]
-                    }
+                        values: [1, 2, 3],
+                    },
                 ],
-                "indexes": [],
-                "validRow": []
+                indexes: [],
+                validRow: [],
             },
-            "replyPlay": {
-                "randomNumbers": [
-                    78,
-                    76,
-                    34,
-                    91,
-                    25,
-                    1340,
-                    1062,
-                    29,
-                    1294,
-                    1480,
-                    7,
-                    12,
-                    92,
-                    60,
-                    39,
-                    88,
-                    522,
-                    19,
-                    552,
-                    6,
-                    2,
-                    11,
-                    18,
-                    8,
-                    20,
-                    11,
-                    6,
-                    3,
-                    2,
-                    0,
-                    0,
-                    3,
-                    7,
-                    10,
-                    7,
-                    8,
-                    11,
-                    9,
-                    5,
-                    2,
-                    17,
-                    7,
-                    0,
-                    6,
-                    9,
-                    1,
-                    8,
-                    0,
-                    10,
-                    10,
-                    4,
-                    2,
-                    3,
-                    9,
-                    9,
-                    0,
-                    14,
-                    11,
-                    0,
-                    8,
-                    19,
-                    11,
-                    0,
-                    3,
-                    7,
-                    7,
-                    3,
-                    4,
-                    8,
-                    15,
-                    5,
-                    1,
-                    16,
-                    0,
-                    0,
-                    7,
-                    4,
-                    6,
-                    13,
-                    14,
-                    6,
-                    9,
-                    13,
-                    3,
-                    12,
-                    4,
-                    14,
-                    13,
-                    2,
-                    12,
-                    5,
-                    11,
-                    17,
-                    4,
-                    19,
-                    6,
-                    17,
-                    20,
-                    9,
-                    15,
-                    10,
-                    15,
-                    13,
-                    15,
-                    3,
-                    5,
-                    14,
-                    19,
-                    2,
-                    17,
-                    6,
-                    3,
-                    5,
-                    14,
-                    3,
-                    19,
-                    0,
-                    15,
-                    20,
-                    1,
-                    4,
-                    5,
-                    13,
-                    15,
-                    12,
-                    20,
-                    14,
-                    0,
-                    12,
-                    17,
-                    3,
-                    10,
-                    5,
-                    11,
-                    20,
-                    1,
-                    10,
-                    16,
-                    12,
-                    5,
-                    7,
-                    11,
-                    18,
-                    2,
-                    10,
-                    10,
-                    20,
-                    18,
-                    10,
-                    2,
-                    1,
-                    10,
-                    18,
-                    15,
-                    14,
-                    0
+            replyPlay: {
+                randomNumbers: [
+                    1786, 18, 29, 58, 32, 46, 12, 14, 617, 33, 29, 13, 6, 0, 19,
+                    1, 0, 9, 2, 6, 1212, 4027, 23, 28, 22, 3, 13, 4, 19, 19, 17,
+                    6, 8, 9, 10, 0, 9, 1, 4, 5, 8, 15, 2845, 980, 1772, 2512,
+                    1817, 12, 14, 7, 4, 4, 13, 3, 8, 1, 1, 13, 2, 16, 11, 2732,
+                    1249, 3205, 25, 10, 23, 17, 11, 20, 3, 20, 1885, 2563, 3545,
+                    3, 4, 0, 0, 3, 0, 1, 4, 2, 0, 4471, 3420, 2, 0, 0, 2, 4, 0,
+                    0, 4, 4723, 2062, 1, 4, 0, 1, 1, 1, 508, 0, 4, 2, 2, 4, 735,
+                    1848, 3, 0, 4, 2653, 0, 2, 195, 1751, 3, 0, 20, 5, 4, 20, 1,
+                    0, 2, 16, 20, 1177, 4876, 2617, 747, 1, 1, 3, 1, 2, 1, 0, 1,
+                    4, 3183, 4, 4, 1, 0, 3, 0, 0, 2, 2846, 4575, 0, 4, 1, 0, 4,
+                    3, 3686, 4765, 1, 3, 2, 2, 985, 4742, 3269, 1043, 22, 23,
+                    14, 2, 21, 12, 15, 20, 18, 9, 8, 17, 4699, 1634, 475, 3497,
+                    2, 3, 4, 2, 4, 3, 2, 0, 0, 0, 3880, 1181, 1, 4, 0, 1, 4, 0,
+                    4, 2, 1190, 3557, 1541, 3, 3, 1, 2, 2, 8, 1, 16, 3, 8, 5, 8,
+                    13, 14, 9, 17, 4, 2, 5, 9, 17, 12, 139, 1153, 3055, 2237,
+                    13, 23, 28, 14, 0, 7, 15, 2, 1, 0, 14, 8, 20, 18, 561, 4785,
+                    9, 25, 1, 11, 22, 7, 21, 27, 6, 9, 6, 19, 8, 1, 3, 3, 17, 5,
+                    15, 11, 15, 11, 4797, 3412, 2945, 2814, 17, 10, 17, 14, 20,
+                    19, 12, 18, 2570,
                 ],
-                "results": [
+                results: [
                     {
-                        "coinWin": 24,
-                        "cashWin": 1200,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                5,
-                                                8,
-                                                3,
-                                                8
-                                            ]
+                                            values: [5, 2, 4],
                                         },
                                         {
-                                            "values": [
-                                                7,
-                                                3,
-                                                8,
-                                                7
-                                            ]
+                                            values: [7, 4, 9],
                                         },
                                         {
-                                            "values": [
-                                                3,
-                                                2,
-                                                5,
-                                                6
-                                            ]
+                                            values: [6, 14, 8],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                3,
-                                                5,
-                                                7
-                                            ]
+                                            values: [3, 6, 14],
                                         },
                                         {
-                                            "values": [
-                                                2,
-                                                4,
-                                                8,
-                                                6
-                                            ]
-                                        }
+                                            values: [8, 14, 9],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                5,
-                                                7,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                2,
-                                                1,
-                                                5,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                4,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
                             ],
-                            "otherScenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                0,
-                                                30,
-                                                0,
-                                                20
-                                            ]
+                                            values: [20, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                30,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                40,
-                                                0
-                                            ]
-                                        }
+                                            values: [0, 0, 0],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
                             ],
-                            "results": [
+                            results: [
                                 {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        1,
-                                        2,
-                                        0,
-                                        3,
-                                        1
-                                    ],
-                                    "type": 2,
-                                    "lineIndex": 7,
-                                    "symbol": 3,
-                                    "mul": 24,
-                                    "coinWin": 24,
-                                    "cashWin": 1200,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 4,
-                                    "value": 0
+                                    pos: [2, 1, 3, 2, 4, 1],
+                                    type: 9,
+                                    lineIndex: -1,
+                                    symbol: 14,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 10,
                                 },
-                                {
-                                    "pos": [
-                                        0,
-                                        1,
-                                        0,
-                                        3,
-                                        1,
-                                        2,
-                                        3,
-                                        0,
-                                        4,
-                                        2
-                                    ],
-                                    "type": 5,
-                                    "lineIndex": -1,
-                                    "symbol": 8,
-                                    "mul": 0,
-                                    "coinWin": 0,
-                                    "cashWin": 0,
-                                    "otherMul": 0,
-                                    "wilds": 0,
-                                    "symbolNums": 5,
-                                    "value": 0
-                                }
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "bg-spin",
-                                    "bg-cashweight",
-                                    "bg-solarweights",
-                                    "bg-win",
-                                    "bg-respintrigger",
-                                    "fg-reel",
-                                    "fg-cashweight"
+                                    "bg-gensym",
+                                    "bg-scatter",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "bg-win": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 24,
-                                            "cashWin": 1200,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "bg-scatter": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "nextComponent": "",
-                                        "symbolNum": 4,
-                                        "wildNum": 0,
-                                        "respinNum": 0,
-                                        "wins": 24,
-                                        "winMulti": 1,
-                                        "@type": "type.googleapis.com/sgc7pb.LinesTriggerData"
-                                    },
-                                    "bg-respintrigger": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                1
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "nextComponent": "fg-reel",
-                                        "symbolNum": 5,
-                                        "wildNum": 0,
-                                        "respinNum": 3,
-                                        "wins": 0,
-                                        "winMulti": 1,
-                                        "@type": "type.googleapis.com/sgc7pb.ScatterTriggerData"
-                                    },
-                                    "fg-reel": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    },
-                                    "fg-cashweight": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [
-                                                1
-                                            ],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        nextComponent: "fg-start",
+                                        symbolNum: 3,
+                                        wildNum: 0,
+                                        respinNum: 10,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
                                     },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 3,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 0,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 0,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 10,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 0,
+                                        curAddRespinNum: 10,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "bg-spin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                0
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        reelSetIndex: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.WeightReelsData",
                                     },
-                                    "bg-cashweight": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [
-                                                0
-                                            ],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "bg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "bg-solarweights": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "value": "normal",
-                                        "@type": "type.googleapis.com/sgc7pb.WeightBranchData"
-                                    }
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 150,
-                        "cashWin": 7500,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 30,
+                        cashWin: 150,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [6, 7, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
+                                            values: [6, 10, 9],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                5,
-                                                7,
-                                                4
-                                            ]
+                                            values: [10, 5, 6],
                                         },
                                         {
-                                            "values": [
-                                                2,
-                                                1,
-                                                5,
-                                                7
-                                            ]
+                                            values: [6, 5, 10],
                                         },
                                         {
-                                            "values": [
-                                                4,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
+                                            values: [8, 6, 10],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 150, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [0, 2, 1, 1, 2, 0],
+                                    type: 2,
+                                    lineIndex: 4,
+                                    symbol: 10,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 25,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
                                 },
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                5,
-                                                7,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                2,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                4,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [
+                                    pos: [0, 0, 1, 0, 2, 2, 3, 0],
+                                    type: 2,
+                                    lineIndex: 17,
+                                    symbol: 6,
+                                    mul: 25,
+                                    coinWin: 25,
+                                    cashWin: 125,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
+                                },
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    pos: [2, 1, 3, 1],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 2,
+                                    value: 0,
+                                },
                             ],
-                            "results": [
-                                {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        0,
-                                        2,
-                                        0
-                                    ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 5,
-                                    "coinWin": 150,
-                                    "cashWin": 7500,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 3,
-                                    "value": 0
-                                }
-                            ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-paylines",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-paylines": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0, 1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 30,
+                                            cashWin: 150,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "",
+                                        symbolNum: 7,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 30,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.LinesTriggerData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [2],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 2,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 9,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 1,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [7, 8, 10],
+                                        },
+                                        {
+                                            values: [9, 6, 10],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 2],
+                                        },
+                                        {
+                                            values: [6, 10, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [50, 20, 20],
+                                        },
+                                        {
+                                            values: [50, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [2, 0, 2, 1, 2, 2, 3, 0, 4, 2],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 5,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-start",
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 8,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 2,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 5,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 8, 1],
+                                        },
+                                        {
+                                            values: [7, 5, 9],
+                                        },
+                                        {
+                                            values: [4, 9, 10],
+                                        },
+                                        {
+                                            values: [4, 2, 6],
+                                        },
+                                        {
+                                            values: [7, 8, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [0, 0, 1, 1, 4, 2],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-start",
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 7,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 3,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 3,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 6, 2],
+                                        },
+                                        {
+                                            values: [7, 9, 10],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 6],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 6, 2],
+                                        },
+                                        {
+                                            values: [7, 9, 10],
+                                        },
+                                        {
+                                            values: [12, 5, 4],
+                                        },
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 6],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 6, 2],
+                                        },
+                                        {
+                                            values: [7, 9, 10],
+                                        },
+                                        {
+                                            values: [12, 5, 4],
+                                        },
+                                        {
+                                            values: [2, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 6],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [2, 1, 3, 2, 4, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [2, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-start",
+                                    "fg-spin",
+                                    "fg-chgmm",
+                                    "fg-chgbm",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                    "fg-triggermm",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-chgmm": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-triggermm": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-respin",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-chgbm": {
+                                        basicComponentData: {
+                                            usedScenes: [2],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 3,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 0,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 6, 2],
+                                        },
+                                        {
+                                            values: [7, 9, 10],
+                                        },
+                                        {
+                                            values: [12, 5, 4],
+                                        },
+                                        {
+                                            values: [2, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 6],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 5, 2],
+                                        },
+                                        {
+                                            values: [7, 9, 10],
+                                        },
+                                        {
+                                            values: [12, 5, 4],
+                                        },
+                                        {
+                                            values: [5, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 4, 6],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 200, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
                                     "fg-adde",
-                                    "fg-cashwin"
+                                    "fg-genadde",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 5,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 1,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 150,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 1,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "fg-cashwin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 150,
-                                            "cashWin": 7500,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "wins": 150,
-                                        "symbolNum": 3,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
-                                    }
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 240,
-                        "cashWin": 12000,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
+                                            values: [7, 9, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                5,
-                                                7,
-                                                4
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                2,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                4,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
+                                            values: [5, 4, 6],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
+                                            values: [7, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                4
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
+                                            values: [5, 4, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
+                                            values: [0, 200, 0],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 20, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [50, 0, 50],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
+                                            values: [100, 0, 0],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "results": [
+                                    indexes: [],
+                                    validRow: [],
+                                },
                                 {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        0,
-                                        2,
-                                        0
+                                    values: [
+                                        {
+                                            values: [0, 200, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 0, 20],
+                                        },
                                     ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 8,
-                                    "coinWin": 240,
-                                    "cashWin": 12000,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 3,
-                                    "value": 0
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start",
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
                                     "fg-adde",
-                                    "fg-cashwin"
+                                    "fg-genadde",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
                                     },
-                                    "fg-cashwin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 390,
-                                            "cashWin": 19500,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "wins": 240,
-                                        "symbolNum": 3,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 2,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 7,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 2,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 390,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 330,
-                        "cashWin": 16500,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                5,
-                                                4
-                                            ]
+                                            values: [7, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                4
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                4,
-                                                7
-                                            ]
-                                        }
+                                            values: [5, 4, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [7, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                4,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 4, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
+                                            values: [0, 200, 0],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 0, 250],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 20, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [50, 0, 50],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
+                                            values: [100, 0, 20],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "results": [
+                                    indexes: [],
+                                    validRow: [],
+                                },
                                 {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        0,
-                                        2,
-                                        0
+                                    values: [
+                                        {
+                                            values: [0, 200, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 0, 20],
+                                        },
                                     ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 11,
-                                    "coinWin": 330,
-                                    "cashWin": 16500,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 3,
-                                    "value": 0
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start",
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
                                     "fg-adde",
-                                    "fg-cashwin"
+                                    "fg-genadde",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-cashwin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 720,
-                                            "cashWin": 36000,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "wins": 330,
-                                        "symbolNum": 3,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
                                     },
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 9,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 3,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 720,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 3,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 360,
-                        "cashWin": 18000,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [7, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                4,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 4, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [5, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 5, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
+                                            values: [0, 200, 20],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 0, 250],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 20, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [50, 0, 50],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
+                                            values: [100, 0, 20],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "results": [
+                                    indexes: [],
+                                    validRow: [],
+                                },
                                 {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        0,
-                                        2,
-                                        0
+                                    values: [
+                                        {
+                                            values: [0, 200, 20],
+                                        },
+                                        {
+                                            values: [20, 0, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 20, 20],
+                                        },
                                     ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 12,
-                                    "coinWin": 360,
-                                    "cashWin": 18000,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 3,
-                                    "value": 0
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start",
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
                                     "fg-adde",
-                                    "fg-cashwin"
+                                    "fg-genadde",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 11,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 4,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1080,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "fg-cashwin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 1080,
-                                            "cashWin": 54000,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "wins": 360,
-                                        "symbolNum": 3,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
-                                    }
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 420,
-                        "cashWin": 21000,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                0,
-                                                8,
-                                                2
-                                            ]
+                                            values: [10, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [5, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [12, 5, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 5, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [10, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [5, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [12, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 13, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 5, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                10,
-                                                0
-                                            ]
+                                            values: [0, 200, 20],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [20, 0, 250],
                                         },
                                         {
-                                            "values": [
-                                                10,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [0, 20, 0],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
+                                            values: [50, 0, 50],
                                         },
                                         {
-                                            "values": [
-                                                0,
-                                                0,
-                                                0,
-                                                0
-                                            ]
-                                        }
+                                            values: [100, 20, 20],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "results": [
+                                    indexes: [],
+                                    validRow: [],
+                                },
                                 {
-                                    "pos": [
-                                        0,
-                                        2,
-                                        1,
-                                        0,
-                                        2,
-                                        0
+                                    values: [
+                                        {
+                                            values: [0, 200, 20],
+                                        },
+                                        {
+                                            values: [20, 0, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 50],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 20, 20],
+                                        },
                                     ],
-                                    "type": 8,
-                                    "lineIndex": -1,
-                                    "symbol": -1,
-                                    "mul": 14,
-                                    "coinWin": 420,
-                                    "cashWin": 21000,
-                                    "otherMul": 1,
-                                    "wilds": 0,
-                                    "symbolNums": 3,
-                                    "value": 0
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start",
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
                                     "fg-adde",
-                                    "fg-cashwin"
+                                    "fg-genadde",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-cashwin": {
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [
-                                                0
-                                            ],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 1500,
-                                            "cashWin": 75000,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "wins": 420,
-                                        "symbolNum": 3,
-                                        "collectorNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.SymbolValWinsData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 13,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 5,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 1680,
+                        cashWin: 8400,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [12, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [10, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [12, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [12, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 13, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 200, 20],
+                                        },
+                                        {
+                                            values: [20, 0, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 50],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 20, 20],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [20, 200, 20],
+                                        },
+                                        {
+                                            values: [20, 20, 250],
+                                        },
+                                        {
+                                            values: [0, 20, 50],
+                                        },
+                                        {
+                                            values: [50, 0, 50],
+                                        },
+                                        {
+                                            values: [100, 20, 20],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [3, 1],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 13,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        0, 1, 0, 2, 1, 0, 1, 2, 2, 1, 2, 2, 3,
+                                        0, 3, 2, 4, 0, 4, 1, 4, 2,
+                                    ],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 11,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        2, 0, 0, 0, 0, 1, 0, 2, 1, 0, 1, 1, 1,
+                                        2, 2, 1, 2, 2, 3, 0, 3, 2, 4, 0, 4, 1,
+                                        4, 2,
+                                    ],
+                                    type: 8,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 1,
+                                    coinWin: 840,
+                                    cashWin: 4200,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 13,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        3, 1, 0, 0, 0, 1, 0, 2, 1, 0, 1, 1, 1,
+                                        2, 2, 1, 2, 2, 3, 0, 3, 2, 4, 0, 4, 1,
+                                        4, 2,
+                                    ],
+                                    type: 8,
+                                    lineIndex: -1,
+                                    symbol: 13,
+                                    mul: 1,
+                                    coinWin: 840,
+                                    cashWin: 4200,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 13,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-triggerbm",
+                                    "fg-triggere",
+                                    "fg-bmmask",
+                                    "fg-replacee",
+                                    "fg-genreplacee",
+                                    "fg-symwins",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-triggerbm": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggere",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-genreplacee": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 0,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-triggere": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-bmmask",
+                                        symbolNum: 11,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-replacee": {
+                                        basicComponentData: {
+                                            usedScenes: [2],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-symwins": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [2, 3],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 1680,
+                                            cashWin: 8400,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        wins: 1680,
+                                        symbolNum: 13,
+                                        collectorNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.SymbolValWinsData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 6,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 4,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 55,
+                        cashWin: 275,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [8, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [8, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [2, 6, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [7, 8, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [8, 12, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 6, 5],
+                                        },
+                                        {
+                                            values: [7, 8, 5],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [8, 12, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 6, 5],
+                                        },
+                                        {
+                                            values: [7, 8, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 12,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 6,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [0, 0, 20],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [0, 0, 500],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
+                                            values: [0, 0, 50],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [0, 0, 20],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [0, 0, 0],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 11,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 7,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            results: [
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    pos: [0, 0, 1, 0, 2, 0],
+                                    type: 2,
+                                    lineIndex: 1,
+                                    symbol: 8,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 25,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 3,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [0, 2, 1, 2, 2, 2, 3, 2],
+                                    type: 2,
+                                    lineIndex: 2,
+                                    symbol: 5,
+                                    mul: 50,
+                                    coinWin: 50,
+                                    cashWin: 250,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [0, 2, 1, 2, 2, 2, 3, 2],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [0, 1],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 10,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 8,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 9,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 9,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 8,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 10,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 7,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 11,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                4,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                7,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
-                                    "fg-adde"
+                                    "fg-spin",
+                                    "fg-chgmm",
+                                    "fg-chgbm",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-paylines",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                    "fg-triggermm",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 9,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 12,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 5,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 2,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [2],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 4,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-chgmm": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-chgbm": {
+                                        basicComponentData: {
+                                            usedScenes: [2],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-paylines": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0, 1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 55,
+                                            cashWin: 275,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "",
+                                        symbolNum: 7,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 55,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.LinesTriggerData",
+                                    },
+                                    "fg-triggermm": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [3],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-respin",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [8, 12, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 6, 5],
+                                        },
+                                        {
+                                            values: [7, 8, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [8, 12, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 6, 5],
+                                        },
+                                        {
+                                            values: [7, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-genadde",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 2,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 7,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 8,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 13,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        lastRespinNum: 5,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 12, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                4
-                                            ]
+                                            values: [8, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [2, 6, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [7, 5, 13],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [5, 12, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
+                                            values: [5, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 9, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [2, 6, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [7, 5, 13],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 20],
+                                        },
+                                        {
+                                            values: [200, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-genadde",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-collector": {
+                                        val: 2,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 8,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 5,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 12, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [8, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 6, 5],
+                                        },
+                                        {
+                                            values: [7, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 12, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [7, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 20],
+                                        },
+                                        {
+                                            values: [200, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 0, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 20],
+                                        },
+                                        {
+                                            values: [200, 0, 500],
+                                        },
+                                        {
+                                            values: [100, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 250, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-genadde",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 9,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 5,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 2,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 3160,
+                        cashWin: 15800,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 12, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [7, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 12, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [5, 9, 5],
+                                        },
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [7, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [5, 12, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 13],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 20],
+                                        },
+                                        {
+                                            values: [200, 0, 500],
+                                        },
+                                        {
+                                            values: [100, 0, 50],
+                                        },
+                                        {
+                                            values: [0, 250, 20],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [50, 0, 20],
+                                        },
+                                        {
+                                            values: [200, 20, 500],
+                                        },
+                                        {
+                                            values: [100, 250, 50],
+                                        },
+                                        {
+                                            values: [50, 250, 20],
+                                        },
+                                        {
+                                            values: [20, 50, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [4, 2],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 13,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        0, 0, 0, 2, 1, 0, 1, 2, 2, 0, 2, 2, 3,
+                                        1, 3, 2, 4, 1,
+                                    ],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 9,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        0, 1, 0, 0, 0, 2, 1, 0, 1, 1, 1, 2, 2,
+                                        0, 2, 1, 2, 2, 3, 0, 3, 1, 3, 2, 4, 0,
+                                        4, 1,
+                                    ],
+                                    type: 8,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 1,
+                                    coinWin: 1580,
+                                    cashWin: 7900,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 13,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [
+                                        4, 2, 0, 0, 0, 2, 1, 0, 1, 1, 1, 2, 2,
+                                        0, 2, 1, 2, 2, 3, 0, 3, 1, 3, 2, 4, 0,
+                                        4, 1,
+                                    ],
+                                    type: 8,
+                                    lineIndex: -1,
+                                    symbol: 13,
+                                    mul: 1,
+                                    coinWin: 1580,
+                                    cashWin: 7900,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 13,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-triggerbm",
+                                    "fg-triggere",
+                                    "fg-bmmask",
+                                    "fg-replacee",
+                                    "fg-genreplacee",
+                                    "fg-symwins",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-triggerbm": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggere",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-replacee": {
+                                        basicComponentData: {
+                                            usedScenes: [2],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genreplacee": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 5,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 5,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-collector": {
+                                        val: 2,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 10,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-triggere": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-bmmask",
+                                        symbolNum: 9,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-symwins": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [2, 3],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 4840,
+                                            cashWin: 24200,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        wins: 3160,
+                                        symbolNum: 13,
+                                        collectorNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.SymbolValWinsData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 7, 8],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [5, 6, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [9, 7, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 7, 8],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 6, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [9, 7, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [1, 0, 1, 1, 3, 0, 3, 1],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [2, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
-                                    "fg-adde"
+                                    "fg-spin",
+                                    "fg-chgmm",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                    "fg-triggermm",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-chgmm": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 10,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 14,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 4,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 10,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 4,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-triggermm": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [1],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-respin",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 4,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 7, 8],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 6, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [9, 7, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 7, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 5, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [9, 7, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 100],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-genadde",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 4,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 4,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 11,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                            },
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
+                    },
+                    {
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 7, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 5, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 4],
+                                        },
+                                        {
+                                            values: [9, 7, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 5, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [9, 5, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 100],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 20, 100],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 100],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-genadde",
+                                ],
+                                respinComponents: ["fg-start", "fg-respin"],
+                                mapComponents: {
+                                    "fg-genadde": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [1],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 4,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 4,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 12,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
                                     "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-respin",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 600,
+                        cashWin: 3000,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [2, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
+                                            values: [5, 5, 9],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [12, 5, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [9, 5, 8],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [2, 5, 5],
+                                        },
+                                        {
+                                            values: [5, 5, 9],
+                                        },
+                                        {
+                                            values: [12, 5, 2],
+                                        },
+                                        {
+                                            values: [5, 5, 5],
+                                        },
+                                        {
+                                            values: [9, 5, 8],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 20, 100],
+                                        },
+                                        {
+                                            values: [250, 20, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                        {
+                                            values: [20, 50, 100],
+                                        },
+                                        {
+                                            values: [0, 20, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [
+                                        2, 0, 0, 1, 0, 2, 1, 0, 1, 1, 2, 1, 3,
+                                        0, 3, 1, 3, 2, 4, 1,
+                                    ],
+                                    type: 8,
+                                    lineIndex: -1,
+                                    symbol: 12,
+                                    mul: 1,
+                                    coinWin: 600,
+                                    cashWin: 3000,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 9,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-respin",
+                                    "fg-adde",
+                                    "fg-symwins",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 13,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-adde": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-symwins": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 5440,
+                                            cashWin: 27200,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        wins: 600,
+                                        symbolNum: 9,
+                                        collectorNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.SymbolValWinsData",
+                                    },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 9,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 15,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        lastRespinNum: 4,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 6,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-collector": {
+                                        val: 4,
+                                        newCollector: 2,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-respin",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 4, 3],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
+                                            values: [9, 5, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [2, 8, 7],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [5, 4, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                7,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 2, 3],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    indexes: [],
+                                    validRow: [],
                                 },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 20, 20],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 0],
+                                        },
+                                        {
+                                            values: [20, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                            ],
+                            results: [
+                                {
+                                    pos: [1, 1, 1, 2, 3, 0, 4, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
+                                },
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
-                                    "fg-adde"
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 11,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 16,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 13,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
-                                    "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 10,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 17,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        lastRespinNum: 3,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 7,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 5,
+                                        newCollector: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 4,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 15,
+                        cashWin: 75,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 1, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
+                                            values: [5, 5, 9],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [5, 6, 2],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [7, 1, 3],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [8, 6, 10],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
+                                {
+                                    values: [
+                                        {
+                                            values: [8, 1, 10],
+                                        },
+                                        {
+                                            values: [5, 0, 9],
+                                        },
+                                        {
+                                            values: [5, 6, 2],
+                                        },
+                                        {
+                                            values: [7, 1, 3],
+                                        },
+                                        {
+                                            values: [8, 6, 10],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 9,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 18,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
+                                            values: [20, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [500, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [0, 0, 0],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 8,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 19,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            results: [
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    pos: [0, 1, 1, 1],
+                                    type: 2,
+                                    lineIndex: 0,
+                                    symbol: 1,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 25,
+                                    otherMul: 1,
+                                    wilds: 1,
+                                    symbolNums: 2,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [0, 1, 1, 1],
+                                    type: 2,
+                                    lineIndex: 15,
+                                    symbol: 1,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 25,
+                                    otherMul: 1,
+                                    wilds: 1,
+                                    symbolNums: 2,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [0, 1, 1, 1],
+                                    type: 2,
+                                    lineIndex: 16,
+                                    symbol: 1,
+                                    mul: 5,
+                                    coinWin: 5,
+                                    cashWin: 25,
+                                    otherMul: 1,
+                                    wilds: 1,
+                                    symbolNums: 2,
+                                    value: 0,
+                                },
+                                {
+                                    pos: [1, 0, 2, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 2,
+                                    value: 0,
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 7,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 20,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 6,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 21,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 5,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 22,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 4,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 23,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                4,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
-                                    "fg-adde"
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-chgwl",
+                                    "fg-gensym",
+                                    "fg-paylines",
+                                    "fg-collector",
+                                    "fg-cointrigger",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 6,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 24,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 13,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
                                     },
-                                    "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-chgwl": {
+                                        basicComponentData: {
+                                            usedScenes: [1],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 6,
+                                        newCollector: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [3],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 2,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
                                     "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 5,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 25,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        lastRespinNum: 2,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 8,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-paylines": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0, 1, 2],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 15,
+                                            cashWin: 75,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "",
+                                        symbolNum: 6,
+                                        wildNum: 3,
+                                        respinNum: 0,
+                                        wins: 15,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.LinesTriggerData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 100,
+                        cashWin: 500,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [4, 3, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [9, 3, 7],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [2, 4, 3],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [1, 3, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [7, 8, 6],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 4,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 26,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            otherScenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
+                                            values: [0, 0, 0],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [0, 0, 0],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 3,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 27,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                            results: [
                                 {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                7
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
+                                    pos: [0, 1, 1, 1, 2, 2, 3, 1],
+                                    type: 2,
+                                    lineIndex: 16,
+                                    symbol: 3,
+                                    mul: 100,
+                                    coinWin: 100,
+                                    cashWin: 500,
+                                    otherMul: 1,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
                                 },
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
                                     "fg-start",
-                                    "fg-adde"
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-paylines",
+                                    "fg-collector",
                                 ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "lastRespinNum": 5,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 28,
-                                        "curAddRespinNum": 3,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
                                     },
-                                    "fg-adde": {
-                                        "basicComponentData": {
-                                            "usedScenes": [
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1,
-                                                1
-                                            ],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [
-                                                0
-                                            ],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                                    "fg-paylines": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 100,
+                                            cashWin: 500,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
                                         },
-                                        "@type": "type.googleapis.com/sgc7pb.BasicComponentData"
-                                    }
+                                        nextComponent: "",
+                                        symbolNum: 4,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 100,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.LinesTriggerData",
+                                    },
+                                    "fg-collector": {
+                                        val: 6,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 13,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 1,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 9,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [6, 8, 4],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [1, 7, 5],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [3, 5, 6],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [6, 5, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [2, 3, 5],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
                                         },
-                                        "lastRespinNum": 4,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 29,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        {
+                                            values: [0, 0, 500],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 50, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 50],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                            ],
+                            results: [
+                                {
+                                    pos: [1, 2, 2, 1, 3, 1, 4, 2],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 4,
+                                    value: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-start",
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                ],
+                                respinComponents: ["fg-start"],
+                                mapComponents: {
+                                    "fg-bmmask": {
+                                        vals: [true, true, true, true, true],
+                                        newVals: [
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                            false,
+                                        ],
+                                        basicComponentData: null,
+                                        num: 5,
+                                        newChged: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.MaskData",
+                                    },
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 10,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 1,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 6,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 4,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                    "fg-respin": {
+                                        triggerRespinNum: [],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 13,
+                                        curAddRespinNum: 0,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 0,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "fg-start",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
                     {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
+                        coinWin: 0,
+                        cashWin: 0,
+                        clientData: {
+                            scenes: [
                                 {
-                                    "values": [
+                                    values: [
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 9, 6],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [7, 9, 10],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [8, 7, 3],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
+                                            values: [7, 1, 3],
                                         },
                                         {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
+                                            values: [5, 9, 7],
+                                        },
                                     ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
+                                    indexes: [],
+                                    validRow: [],
+                                },
                             ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
+                            otherScenes: [
+                                {
+                                    values: [
+                                        {
+                                            values: [0, 0, 0],
                                         },
-                                        "lastRespinNum": 3,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 30,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [0, 0, 0],
+                                        },
+                                        {
+                                            values: [50, 0, 0],
+                                        },
+                                    ],
+                                    indexes: [],
+                                    validRow: [],
                                 },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
+                            ],
+                            results: [
+                                {
+                                    pos: [4, 0],
+                                    type: 5,
+                                    lineIndex: -1,
+                                    symbol: 5,
+                                    mul: 0,
+                                    coinWin: 0,
+                                    cashWin: 0,
+                                    otherMul: 0,
+                                    wilds: 0,
+                                    symbolNums: 1,
+                                    value: 0,
                                 },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
+                            ],
+                            mulPos: [],
+                            prizeScenes: [],
+                            curGameMod: "basic",
+                            curGameModParam: {
+                                historyComponents: [
+                                    "fg-start",
+                                    "fg-spin",
+                                    "fg-nowlbranch",
+                                    "fg-gensym",
+                                    "fg-collector",
+                                    "fg-cointrigger",
+                                ],
+                                respinComponents: [],
+                                mapComponents: {
+                                    "fg-start": {
+                                        triggerRespinNum: [1],
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        lastRespinNum: 0,
+                                        totalRespinNum: 0,
+                                        curRespinNum: 11,
+                                        curAddRespinNum: 1,
+                                        totalCoinWin: 0,
+                                        totalCashWin: 0,
+                                        retriggerAddRespinNum: 10,
+                                        lastTriggerNum: 0,
+                                        curTriggerNum: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.RespinData",
+                                    },
+                                    "fg-spin": {
+                                        basicComponentData: {
+                                            usedScenes: [0],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-nowlbranch": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        queue: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                    },
+                                    "fg-gensym": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [0],
+                                            usedResults: [],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [0],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                    },
+                                    "fg-collector": {
+                                        val: 6,
+                                        newCollector: 0,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                    },
+                                    "fg-cointrigger": {
+                                        basicComponentData: {
+                                            usedScenes: [],
+                                            usedOtherScenes: [],
+                                            usedResults: [0],
+                                            usedPrizeScenes: [],
+                                            srcScenes: [],
+                                            coinWin: 0,
+                                            cashWin: 0,
+                                            targetScene: 0,
+                                            runIndex: 0,
+                                            output: 0,
+                                            strOutput: "",
+                                        },
+                                        nextComponent: "fg-triggermm",
+                                        symbolNum: 1,
+                                        wildNum: 0,
+                                        respinNum: 0,
+                                        wins: 0,
+                                        winMulti: 1,
+                                        "@type":
+                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                    },
+                                },
+                                mapVals: {
+                                    1: 5,
+                                    2: 3,
+                                    6: 20,
+                                    7: 0,
+                                },
+                                mapStrVals: {},
+                                firstComponent: "fg-start",
+                                nextStepFirstComponent: "",
+                                "@type": "type.googleapis.com/sgc7pb.GameParam",
                             },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
+                            nextGameMod: "basic",
+                            curIndex: 0,
+                            parentIndex: 0,
+                            modType: "",
+                            prizeCoinWin: 0,
+                            prizeCashWin: 0,
+                            jackpotCoinWin: 0,
+                            jackpotCashWin: 0,
+                            jackpotType: 0,
+                        },
                     },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 2,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 31,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [
-                                    "fg-start"
-                                ],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 1,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 32,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    },
-                    {
-                        "coinWin": 0,
-                        "cashWin": 0,
-                        "clientData": {
-                            "scenes": [
-                                {
-                                    "values": [
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        },
-                                        {
-                                            "values": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                            ]
-                                        }
-                                    ],
-                                    "indexes": [],
-                                    "validRow": []
-                                }
-                            ],
-                            "otherScenes": [],
-                            "results": [],
-                            "mulPos": [],
-                            "prizeScenes": [],
-                            "curGameMod": "basic",
-                            "curGameModParam": {
-                                "historyComponents": [
-                                    "fg-start"
-                                ],
-                                "respinComponents": [],
-                                "mapComponents": {
-                                    "fg-start": {
-                                        "triggerRespinNum": [],
-                                        "basicComponentData": {
-                                            "usedScenes": [],
-                                            "usedOtherScenes": [],
-                                            "usedResults": [],
-                                            "usedPrizeScenes": [],
-                                            "srcScenes": [],
-                                            "coinWin": 0,
-                                            "cashWin": 0,
-                                            "targetScene": 0,
-                                            "runIndex": 0
-                                        },
-                                        "lastRespinNum": 0,
-                                        "totalRespinNum": 0,
-                                        "curRespinNum": 33,
-                                        "curAddRespinNum": 0,
-                                        "totalCoinWin": 1500,
-                                        "totalCashWin": 0,
-                                        "retriggerAddRespinNum": 0,
-                                        "lastTriggerNum": 0,
-                                        "curTriggerNum": 0,
-                                        "@type": "type.googleapis.com/sgc7pb.RespinData"
-                                    }
-                                },
-                                "mapVals": {
-                                    "1": 5,
-                                    "2": 4,
-                                    "6": 20,
-                                    "7": 0
-                                },
-                                "mapStrVals": {},
-                                "firstComponent": "fg-start",
-                                "nextStepFirstComponent": "",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam"
-                            },
-                            "nextGameMod": "basic",
-                            "curIndex": 0,
-                            "parentIndex": 0,
-                            "modType": "",
-                            "prizeCoinWin": 0,
-                            "prizeCashWin": 0,
-                            "jackpotCoinWin": 0,
-                            "jackpotCashWin": 0,
-                            "jackpotType": 0
-                        }
-                    }
                 ],
-                "nextCommands": [],
-                "nextCommandParams": [],
-                "playerState": {
-                    "public": {
-                        "json": "{\"curgamemod\":\"basic\",\"nextm\":0}",
-                        "@type": "type.googleapis.com/sgc7pb.BasicPlayerPublicState2"
-                    }
+                nextCommands: [],
+                nextCommandParams: [],
+                playerState: {
+                    public: {
+                        json: '{"curgamemod":"basic","nextm":0}',
+                        "@type":
+                            "type.googleapis.com/sgc7pb.BasicPlayerPublicState2",
+                    },
                 },
-                "finished": true,
-                "stake": null,
-                "playStartTime": 1717579694610
+                finished: true,
+                stake: null,
+                playStartTime: 1721896523182,
             },
-            "playIndex": -1,
-            "bet": 50,
-            "lines": 10,
-            "totalwin": 76200,
-            "playwin": 0,
-            "maxWinLimit": 0
-        }
+            playIndex: -1,
+            bet: 5,
+            lines: 20,
+            totalwin: 28200,
+            playwin: 0,
+            maxWinLimit: 0,
+        },
     };
 
-    logic.onConfig(gamecfg, statecfg.statedata, statecfg.statelist);
-
-    let stepIndex = 0;
-    let onBegin = (data) => {
-        if (stepIndex == 0) {
-            expect(logic.curStates.length).toBe(3);
-        } else if (stepIndex == 1) {
-            expect(logic.curStates.length).toBe(1);
+    logic.onConfig(gamecfg, statedata, statelist);
+    logic.setUIFrameworksFuncs(
+        (wins) => {
+            console.log(`${wins}`);
+        },
+        (curNum, totalNum) => {
+            console.log(`${curNum} / ${totalNum}`);
         }
+    );
+    logic.addListener(async (gameResult2, step2, state2) => {
+        console.log(gameResult2, step2, state2);
+    });
 
-        const type = data.curType;
-
-        while (logic.hasNextState()) {
-            logic.nextState();
-        }
-
-        stepIndex++;
-        
-        logic.endStep();
-    };
-
-    let onEnd = (data) => {
-        const type = data.curType;
-    };
-
-    logic.addStepBeginListener(onBegin);
-    logic.addStepEndListener(onEnd);
-
-    logic.onMessage(msg);
+    await logic.onMessage(msg).then(() => {
+        console.log("Done!");
+    });
 });
