@@ -16,7 +16,6 @@ function isSameScene(src, target) {
     }
 
     return true;
-
 }
 
 function parseMsgScene(clientdata, sceneindex) {
@@ -42,7 +41,10 @@ function parseMsgScene(clientdata, sceneindex) {
 }
 
 function parseMsgOtherScene(clientdata, otherSceneIndex) {
-    if (!clientdata.otherScenes || clientdata.otherScenes.length <= otherSceneIndex) {
+    if (
+        !clientdata.otherScenes ||
+        clientdata.otherScenes.length <= otherSceneIndex
+    ) {
         return null;
     }
 
@@ -79,25 +81,25 @@ function parseSlotCraftJson(objModule) {
     for (let i = 0; i < objModule.length; i++) {
         const curmod = objModule[i];
 
-        if (curmod.module && curmod.module != '') {
+        if (curmod.module && curmod.module != "") {
             let lst = [];
             for (let j = 0; j < curmod.component.length; j++) {
                 const curcomponent = curmod.component[j];
 
-                if (typeof curcomponent == 'string') {
-                    if (curcomponent == '') {
-                        throw new Error('Invalid component (string).');
+                if (typeof curcomponent == "string") {
+                    if (curcomponent == "") {
+                        throw new Error("Invalid component (string).");
                     }
 
                     lst.push(curcomponent);
-                } else if (typeof curcomponent == 'object') {
-                    if (!curcomponent.value || curcomponent.value == '') {
-                        throw new Error('Invalid component (object.value).');
+                } else if (typeof curcomponent == "object") {
+                    if (!curcomponent.value || curcomponent.value == "") {
+                        throw new Error("Invalid component (object.value).");
                     }
 
                     lst.push(curcomponent.value);
                 } else {
-                    throw new Error('Invalid component (type).');
+                    throw new Error("Invalid component (type).");
                 }
             }
 
@@ -107,7 +109,7 @@ function parseSlotCraftJson(objModule) {
                 performance: "",
             };
 
-            if (curmod.module == 'FgExitModule') {
+            if (curmod.module == "FgExitModule") {
                 statecfg.statedata[curmod.name].bquick = false;
                 statecfg.statedata[curmod.name].toui = true;
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
@@ -142,8 +144,17 @@ function hasState(state, mapComponents) {
     return false;
 }
 
+function getComponentConfigData(betCfgData, componentName) {
+    if (betCfgData.mapComponents[componentName]) {
+        return betCfgData.mapComponents[componentName];
+    }
+
+    return null;
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
 exports.parseMsgOtherScene = parseMsgOtherScene;
 exports.parseSlotCraftJson = parseSlotCraftJson;
 exports.hasState = hasState;
+exports.getComponentConfigData = getComponentConfigData;

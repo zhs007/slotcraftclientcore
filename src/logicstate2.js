@@ -1,9 +1,13 @@
-const { parseMsgScene, parseMsgOtherScene, hasState } = require("./utils.js");
+const {
+    parseMsgScene,
+    parseMsgOtherScene,
+    hasState,
+} = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
 // 逻辑非常简单，就是缓存 stateData 数据里最新的数据，一种数据只会缓存一个。
 class LogicState2 {
-    constructor(stateName, curStateData, msgResult) {
+    constructor(stateName, curStateData, betCfgData, msgResult) {
         this.curStateIndex = -1;
 
         this.stateName = stateName;
@@ -18,16 +22,21 @@ class LogicState2 {
 
         this.msgResult = msgResult; // msg
         this.mapComponentData = {}; // kv
+        this.mapComponentConfigData = {}; // kv
 
-        this._parseResult(curStateData, msgResult);
+        this._parseResult(curStateData, betCfgData, msgResult);
     }
 
-    _parseResult(curStateData, msgResult) {
+    _parseResult(curStateData, betCfgData, msgResult) {
         const mapComponents =
             msgResult.clientData.curGameModParam.mapComponents;
         for (const val of curStateData.list) {
             if (mapComponents[val]) {
                 this.mapComponentData[val] = mapComponents[val];
+            }
+
+            if (betCfgData[val]) {
+                this.mapComponentConfigData[val] = betCfgData[val];
             }
         }
 
