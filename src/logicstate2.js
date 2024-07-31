@@ -220,6 +220,10 @@ class LogicStep2 {
 
         return wins;
     }
+
+    calcMsgWins() {
+        return this.curResult.cashWin;
+    }
 }
 
 // LogicGameResult2 是 SlotCraft Client 最基础的class之一，一个game result可以理解为一次spin的返回
@@ -276,7 +280,7 @@ class LogicGameResult2 {
                 console.error(step.name + " got " + err);
             });
 
-            curWins += step.calcWins();
+            curWins += step.calcMsgWins();
 
             this.mgr2._onUIWins(curWins);
         }
