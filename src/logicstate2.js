@@ -1,4 +1,10 @@
-const { parseMsgScene, parseMsgOtherScene, hasState } = require("./utils.js");
+const {
+    parseMsgScene,
+    parseMsgOtherScene,
+    hasState,
+    isNeedTotalWinsModule,
+    isFGEndingModule,
+} = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
 // 逻辑非常简单，就是缓存 stateData 数据里最新的数据，一种数据只会缓存一个。
@@ -12,6 +18,7 @@ class LogicState2 {
         this.otherScene = null;
         this.pos = null;
         this.wins = [];
+        this.totalWins = 0; // 总赢得
 
         this.respin = null;
         this.collector = null;
@@ -32,7 +39,8 @@ class LogicState2 {
             }
 
             if (betCfgData.mapComponents[val]) {
-                this.mapComponentConfigData[val] = betCfgData.mapComponents[val];
+                this.mapComponentConfigData[val] =
+                    betCfgData.mapComponents[val];
             }
         }
 
@@ -126,6 +134,14 @@ class LogicState2 {
         }
 
         return false;
+    }
+
+    isFGEnding() {
+        return isFGEndingModule(this.curStateData.module);
+    }
+
+    isNeedTotalWins() {
+        return isNeedTotalWinsModule(this.curStateData.module);
     }
 }
 
@@ -237,6 +253,7 @@ class LogicGameResult2 {
         this.cunResultIndex = 0;
         this.curResults = null;
         this.curBet = 0;
+        this.totalWins = 0;
 
         this._parseMsg(msgdata);
     }
@@ -251,6 +268,7 @@ class LogicGameResult2 {
         ) {
             this.curResults = msgdata.gmi.replyPlay.results;
             this.curBet = msgdata.gmi.lines;
+            this.totalWins = msgdata.gmi.totalwin;
 
             this._parseResults();
         } else {
@@ -268,6 +286,16 @@ class LogicGameResult2 {
                 this.curBet,
                 this.mgr2
             );
+
+            for (const stateIndex in curStep.lstStates) {
+                // 如果是免费结束，一定需要总赢得
+                if (curStep.lstStates[stateIndex].isFGEnding()) {
+                    curStep.lstStates[stateIndex].totalWins = this.totalWins;
+                } else if (curStep.lstStates[stateIndex].isNeedTotalWins()) {
+                    // 否则，如果还需要总赢得的话，只可能是单局总赢得
+                }
+            }
+
             this.lstSteps.push(curStep);
         }
     }

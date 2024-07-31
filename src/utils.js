@@ -152,9 +152,41 @@ function getComponentConfigData(betCfgData, componentName) {
     return null;
 }
 
+// isMainRespin - 判断是否是主respin，一般情况下，如果消息里只有一个respin组件，那么它就一定是主respin，否则，只有配置为FG模块的respin才是主respin
+function isMainRespin(results, respinName) {
+    let isMain = false;
+    for (const i in results) {
+        const result = results[i];
+        if (result.clientData.curGameModParam.respinComponents.length > 1) {
+            return false;
+        }
+
+        if (result.clientData.curGameModParam.respinComponents.length == 1 && result.clientData.curGameModParam.respinComponents[0] != respinName) {
+            return false;
+        } else {
+            isMain = true;
+        }
+    }
+
+    return isMain;
+}
+
+// isNeedTotalWinsModule - 判断模块是否需要totalwin，WinAniModule和FgExitModule需要
+function isNeedTotalWinsModule(modName) {
+    return modName == "FgExitModule" || modName == "WinAniModule";
+}
+
+// isFGEndingModule - 判断模块是否是FG结束模块，FgExitModule
+function isFGEndingModule(modName) {
+    return modName == "FgExitModule";
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
 exports.parseMsgOtherScene = parseMsgOtherScene;
 exports.parseSlotCraftJson = parseSlotCraftJson;
 exports.hasState = hasState;
 exports.getComponentConfigData = getComponentConfigData;
+exports.isNeedTotalWinsModule = isNeedTotalWinsModule;
+exports.isMainRespin = isMainRespin;
+exports.isFGEndingModule = isFGEndingModule;
