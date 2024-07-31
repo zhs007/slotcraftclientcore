@@ -4853,15 +4853,23 @@ test("logic test 001", async () => {
             console.log(`${curNum} / ${totalNum}`);
         }
     );
+
+    let fgstartNum = 0;
     logic.addListener(async (gameResult2, step2, state2) => {
         if (state2 && state2.isNeedTotalWins()) {
             expect(step2.totalWins).not.toBe(0);
+        }
+
+        if (state2 && state2.stateName == "fg-start") {
+            fgstartNum++;
         }
 
         console.log(gameResult2, step2, state2);
     });
 
     await logic.onMessage(msg).then(() => {
+        expect(fgstartNum).toBe(1);
+
         console.log("Done!");
     });
 });
