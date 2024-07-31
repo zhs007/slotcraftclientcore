@@ -91,6 +91,11 @@ class LogicState2 {
                     "type.googleapis.com/sgc7pb.RespinData"
                 ) {
                     this.respin = this.mapComponentData[c];
+                } else if (
+                    this.mapComponentData[c]["@type"] ==
+                    "type.googleapis.com/sgc7pb.CollectorData"
+                ) {
+                    this.collector = this.mapComponentData[c];
                 }
             }
         }
