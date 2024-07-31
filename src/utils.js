@@ -161,7 +161,10 @@ function isMainRespin(results, respinName) {
             return false;
         }
 
-        if (result.clientData.curGameModParam.respinComponents.length == 1 && result.clientData.curGameModParam.respinComponents[0] != respinName) {
+        if (
+            result.clientData.curGameModParam.respinComponents.length == 1 &&
+            result.clientData.curGameModParam.respinComponents[0] != respinName
+        ) {
             return false;
         } else {
             isMain = true;
@@ -181,6 +184,70 @@ function isFGEndingModule(modName) {
     return modName == "FgExitModule";
 }
 
+function getMainRespinNames(stateData) {
+    let names = [];
+    for (const key in stateData) {
+        const curStateData = stateData[key];
+        if (isFGEndingModule(curStateData.module)) {
+            names.push(curStateData.list[0]);
+        }
+    }
+
+    return names;
+}
+
+function findFirstResults(results, i, respinName) {
+    for (let ci = i; ci > 0; ci--) {
+        if (ci == 1) {
+            if (
+                results[0].clientData.curGameModParam.historyComponents[0] ==
+                respinName
+            ) {
+                return 0;
+            }
+
+            return 1;
+        }
+
+        if (
+            results[ci - 1].clientData.curGameModParam.historyComponents[0] !=
+            respinName
+        ) {
+            return ci;
+        }
+    }
+
+    return i;
+}
+
+function calcTotalWins(results, i, respinName) {
+    const result = results[i];
+
+    if (respinName == "") {
+        return result.cashWin;
+    }
+
+    if (result.clientData.curGameModParam.historyComponents[0] == respinName) {
+        const si = findFirstResults(results, i, respinName);
+        let totalWins = 0;
+
+        for (let ci = si; ci <= results.length; ci++) {
+            if (
+                results[ci].clientData.curGameModParam.historyComponents[0] ==
+                respinName
+            ) {
+                totalWins += results[ci].cashWin;
+            } else {
+                break;
+            }
+        }
+
+        return totalWins;
+    }
+
+    return 0;
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
 exports.parseMsgOtherScene = parseMsgOtherScene;
@@ -190,3 +257,5 @@ exports.getComponentConfigData = getComponentConfigData;
 exports.isNeedTotalWinsModule = isNeedTotalWinsModule;
 exports.isMainRespin = isMainRespin;
 exports.isFGEndingModule = isFGEndingModule;
+exports.getMainRespinNames = getMainRespinNames;
+exports.calcTotalWins = calcTotalWins;

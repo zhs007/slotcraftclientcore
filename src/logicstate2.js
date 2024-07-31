@@ -4,6 +4,7 @@ const {
     hasState,
     isNeedTotalWinsModule,
     isFGEndingModule,
+    calcTotalWins
 } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
@@ -287,12 +288,25 @@ class LogicGameResult2 {
                 this.mgr2
             );
 
-            for (const stateIndex in curStep.lstStates) {
+            for (const stateName of curStep.lstStates) {
                 // 如果是免费结束，一定需要总赢得
-                if (curStep.lstStates[stateIndex].isFGEnding()) {
-                    curStep.lstStates[stateIndex].totalWins = this.totalWins;
-                } else if (curStep.lstStates[stateIndex].isNeedTotalWins()) {
+                if (curStep.mapStates[stateName].isFGEnding()) {
+                    curStep.mapStates[stateName].totalWins = this.totalWins;
+                } else if (curStep.mapStates[stateName].isNeedTotalWins()) {
                     // 否则，如果还需要总赢得的话，只可能是单局总赢得
+                    if (curStep.mapStates[stateName].respin != null) {
+                        curStep.mapStates[stateName].totalWins = calcTotalWins(
+                            this.curResults,
+                            i,
+                            curStep.mapStates[stateName].curStateData.list[0]
+                        );
+                    } else {
+                        curStep.mapStates[stateName].totalWins = calcTotalWins(
+                            this.curResults,
+                            i,
+                            ""
+                        );
+                    }
                 }
             }
 
