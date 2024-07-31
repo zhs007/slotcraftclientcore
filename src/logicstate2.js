@@ -1,8 +1,4 @@
-const {
-    parseMsgScene,
-    parseMsgOtherScene,
-    hasState,
-} = require("./utils.js");
+const { parseMsgScene, parseMsgOtherScene, hasState } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
 // 逻辑非常简单，就是缓存 stateData 数据里最新的数据，一种数据只会缓存一个。
@@ -35,8 +31,8 @@ class LogicState2 {
                 this.mapComponentData[val] = mapComponents[val];
             }
 
-            if (betCfgData[val]) {
-                this.mapComponentConfigData[val] = betCfgData[val];
+            if (betCfgData.mapComponents[val]) {
+                this.mapComponentConfigData[val] = betCfgData.mapComponents[val];
             }
         }
 
@@ -136,18 +132,17 @@ class LogicState2 {
 // LogicStep2 是 SlotCraft Client 最基础的class之一，一个step可以理解为一次respin等
 // 简单来说，step是一组state的集合，step主要由服务器逻辑拆分，但也可能被前端逻辑进一步拆分
 class LogicStep2 {
-    constructor(stepIndex, msgResult, mgr2) {
+    constructor(stepIndex, msgResult, curBet, mgr2) {
         this.mapStates = {};
         this.lstStates = [];
         this.curResult = msgResult; // msg
 
         this.curStepIndex = stepIndex;
-        // this.curStateIndex = 0;
 
-        this._parseResult(msgResult, mgr2);
+        this._parseResult(msgResult, curBet, mgr2);
     }
 
-    _parseResult(msgResult, mgr2) {
+    _parseResult(msgResult, curBet, mgr2) {
         for (const key in mgr2.statedata) {
             const curStateData = mgr2.statedata[key];
             if (
@@ -156,7 +151,12 @@ class LogicStep2 {
                     msgResult.clientData.curGameModParam.mapComponents
                 )
             ) {
-                const curState = new LogicState2(key, curStateData, msgResult);
+                const curState = new LogicState2(
+                    key,
+                    curStateData,
+                    mgr2.cfgdata[curBet],
+                    msgResult
+                );
                 this.mapStates[key] = curState;
             }
         }
@@ -169,7 +169,6 @@ class LogicStep2 {
                 this.mapStates[val] &&
                 this.mapStates[val].isInComponents(historyComponents)
             ) {
-                // this.mapStates[val].curStateIndex = this.lstStates.length;
                 this.lstStates.push(val);
             }
         }
@@ -235,8 +234,6 @@ class LogicGameResult2 {
         this.curResults = null;
         this.curBet = 0;
 
-        // this.curStepIndex = -1;
-
         this._parseMsg(msgdata);
     }
 
@@ -264,12 +261,11 @@ class LogicGameResult2 {
             const curStep = new LogicStep2(
                 this.lstSteps.length,
                 curResult,
+                this.curBet,
                 this.mgr2
             );
             this.lstSteps.push(curStep);
         }
-
-        // this.curStepIndex = 0;
     }
 
     async _runLogic() {
