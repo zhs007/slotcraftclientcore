@@ -45,6 +45,7 @@ class LogicState2 {
             }
         }
 
+        // 能进入这个分支，就不可能一个component都获取不到
         if (this.mapComponentData.length == 0) {
             throw new Error("_parseResult fail.");
         }
@@ -54,6 +55,7 @@ class LogicState2 {
         let sceneComponent = "";
         let otherSceneComponent = "";
 
+        // 根据服务器执行顺序遍历component，理论上应该用最新的数据，wins是合并操作
         for (const c of historyComponents) {
             if (this.mapComponentData[c]) {
                 if (this.mapComponentData[c].basicComponentData) {

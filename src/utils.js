@@ -75,9 +75,6 @@ function parseSlotCraftJson(objModule) {
         statelist: [],
     };
 
-    // let lst = [];
-
-    // let objModule = obj['moduleMatching'];
     for (let i = 0; i < objModule.length; i++) {
         const curmod = objModule[i];
 
@@ -115,21 +112,13 @@ function parseSlotCraftJson(objModule) {
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
             }
 
-            // curmod.key = parseFloat(curmod.key);
-
-            // lst.push(curmod);
+            if (curmod.trigger) {
+                statecfg.statedata[curmod.name].trigger = trigger;
+            }
 
             statecfg.statelist.push(curmod.name);
         }
     }
-
-    // lst.sort((a, b) => {
-    //     return a.key - b.key;
-    // })
-
-    // for (let i = 0; i < lst.length; i++) {
-    //     statecfg.statelist.push(lst[i].name);
-    // }
 
     return statecfg;
 }
