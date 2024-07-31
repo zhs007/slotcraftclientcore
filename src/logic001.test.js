@@ -4854,6 +4854,10 @@ test("logic test 001", async () => {
         }
     );
     logic.addListener(async (gameResult2, step2, state2) => {
+        if (state2 && state2.isNeedTotalWins()) {
+            expect(step2.totalWins).not.toBe(0);
+        }
+
         console.log(gameResult2, step2, state2);
     });
 

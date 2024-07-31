@@ -4,7 +4,7 @@ const {
     hasState,
     isNeedTotalWinsModule,
     isFGEndingModule,
-    calcTotalWins
+    calcTotalWins,
 } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
@@ -39,7 +39,7 @@ class LogicState2 {
                 this.mapComponentData[val] = mapComponents[val];
             }
 
-            if (betCfgData.mapComponents[val]) {
+            if (betCfgData.mapComponents && betCfgData.mapComponents[val]) {
                 this.mapComponentConfigData[val] =
                     betCfgData.mapComponents[val];
             }
@@ -203,6 +203,13 @@ class LogicStep2 {
                     );
                 }
             }
+        }
+
+        // 如果不是第一个step，需要给一个空state的事件，让逻辑可以处理spin，然后再收到spin时处理spinEnd
+        if (this.curStepIndex != 0) {
+            await mgr2._onEvent(gr2, this, null).catch((err) => {
+                console.error(statename + " got " + err);
+            });
         }
 
         for (let si = 0; si < this.lstStates.length; si++) {
