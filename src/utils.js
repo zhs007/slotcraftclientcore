@@ -237,6 +237,29 @@ function calcTotalWins(results, i, respinName) {
     return 0;
 }
 
+// isRespinEnding - 判断当前respin是否结束
+function isRespinEnding(results, i, respinName) {
+    // 如果result结束，则respin一定结束
+    if (results.length == i + 1) {
+        return true;
+    }
+
+    // 如果接下来的消息里没有这个respinName，则结束
+    if (
+        results[i].clientData.curGameModParam.respinComponents.indexOf(
+            respinName
+        ) == -1
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+function isExitState(curStateData) {
+    return curStateData.exitmodule || curStateData.trigger == "onEnding";
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
 exports.parseMsgOtherScene = parseMsgOtherScene;
@@ -248,3 +271,5 @@ exports.isMainRespin = isMainRespin;
 exports.isFGEndingModule = isFGEndingModule;
 exports.getMainRespinNames = getMainRespinNames;
 exports.calcTotalWins = calcTotalWins;
+exports.isRespinEnding = isRespinEnding;
+exports.isExitState = isExitState;

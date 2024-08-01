@@ -5,6 +5,8 @@ const {
     isNeedTotalWinsModule,
     isFGEndingModule,
     calcTotalWins,
+    isRespinEnding,
+    isExitState,
 } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
@@ -37,6 +39,19 @@ class LogicState2 {
         for (const val of curStateData.list) {
             if (mapComponents[val]) {
                 this.mapComponentData[val] = mapComponents[val];
+
+                // 这2个数据很特殊，直接取就好了
+                if (
+                    this.mapComponentData[val]["@type"] ==
+                    "type.googleapis.com/sgc7pb.RespinData"
+                ) {
+                    this.respin = this.mapComponentData[val];
+                } else if (
+                    this.mapComponentData[val]["@type"] ==
+                    "type.googleapis.com/sgc7pb.CollectorData"
+                ) {
+                    this.collector = this.mapComponentData[val];
+                }
             }
 
             if (betCfgData.mapComponents && betCfgData.mapComponents[val]) {
@@ -86,18 +101,6 @@ class LogicState2 {
 
                 if (this.mapComponentData[c].pos) {
                     this.pos = this.mapComponentData[c].pos;
-                }
-
-                if (
-                    this.mapComponentData[c]["@type"] ==
-                    "type.googleapis.com/sgc7pb.RespinData"
-                ) {
-                    this.respin = this.mapComponentData[c];
-                } else if (
-                    this.mapComponentData[c]["@type"] ==
-                    "type.googleapis.com/sgc7pb.CollectorData"
-                ) {
-                    this.collector = this.mapComponentData[c];
                 }
             }
         }
@@ -156,17 +159,20 @@ class LogicState2 {
 // LogicStep2 是 SlotCraft Client 最基础的class之一，一个step可以理解为一次respin等
 // 简单来说，step是一组state的集合，step主要由服务器逻辑拆分，但也可能被前端逻辑进一步拆分
 class LogicStep2 {
-    constructor(stepIndex, msgResult, curBet, mgr2) {
+    constructor(gr2, stepIndex, resultIndex, curBet) {
+        this.gameResult2 = gr2;
+        this.curResultIndex = resultIndex;
         this.mapStates = {};
         this.lstStates = [];
-        this.curResult = msgResult; // msg
+        this.curResult = gr2.curResults[resultIndex]; // msg
 
         this.curStepIndex = stepIndex;
 
-        this._parseResult(msgResult, curBet, mgr2);
+        this._parseResult(this.curResult, curBet, this.gameResult2.mgr2);
     }
 
     _parseResult(msgResult, curBet, mgr2) {
+        // 首先先生成state，根据mapComponents
         for (const key in mgr2.statedata) {
             const curStateData = mgr2.statedata[key];
             if (
@@ -182,25 +188,49 @@ class LogicStep2 {
                     msgResult
                 );
                 this.mapStates[key] = curState;
+
+                if (isExitState(curStateData)) {
+                    this.gameResult2._cacheExitState(curState);
+                }
             }
         }
 
         const historyComponents =
             msgResult.clientData.curGameModParam.historyComponents;
 
-        for (const val of mgr2.statelist) {
-            if (
-                this.mapStates[val] &&
-                this.mapStates[val].isInComponents(historyComponents)
-            ) {
-                this.lstStates.push(val);
+        // 然后填充state list，这时根据historyComponents数据，respin ending还会有特殊处理
+        for (const statename of mgr2.statelist) {
+            if (this.mapStates[statename]) {
+                if (
+                    this.mapStates[statename].respin != null &&
+                    this.mapStates[statename].curStateData.exitmodule
+                ) {
+                    if (
+                        this.mapStates[statename].respin.lastRespinNum == 0 &&
+                        this.mapStates[statename].respin.lastTriggerNum == 0 &&
+                        isRespinEnding(
+                            this.gameResult2.curResults,
+                            this.curResultIndex,
+                            this.mapStates[statename].curStateData.list[0]
+                        )
+                    ) {
+                        this.lstStates.push(statename);
+
+                        this.gameResult2._removeExitState(statename);
+                    }
+                } else if (
+                    this.mapStates[statename].isInComponents(historyComponents)
+                ) {
+                    this.lstStates.push(statename);
+                }
             }
         }
+
+        this.gameResult2._procExitStates(this);
     }
 
     async _runLogic(gr2, mgr2) {
-        for (let si = 0; si < this.lstStates.length; si++) {
-            const statename = this.lstStates[si];
+        for (const statename in this.mapStates) {
             if (this.mapStates[statename].respin != null) {
                 if (this.mapStates[statename].curStateData.toui) {
                     mgr2._onUIFGNum(
@@ -221,26 +251,17 @@ class LogicStep2 {
 
         for (let si = 0; si < this.lstStates.length; si++) {
             const statename = this.lstStates[si];
-            if (this.mapStates[statename].respin != null) {
-                if (
-                    this.mapStates[statename].curStateData.exitmodule &&
-                    this.mapStates[statename].respin.lastRespinNum == 0 &&
-                    this.mapStates[statename].respin.lastTriggerNum == 0
-                ) {
-                    await mgr2
-                        ._onEvent(gr2, this, this.mapStates[statename])
-                        .catch((err) => {
-                            console.error(statename + " got " + err);
-                        });
-                }
-            } else {
-                await mgr2
-                    ._onEvent(gr2, this, this.mapStates[statename])
-                    .catch((err) => {
-                        console.error(statename + " got " + err);
-                    });
-            }
+            await mgr2
+                ._onEvent(gr2, this, this.mapStates[statename])
+                .catch((err) => {
+                    console.error(statename + " got " + err);
+                });
         }
+    }
+
+    _addExitState(curState) {
+        this.mapStates[curState.stateName] = curState;
+        this.lstStates.push(curState.stateName);
     }
 
     calcWins() {
@@ -265,16 +286,50 @@ class LogicGameResult2 {
 
         this.lstSteps = [];
 
-        this.cunResultIndex = 0;
         this.curResults = null;
         this.curBet = 0;
         this.totalWins = 0;
 
+        this.cacheExitStates = {}; // 缓存当前需要处理exit的state
+
         this._parseMsg(msgdata);
+    }
+
+    // 缓存exit的state
+    _cacheExitState(state) {
+        this.cacheExitStates[state.stateName] = state;
+    }
+
+    // 获取exit的state
+    _getExitState(stateName) {
+        return this.cacheExitStates[stateName];
+    }
+
+    // _removeExitState -
+    _removeExitState(stateName) {
+        delete this.cacheExitStates[stateName];
+    }
+
+    _procExitStates(curStep) {
+        for (const stateName in this.cacheExitStates) {
+            const curState = this.cacheExitStates[stateName];
+            if (
+                isRespinEnding(
+                    this.curResults,
+                    curStep.curResultIndex,
+                    curState.curStateData.list[0]
+                )
+            ) {
+                curStep._addExitState(curState);
+
+                this._removeExitState(stateName);
+            }
+        }
     }
 
     // 解析消息
     _parseMsg(msgdata) {
+        // Check if msgdata exists and has the properties gmi, replyPlay and results
         if (
             msgdata &&
             msgdata.gmi &&
@@ -287,19 +342,20 @@ class LogicGameResult2 {
 
             this._parseResults();
         } else {
+            // Throw an error if the message data is invalid
             throw new Error("Invalid message data.");
         }
     }
 
     _parseResults() {
-        for (const i in this.curResults) {
+        for (let i = 0; i < this.curResults.length; i++) {
             const curResult = this.curResults[i];
 
             const curStep = new LogicStep2(
+                this,
                 this.lstSteps.length,
-                curResult,
-                this.curBet,
-                this.mgr2
+                i,
+                this.curBet
             );
 
             for (const stateName of curStep.lstStates) {
