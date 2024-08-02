@@ -8,6 +8,8 @@ const {
     isRespinEnding,
     isExitState,
     isRetriggerFGModule,
+    isChgSymbolsComponent,
+    genPosWithChgSymbols,
 } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
@@ -107,14 +109,29 @@ class LogicState2 {
         }
 
         if (sceneComponent != "") {
-            this.scene = parseMsgScene(
-                msgResult.clientData,
+            const curSceneIndex =
                 this.mapComponentData[sceneComponent].basicComponentData
                     .usedScenes[
                     this.mapComponentData[sceneComponent].basicComponentData
                         .usedScenes.length - 1
-                ]
-            );
+                ];
+            this.scene = parseMsgScene(msgResult.clientData, curSceneIndex);
+
+            // 如果当前scene用chgSymbols组件的，需要生成pos
+            if (
+                isChgSymbolsComponent(
+                    this.mapComponentConfigData[sceneComponent]
+                )
+            ) {
+                //! 这里其实是有隐患的，目前的配置下，这个逻辑是正确的，如果后面有调整就需要改逻辑
+                if (curSceneIndex > 0) {
+                    this.pos = genPosWithChgSymbols(
+                        msgResult.clientData,
+                        curSceneIndex - 1,
+                        this.mapComponentConfigData[sceneComponent]
+                    );
+                }
+            }
         }
 
         if (otherSceneComponent != "") {

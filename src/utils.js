@@ -265,6 +265,33 @@ function isExitState(curStateData) {
     return curStateData.exitmodule || curStateData.trigger == "onEnding";
 }
 
+// isChgSymbolsComponent - 判断是否是chgSymbols组件，chgSymbols组件需要前端逻辑处理pos数据
+function isChgSymbolsComponent(componentCfgData) {
+    if (
+        componentCfgData &&
+        componentCfgData.config &&
+        componentCfgData.config.componentType == "chgSymbols"
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+// genPosWithChgSymbols - 本地生成pos数据
+function genPosWithChgSymbols(clientData, sceneIndex, componentCfgData) {
+    const scene = parseMsgScene(clientData, sceneIndex);
+    let pos = [];
+    for (let x = 0; x < scene.length; x++) {
+        for (let y = 0; y < scene[x].length; y++) {
+            if (componentCfgData.config.symbols.indexOf(scene[x][y]) != -1) {
+                pos.push(x, y);
+            }
+        }
+    }
+    return pos;
+}
+
 exports.isSameScene = isSameScene;
 exports.parseMsgScene = parseMsgScene;
 exports.parseMsgOtherScene = parseMsgOtherScene;
@@ -279,3 +306,5 @@ exports.calcTotalWins = calcTotalWins;
 exports.isRespinEnding = isRespinEnding;
 exports.isExitState = isExitState;
 exports.isRetriggerFGModule = isRetriggerFGModule;
+exports.isChgSymbolsComponent = isChgSymbolsComponent;
+exports.genPosWithChgSymbols = genPosWithChgSymbols;
