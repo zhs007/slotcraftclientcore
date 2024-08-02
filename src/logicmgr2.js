@@ -40,25 +40,28 @@ class SCLogicMgr2 {
         this.statelist = statelist;
     }
 
-    // 收到新的消息
+    // 收到新的消息，这里 then 是逻辑全部处理完后的事件
     async onMessage(msgdata) {
         this.curGameResult2 = new LogicGameResult2(msgdata, this);
 
         await this.curGameResult2._runLogic();
     }
 
+    // 内部接口，外部不要用，顺序执行回调，会阻塞
     async _onEvent(gameResult2, step2, state2) {
         for (let ii = 0; ii < this.lstGameResult2Listener.length; ii++) {
             await this.lstGameResult2Listener[ii](gameResult2, step2, state2);
         }
     }
 
+    // 内部接口，外部不要用，通知UI刷新wins
     _onUIWins(curWins) {
         if (this.callbackWins) {
             this.callbackWins(curWins);
         }
     }
 
+    // 内部接口，外部不要用，通知UI刷新免费次数
     _onUIFGNum(curNum, totalNum) {
         if (this.callbackFGNum) {
             this.callbackFGNum(curNum, totalNum);

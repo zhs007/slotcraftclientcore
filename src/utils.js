@@ -173,6 +173,11 @@ function isFGEndingModule(modName) {
     return modName == "FgExitModule";
 }
 
+// isRetriggerFGModule - 判断模块是否是再次触发FG模块，FreeExtraModule
+function isRetriggerFGModule(modName) {
+    return modName == "FreeExtraModule";
+}
+
 function getMainRespinNames(stateData) {
     let names = [];
     for (const key in stateData) {
@@ -244,7 +249,7 @@ function isRespinEnding(results, i, respinName) {
         return true;
     }
 
-    // 如果接下来的消息里没有这个respinName，则结束
+    // 如果当前消息里没有这个respinName，则结束
     if (
         results[i].clientData.curGameModParam.respinComponents.indexOf(
             respinName
@@ -273,3 +278,4 @@ exports.getMainRespinNames = getMainRespinNames;
 exports.calcTotalWins = calcTotalWins;
 exports.isRespinEnding = isRespinEnding;
 exports.isExitState = isExitState;
+exports.isRetriggerFGModule = isRetriggerFGModule;

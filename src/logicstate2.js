@@ -7,6 +7,7 @@ const {
     calcTotalWins,
     isRespinEnding,
     isExitState,
+    isRetriggerFGModule,
 } = require("./utils.js");
 
 // LogicState2 是 SlotCraft Client 最基础的class
@@ -154,6 +155,10 @@ class LogicState2 {
     isNeedTotalWins() {
         return isNeedTotalWinsModule(this.curStateData.module);
     }
+
+    isRetriggerFG() {
+        return isRetriggerFGModule(this.curStateData.module);
+    }
 }
 
 // LogicStep2 是 SlotCraft Client 最基础的class之一，一个step可以理解为一次respin等
@@ -230,6 +235,53 @@ class LogicStep2 {
     }
 
     async _runLogic(gr2, mgr2) {
+        // 如果这个step触发了再次触发免费游戏，那么需要特殊处理UI刷新，应该在游戏处理完增加FG以后，再多刷新一次UI
+        if (this.isRetriggerFG()) {
+            for (const statename in this.mapStates) {
+                if (this.mapStates[statename].respin != null) {
+                    if (this.mapStates[statename].curStateData.toui) {
+                        mgr2._onUIFGNum(
+                            this.mapStates[statename].respin.curRespinNum,
+                            this.mapStates[statename].respin.curRespinNum +
+                                this.mapStates[statename].respin.lastRespinNum -
+                                this.mapStates[statename].curAddRespinNum
+                        );
+                    }
+                }
+            }
+
+            // 如果不是第一个step，需要给一个空state的事件，让逻辑可以处理spin，然后再收到spin时处理spinEnd
+            if (this.curStepIndex != 0) {
+                await mgr2._onEvent(gr2, this, null).catch((err) => {
+                    console.error(statename + " got " + err);
+                });
+            }
+
+            for (let si = 0; si < this.lstStates.length; si++) {
+                const statename = this.lstStates[si];
+                await mgr2
+                    ._onEvent(gr2, this, this.mapStates[statename])
+                    .catch((err) => {
+                        console.error(statename + " got " + err);
+                    });
+
+                if (this.mapStates[statename].isRetriggerFG()) {
+                    if (this.mapStates[statename].respin != null) {
+                        if (this.mapStates[statename].curStateData.toui) {
+                            mgr2._onUIFGNum(
+                                this.mapStates[statename].respin.curRespinNum,
+                                this.mapStates[statename].respin.curRespinNum +
+                                    this.mapStates[statename].respin
+                                        .lastRespinNum
+                            );
+                        }
+                    }
+                }
+            }
+
+            return;
+        }
+
         for (const statename in this.mapStates) {
             if (this.mapStates[statename].respin != null) {
                 if (this.mapStates[statename].curStateData.toui) {
@@ -275,6 +327,16 @@ class LogicStep2 {
 
     calcMsgWins() {
         return this.curResult.cashWin;
+    }
+
+    isRetriggerFG() {
+        for (const key in this.mapStates) {
+            if (this.mapStates[key].isRetriggerFG()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
