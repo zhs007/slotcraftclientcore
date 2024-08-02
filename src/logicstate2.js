@@ -261,7 +261,7 @@ class LogicStep2 {
                             this.mapStates[statename].respin.curRespinNum,
                             this.mapStates[statename].respin.curRespinNum +
                                 this.mapStates[statename].respin.lastRespinNum -
-                                this.mapStates[statename].curAddRespinNum
+                                this.mapStates[statename].respin.curAddRespinNum
                         );
                     }
                 }
