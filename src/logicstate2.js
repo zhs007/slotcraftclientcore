@@ -223,26 +223,13 @@ class LogicStep2 {
         // 然后填充state list，这时根据historyComponents数据，respin ending还会有特殊处理
         for (const statename of mgr2.statelist) {
             if (this.mapStates[statename]) {
-                if (
-                    this.mapStates[statename].respin != null &&
-                    this.mapStates[statename].curStateData.exitmodule
-                ) {
-                    if (
-                        this.mapStates[statename].respin.lastRespinNum == 0 &&
-                        this.mapStates[statename].respin.lastTriggerNum == 0 &&
-                        isRespinEnding(
-                            this.gameResult2.curResults,
-                            this.curResultIndex,
-                            this.mapStates[statename].curStateData.list[0]
-                        )
-                    ) {
+                if (this.mapStates[statename].respin != null && this.mapStates[statename].curStateData.exitmodule) {
+                    if (this.mapStates[statename].respin.lastRespinNum == 0 && this.mapStates[statename].respin.lastTriggerNum == 0 && isRespinEnding(this.gameResult2.curResults, this.curResultIndex, this.mapStates[statename].curStateData.list[0])) {
                         this.lstStates.push(statename);
 
                         this.gameResult2._removeExitState(statename);
                     }
-                } else if (
-                    this.mapStates[statename].isInComponents(historyComponents)
-                ) {
+                } else if (this.mapStates[statename].isInComponents(historyComponents)) {
                     this.lstStates.push(statename);
                 }
             }
