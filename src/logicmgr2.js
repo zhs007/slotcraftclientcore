@@ -22,6 +22,8 @@ class SCLogicMgr2 {
         this.curBet = 0;
 
         this.curGameResult2 = null;
+
+        this.version = 'v1.1.19';
     }
 
     addListener(listener) {
