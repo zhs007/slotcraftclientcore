@@ -113,7 +113,7 @@ function parseSlotCraftJson(objModule) {
             }
 
             if (curmod.trigger) {
-                statecfg.statedata[curmod.name].trigger = trigger;
+                statecfg.statedata[curmod.name].trigger = curmod.trigger;
             }
 
             statecfg.statelist.push(curmod.name);
