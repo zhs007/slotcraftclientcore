@@ -25,7 +25,7 @@ class SCLogicMgr2 {
 
     this.curStateWins = 0;
 
-    this.version = 'v1.1.20';
+    this.version = 'v1.1.21';
   }
 
   addListener(listener) {
