@@ -263,6 +263,9 @@ class LogicStep2 {
 
             for (let si = 0; si < this.lstStates.length; si++) {
                 const statename = this.lstStates[si];
+
+                this.mgr2.curStateWins += this.mapStates[statename].calcWins();
+
                 await mgr2
                     ._onEvent(gr2, this, this.mapStates[statename])
                     .catch((err) => {
@@ -307,6 +310,9 @@ class LogicStep2 {
 
         for (let si = 0; si < this.lstStates.length; si++) {
             const statename = this.lstStates[si];
+
+            this.mgr2.curStateWins += this.mapStates[statename].calcWins();
+
             await mgr2
                 ._onEvent(gr2, this, this.mapStates[statename])
                 .catch((err) => {
@@ -451,16 +457,14 @@ class LogicGameResult2 {
     }
 
     async _runLogic() {
-        let curWins = 0;
+        this.mgr2.curStateWins = 0;
 
         for (let step of this.lstSteps) {
             await step._runLogic(this, this.mgr2).catch((err) => {
                 console.error(step.name + " got " + err);
             });
 
-            curWins += step.calcMsgWins();
-
-            this.mgr2._onUIWins(curWins);
+            this.mgr2._onUIWins(this.mgr2.curStateWins);
         }
     }
 }
