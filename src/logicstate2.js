@@ -264,7 +264,7 @@ class LogicStep2 {
             for (let si = 0; si < this.lstStates.length; si++) {
                 const statename = this.lstStates[si];
 
-                this.mgr2.curStateWins += this.mapStates[statename].calcWins();
+                mgr2.curStateWins += this.mapStates[statename].calcWins();
 
                 await mgr2
                     ._onEvent(gr2, this, this.mapStates[statename])
@@ -311,7 +311,7 @@ class LogicStep2 {
         for (let si = 0; si < this.lstStates.length; si++) {
             const statename = this.lstStates[si];
 
-            this.mgr2.curStateWins += this.mapStates[statename].calcWins();
+            mgr2.curStateWins += this.mapStates[statename].calcWins();
 
             await mgr2
                 ._onEvent(gr2, this, this.mapStates[statename])
