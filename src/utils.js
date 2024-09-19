@@ -1,3 +1,4 @@
+
 function isSameScene(src, target) {
     if (src.length != target.length) {
         return false;
@@ -40,7 +41,7 @@ function parseMsgScene(clientdata, sceneindex) {
     return scene;
 }
 
-function parseMsgOtherScene(clientdata, otherSceneIndex) {
+ function parseMsgOtherScene(clientdata, otherSceneIndex) {
     if (
         !clientdata.otherScenes ||
         clientdata.otherScenes.length <= otherSceneIndex
@@ -113,7 +114,7 @@ function parseSlotCraftJson(objModule) {
             }
 
             if (curmod.trigger) {
-                statecfg.statedata[curmod.name].trigger = curmod.trigger;
+                statecfg.statedata[curmod.name].trigger = trigger;
             }
 
             statecfg.statelist.push(curmod.name);
@@ -178,6 +179,10 @@ function isRetriggerFGModule(modName) {
     return modName == "FreeExtraModule";
 }
 
+function isTriggerFGModule(modName){
+    return modName == "FgModule";
+}
+
 function getMainRespinNames(stateData) {
     let names = [];
     for (const key in stateData) {
@@ -214,7 +219,7 @@ function findFirstResults(results, i, respinName) {
     return i;
 }
 
-function calcTotalWins(results, i, respinName) {
+ function calcTotalWins(results, i, respinName) {
     const result = results[i];
 
     if (respinName == "") {
@@ -250,13 +255,13 @@ function isRespinEnding(results, i, respinName) {
     }
 
     // 如果当前消息里没有这个respinName，则结束
-    if (
-        results[i].clientData.curGameModParam.respinComponents.indexOf(
-            respinName
-        ) == -1
-    ) {
-        return true;
-    }
+    // if (
+    //     results[i].clientData.curGameModParam.respinComponents.indexOf(
+    //         respinName
+    //     ) == -1
+    // ) {
+    //     return true;
+    // }
 
     return false;
 }
@@ -306,5 +311,6 @@ exports.calcTotalWins = calcTotalWins;
 exports.isRespinEnding = isRespinEnding;
 exports.isExitState = isExitState;
 exports.isRetriggerFGModule = isRetriggerFGModule;
+exports.isTriggerFGModule = isTriggerFGModule;
 exports.isChgSymbolsComponent = isChgSymbolsComponent;
 exports.genPosWithChgSymbols = genPosWithChgSymbols;
