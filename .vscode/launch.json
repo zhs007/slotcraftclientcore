@@ -8,13 +8,13 @@
             "type": "node",
             "request": "launch",
             "name": "moonwalker",
-            "program": "${workspaceFolder}/test/moonwalker.js",
+            "program": "${workspaceFolder}/test/moonwalker.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "penguindynasty",
-            "program": "${workspaceFolder}/test/penguindynasty.js",
+            "program": "${workspaceFolder}/test/penguindynasty.js"
         }
     ]
 }

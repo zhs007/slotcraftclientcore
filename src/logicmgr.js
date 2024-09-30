@@ -7,7 +7,8 @@ const {
     SCCollectorComponent,
     SCReelComponent,
     SCRollSymbolComponent,
-    SCTriggerComponent } = require('./component/all.js');
+    SCTriggerComponent,
+} = require('./component/all.js');
 const { isSameScene } = require('./utils.js');
 
 class SCLogicMgr {
@@ -57,7 +58,11 @@ class SCLogicMgr {
 
     // 获取当前的 result
     getCurResult() {
-        if (this.cunMsgIndex >= 0 && this.curResults && this.cunMsgIndex < this.curResults.length) {
+        if (
+            this.cunMsgIndex >= 0 &&
+            this.curResults &&
+            this.cunMsgIndex < this.curResults.length
+        ) {
             return this.curResults[this.cunMsgIndex];
         }
 
@@ -80,7 +85,11 @@ class SCLogicMgr {
 
     //! 当前是否有合法的state数据，某些情况下，可能会存在不合法的数据
     hasCurState() {
-        return (this.curStates && this.curStateIndex >= 0 && this.curStateIndex < this.curStates.length);
+        return (
+            this.curStates &&
+            this.curStateIndex >= 0 &&
+            this.curStateIndex < this.curStates.length
+        );
     }
 
     //! 查找一个state
@@ -92,7 +101,7 @@ class SCLogicMgr {
         }
 
         return undefined;
-    }    
+    }
 
     //! 获取当前的state
     getCurState() {
@@ -155,7 +164,7 @@ class SCLogicMgr {
         this.lstStepEndFunc.push(func);
     }
 
-    // //! 和前一个state比较，是否scene有变化 
+    // //! 和前一个state比较，是否scene有变化
     // isSceneChg(target) {
     //     if (this.curStates && this.curStates.length > 1) {
     //         if (this.curStates[this.curStates.length - 1].scene.length > 0) {
@@ -183,7 +192,10 @@ class SCLogicMgr {
 
                 for (var comname in bdata.MapComponents) {
                     var cdata = bdata.MapComponents[comname];
-                    this.components[bet][comname] = this.createComponent(comname, cdata);
+                    this.components[bet][comname] = this.createComponent(
+                        comname,
+                        cdata
+                    );
                 }
             }
         }
@@ -293,7 +305,8 @@ class SCLogicMgr {
         var result = this.curResults[this.cunMsgIndex];
         if (result && result.clientData && result.clientData.curGameModParam) {
             clientData = result.clientData;
-            historyComponents = result.clientData.curGameModParam.historyComponents;
+            historyComponents =
+                result.clientData.curGameModParam.historyComponents;
             mapComponents = result.clientData.curGameModParam.mapComponents;
         }
 
@@ -311,17 +324,24 @@ class SCLogicMgr {
 
                 // 暂时特殊处理prestate的
                 if (sdata.prestate) {
-                    if (this.hasState(result.clientData, sname, historyComponents, mapComponents)) {
+                    if (
+                        this.hasState(
+                            result.clientData,
+                            sname,
+                            historyComponents,
+                            mapComponents
+                        )
+                    ) {
                         // 可能会产生多个state
                         var prename = this._getNextPreName(
                             result.clientData,
                             sname,
-                            "",
+                            '',
                             historyComponents,
                             mapComponents
                         );
 
-                        while (prename != "") {
+                        while (prename != '') {
                             var state = this.addState();
 
                             state.name = sname;
@@ -344,7 +364,14 @@ class SCLogicMgr {
                         }
                     }
                 } else {
-                    if (this.hasState(result.clientData, sname, historyComponents, mapComponents)) {
+                    if (
+                        this.hasState(
+                            result.clientData,
+                            sname,
+                            historyComponents,
+                            mapComponents
+                        )
+                    ) {
                         var state = this.addState();
 
                         state.name = sname;
@@ -383,7 +410,11 @@ class SCLogicMgr {
 
                             if (state) {
                                 state.init(tmpstate);
-                                component.addData(clientData, componentinfo, state);
+                                component.addData(
+                                    clientData,
+                                    componentinfo,
+                                    state
+                                );
                             }
                         }
                     }
@@ -438,7 +469,7 @@ class SCLogicMgr {
         this.beginUIData.allNums = this.allNums;
 
         if (this.cunMsgIndex == 0) {
-            this.beginUIData.curType = "spin";
+            this.beginUIData.curType = 'spin';
             this.beginUIData.bQuick = true;
         }
 
@@ -480,7 +511,8 @@ class SCLogicMgr {
         if (this.endUIData.bNextStep) {
             // 根据gamedata的数据判断下一次会执行的模块
             var nresult = this.curResults[this.cunMsgIndex + 1];
-            var ncomname = nresult.clientData.curGameModParam.historyComponents[0];
+            var ncomname =
+                nresult.clientData.curGameModParam.historyComponents[0];
 
             // 根据下一轮触发的模块在本轮找数据
             var nstate = undefined;
@@ -506,7 +538,8 @@ class SCLogicMgr {
                 var componentinfo = mapComponents[ncomname];
 
                 this.endUIData.curNums = componentinfo.curRespinNum;
-                this.endUIData.allNums = componentinfo.curRespinNum + componentinfo.lastRespinNum;
+                this.endUIData.allNums =
+                    componentinfo.curRespinNum + componentinfo.lastRespinNum;
                 this.endUIData.addNums = componentinfo.curAddRespinNum;
             }
 
@@ -557,44 +590,44 @@ class SCLogicMgr {
         var component = null;
 
         switch (ctype.toLowerCase()) {
-            case "basicreels":
-            case "weightreels":
-            case "removesymbols":
-            case "dropdownsymbols":
-            case "refillsymbols":
-            case "chgsymbols":
+            case 'basicreels':
+            case 'weightreels':
+            case 'removesymbols':
+            case 'dropdownsymbols':
+            case 'refillsymbols':
+            case 'chgsymbols':
                 {
                     component = new SCReelComponent(name, data, this);
                 }
                 break;
-            case "linestrigger":
-            case "waystrigger":
-            case "clustertrigger":
-            case "scattertrigger":
-            case "symbolvalwins":
+            case 'linestrigger':
+            case 'waystrigger':
+            case 'clustertrigger':
+            case 'scattertrigger':
+            case 'symbolvalwins':
                 {
                     component = new SCTriggerComponent(name, data, this);
                 }
                 break;
-            case "movesymbol":
-            case "replacereelwithmask":
-            case "replacesymbolgroup":
-            case "addsymbols":
+            case 'movesymbol':
+            case 'replacereelwithmask':
+            case 'replacesymbolgroup':
+            case 'addsymbols':
                 {
                     component = new SCChangeSymbolComponent(name, data, this);
                 }
                 break;
-            case "rollsymbol":
+            case 'rollsymbol':
                 {
                     component = new SCRollSymbolComponent(name, data, this);
                 }
                 break;
-            case "collector":
+            case 'collector':
                 {
                     component = new SCCollectorComponent(name, data, this);
                 }
                 break;
-            case "piggybank":
+            case 'piggybank':
                 {
                     component = new SCBankComponent(name, data, this);
                 }
@@ -623,8 +656,8 @@ class SCLogicMgr {
     // 获取真实的成员名称
     _getRealComponentName(comname) {
         // 判断拼接的名称
-        if (comname.indexOf("/") >= 0) {
-            var arr = comname.split("/");
+        if (comname.indexOf('/') >= 0) {
+            var arr = comname.split('/');
             return arr[arr.length - 1];
         }
 
@@ -634,16 +667,22 @@ class SCLogicMgr {
     // 获取成员的前缀
     _getComponentPreName(comname) {
         // 判断拼接的名称
-        if (comname.indexOf("/") >= 0) {
-            var arr = comname.split("/");
+        if (comname.indexOf('/') >= 0) {
+            var arr = comname.split('/');
             return arr[0];
         }
 
-        return "";
+        return '';
     }
 
     // 获取循环状态的名字
-    _getNextPreName(clientdata, sname, prename, historyComponents, mapComponents) {
+    _getNextPreName(
+        clientdata,
+        sname,
+        prename,
+        historyComponents,
+        mapComponents
+    ) {
         if (!historyComponents) {
             return false;
         }
@@ -657,7 +696,7 @@ class SCLogicMgr {
         for (var ii = 0; ii < sdata.list.length; ii += 1) {
             var bfind = false;
 
-            if (prename == "") {
+            if (prename == '') {
                 bfind = true;
             }
 
@@ -678,7 +717,9 @@ class SCLogicMgr {
                         if (componentinfo) {
                             // 判断是否激活
                             if (component.isActive(clientdata, componentinfo)) {
-                                var pname = this._getComponentPreName(historyComponents[jj]);
+                                var pname = this._getComponentPreName(
+                                    historyComponents[jj]
+                                );
 
                                 if (prename == pname) {
                                     bfind = true;
@@ -694,7 +735,7 @@ class SCLogicMgr {
             }
         }
 
-        return "";
+        return '';
     }
 }
 

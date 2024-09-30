@@ -6,10 +6,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
-
-const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
-
-
+const stylesHandler = isProduction
+    ? MiniCssExtractPlugin.loader
+    : 'style-loader';
 
 const config = {
     entry: './src/index.js',
@@ -36,7 +35,7 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
@@ -51,9 +50,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
+
         config.plugins.push(new MiniCssExtractPlugin());
-        
     } else {
         config.mode = 'development';
     }

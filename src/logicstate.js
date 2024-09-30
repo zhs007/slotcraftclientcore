@@ -135,11 +135,11 @@ class SCLogicState {
 
             this.otherscene.push(arr);
         }
-    }    
+    }
 
     initPos(pos) {
         this.pos = pos;
-    }    
+    }
 
     // 添加一个赔付
     addResult(rdata, componentname, type) {
@@ -154,11 +154,11 @@ class SCLogicState {
     // 深度克隆
     _deepClone(obj) {
         let newObj = Array.isArray(obj) ? [] : {};
-        if (obj && typeof obj === "object") {
+        if (obj && typeof obj === 'object') {
             for (let key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     newObj[key] =
-                        obj && typeof obj[key] === "object"
+                        obj && typeof obj[key] === 'object'
                             ? this._deepClone(obj[key])
                             : obj[key];
                 }

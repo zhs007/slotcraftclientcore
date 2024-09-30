@@ -78,42 +78,42 @@ function parseSlotCraftJson(objModule) {
     for (let i = 0; i < objModule.length; i++) {
         const curmod = objModule[i];
 
-        if (curmod.module && curmod.module != "") {
+        if (curmod.module && curmod.module != '') {
             let lst = [];
             for (let j = 0; j < curmod.component.length; j++) {
                 const curcomponent = curmod.component[j];
 
-                if (typeof curcomponent == "string") {
-                    if (curcomponent == "") {
-                        throw new Error("Invalid component (string).");
+                if (typeof curcomponent == 'string') {
+                    if (curcomponent == '') {
+                        throw new Error('Invalid component (string).');
                     }
 
                     lst.push(curcomponent);
-                } else if (typeof curcomponent == "object") {
-                    if (!curcomponent.value || curcomponent.value == "") {
-                        throw new Error("Invalid component (object.value).");
+                } else if (typeof curcomponent == 'object') {
+                    if (!curcomponent.value || curcomponent.value == '') {
+                        throw new Error('Invalid component (object.value).');
                     }
 
                     lst.push(curcomponent.value);
                 } else {
-                    throw new Error("Invalid component (type).");
+                    throw new Error('Invalid component (type).');
                 }
             }
 
             statecfg.statedata[curmod.name] = {
                 list: lst,
                 module: curmod.module,
-                performance: "",
+                performance: '',
             };
 
-            if (curmod.module == "FgExitModule") {
+            if (curmod.module == 'FgExitModule') {
                 statecfg.statedata[curmod.name].bquick = false;
                 statecfg.statedata[curmod.name].toui = true;
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
             }
 
             if (curmod.trigger) {
-                statecfg.statedata[curmod.name].trigger = curmod.trigger;
+                statecfg.statedata[curmod.name].trigger = trigger;
             }
 
             statecfg.statelist.push(curmod.name);
@@ -165,17 +165,21 @@ function isMainRespin(results, respinName) {
 
 // isNeedTotalWinsModule - 判断模块是否需要totalwin，WinAniModule和FgExitModule需要
 function isNeedTotalWinsModule(modName) {
-    return modName == "FgExitModule" || modName == "WinAniModule";
+    return modName == 'FgExitModule' || modName == 'WinAniModule';
 }
 
 // isFGEndingModule - 判断模块是否是FG结束模块，FgExitModule
 function isFGEndingModule(modName) {
-    return modName == "FgExitModule";
+    return modName == 'FgExitModule';
 }
 
 // isRetriggerFGModule - 判断模块是否是再次触发FG模块，FreeExtraModule
 function isRetriggerFGModule(modName) {
-    return modName == "FreeExtraModule";
+    return modName == 'FreeExtraModule';
+}
+
+function isTriggerFGModule(modName) {
+    return modName == 'FgModule';
 }
 
 function getMainRespinNames(stateData) {
@@ -217,7 +221,7 @@ function findFirstResults(results, i, respinName) {
 function calcTotalWins(results, i, respinName) {
     const result = results[i];
 
-    if (respinName == "") {
+    if (respinName == '') {
         return result.cashWin;
     }
 
@@ -250,19 +254,19 @@ function isRespinEnding(results, i, respinName) {
     }
 
     // 如果当前消息里没有这个respinName，则结束
-    if (
-        results[i].clientData.curGameModParam.respinComponents.indexOf(
-            respinName
-        ) == -1
-    ) {
-        return true;
-    }
+    // if (
+    //     results[i].clientData.curGameModParam.respinComponents.indexOf(
+    //         respinName
+    //     ) == -1
+    // ) {
+    //     return true;
+    // }
 
     return false;
 }
 
 function isExitState(curStateData) {
-    return curStateData.exitmodule || curStateData.trigger == "onEnding";
+    return curStateData.exitmodule || curStateData.trigger == 'onEnding';
 }
 
 // isChgSymbolsComponent - 判断是否是chgSymbols组件，chgSymbols组件需要前端逻辑处理pos数据
@@ -270,7 +274,7 @@ function isChgSymbolsComponent(componentCfgData) {
     if (
         componentCfgData &&
         componentCfgData.config &&
-        componentCfgData.config.componentType == "chgSymbols"
+        componentCfgData.config.componentType == 'chgSymbols'
     ) {
         return true;
     }
@@ -306,5 +310,6 @@ exports.calcTotalWins = calcTotalWins;
 exports.isRespinEnding = isRespinEnding;
 exports.isExitState = isExitState;
 exports.isRetriggerFGModule = isRetriggerFGModule;
+exports.isTriggerFGModule = isTriggerFGModule;
 exports.isChgSymbolsComponent = isChgSymbolsComponent;
 exports.genPosWithChgSymbols = genPosWithChgSymbols;

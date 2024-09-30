@@ -1,173 +1,52 @@
-const { parseSlotCraftJson } = require("./utils.js");
+const { parseSlotCraftJson } = require('./utils.js');
 
-test("parseSlotCraftJson", () => {
+test('parseSlotCraftJson', () => {
     let obj = [
         {
-            name: "bg-spin",
+            name: 'bg-spin',
             component: [
                 {
-                    value: "bg-spin",
-                    type: "WeightReels",
-                },
-                {
-                    value: "bg-gensym",
-                    type: "GenSymbolValsWithSymbol",
-                },
-                {
-                    value: "bg-chgom",
-                    type: "ChgSymbols",
-                },
-                {
-                    value: "bg-chgwl",
-                    type: "ChgSymbols",
+                    value: 'bg-spin',
+                    type: 'BasicReels',
                 },
             ],
-            module: "Spin",
+            module: 'SpinModule',
             instance: 0,
+            key: '0.3752781228097424',
         },
         {
-            name: "bg-win",
+            name: 'bg-paylines',
             component: [
                 {
-                    value: "bg-paylines",
-                    type: "LinesTrigger",
+                    value: 'bg-paylines',
+                    type: 'LinesTrigger',
+                },
+                {
+                    value: 'bg-paysc',
+                    type: 'ScatterTrigger',
                 },
             ],
-            module: "ShowBigWins",
+            module: 'ShowTopModule',
             instance: 0,
+            key: '0.5469951039573102',
         },
         {
-            name: "bg-coinwins",
+            name: 'bg-win',
             component: [
                 {
-                    value: "bg-symwins",
-                    type: "SymbolValsWins",
+                    value: 'bg-spin',
+                    type: 'BasicReels',
                 },
             ],
-            module: "CoinPickupWin",
+            module: 'WinAniModule',
             instance: 0,
-        },
-        {
-            name: "bg-scatter",
-            component: ["bg-scatter"],
-            module: "StartFreeGame",
-            instance: 0,
-        },
-        {
-            name: "bg-showbigwin",
-            component: [
-                {
-                    value: "bg-paylines",
-                    type: "LinesTrigger",
-                },
-                {
-                    value: "bg-scatter",
-                    type: "ScatterTrigger",
-                },
-                {
-                    value: "bg-symwins",
-                    type: "SymbolValsWins",
-                },
-            ],
-            module: "ShowSymbolWins",
-            instance: 0,
-        },
-        {
-            name: "fg-spin",
-            component: [
-                {
-                    value: "fg-spin",
-                    type: "BasicReels",
-                },
-                {
-                    value: "fg-gensym",
-                    type: "GenSymbolValsWithSymbol",
-                },
-                {
-                    value: "fg-chgmm",
-                    type: "ChgSymbols",
-                },
-                {
-                    value: "fg-chgbm",
-                    type: "ChgSymbols",
-                },
-                {
-                    value: "fg-chgwl",
-                    type: "ChgSymbols",
-                },
-            ],
-            module: "Spin",
-            instance: 0,
-        },
-        {
-            name: "bg-mmeffect",
-            component: [
-                {
-                    value: "fg-adde",
-                    type: "ChgSymbols",
-                },
-                {
-                    value: "fg-genadde",
-                    type: "GenSymbolValsWithSymbol",
-                },
-            ],
-            module: "SymbolChange",
-            instance: 0,
-        },
-        {
-            name: "bg-bmeffect",
-            component: [
-                {
-                    value: "fg-replacee",
-                    type: "ReplaceReelWithMask",
-                },
-                {
-                    value: "fg-genreplacee",
-                    type: "GenSymbolValsWithSymbol",
-                },
-            ],
-            module: "SymbolChange",
-            instance: 0,
-        },
-        {
-            name: "fg-symwins",
-            component: ["fg-symwins"],
-            module: "CoinPickupWin",
-            instance: 0,
-        },
-        {
-            name: "fg-bigwins",
-            component: [
-                {
-                    value: "fg-paylines",
-                    type: "LinesTrigger",
-                },
-                {
-                    value: "fg-symwins",
-                    type: "SymbolValsWins",
-                },
-                {
-                    value: "fg-respin",
-                    type: "Respin",
-                },
-            ],
-            module: "ShowSymbolWins",
-            instance: 0,
-            trigger: "onStart",
-            toUI: "notToUI",
-            forceTotalNum: 0,
-        },
-        {
-            name: "fg-start",
-            component: ["fg-start"],
-            module: "FreeGameEnding",
-            instance: 0,
+            key: '0.9572452423664488',
         },
     ];
 
     let statecfg = parseSlotCraftJson(obj);
     expect(statecfg).not.toBe(null);
-    expect(statecfg.statelist.length).toBe(11);
+    expect(statecfg.statelist.length).toBe(3);
     expect(statecfg.statedata).not.toBe(null);
 
     let num = 0;

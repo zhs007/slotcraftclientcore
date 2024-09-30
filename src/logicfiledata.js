@@ -144,7 +144,7 @@ function parseLinedata(data) {
             let curarr = [(i + 1).toString()];
 
             for (let j = 0; j < maxReel; j++) {
-                curarr.push(data.excelJson[i]['R' + (j + 1)])
+                curarr.push(data.excelJson[i]['R' + (j + 1)]);
             }
 
             // for (let j = 0; j < lst.length; j++) {
@@ -217,7 +217,12 @@ function parsePaytable(paytableData) {
             for (let j = 0; j < maxNum; j++) {
                 const curv = parseInt(symbolData['X' + (j + 1)]);
                 if (curv == NaN) {
-                    throw new Error('Invalid paytable data. ' + symbolData.Symbol + '.' + ('X' + (j + 1)));
+                    throw new Error(
+                        'Invalid paytable data. ' +
+                            symbolData.Symbol +
+                            '.' +
+                            ('X' + (j + 1))
+                    );
                 }
 
                 curarr.push(curv);
@@ -254,7 +259,12 @@ function parsePaytable2(paytableData) {
         for (let j = 0; j < maxNum; j++) {
             const curv = parseInt(symbolData['X' + (j + 1)]);
             if (curv == NaN) {
-                throw new Error('Invalid paytable data. ' + symbolData.Symbol + '.' + ('X' + (j + 1)));
+                throw new Error(
+                    'Invalid paytable data. ' +
+                        symbolData.Symbol +
+                        '.' +
+                        ('X' + (j + 1))
+                );
             }
 
             curarr.push(curv);
@@ -300,7 +310,11 @@ function genLogicFileData(repository, isAdmin) {
             }
 
             if (data.type == 'Reels') {
-                const arr = parseReels(data, logicFiles['paytable'].data, isAdmin);
+                const arr = parseReels(
+                    data,
+                    logicFiles['paytable'].data,
+                    isAdmin
+                );
                 if (!arr) {
                     throw new Error('Invalid Reels data. - ' + data.fileName);
                 }
@@ -323,10 +337,17 @@ function genLogicFileData(repository, isAdmin) {
                     type: data.type,
                     data: arr,
                 };
-            } else if (data.type == 'StringValWeight' || data.type == 'ReelSetWeight' || data.type == 'SymbolWeight' || data.type == 'IntValWeight') {
+            } else if (
+                data.type == 'StringValWeight' ||
+                data.type == 'ReelSetWeight' ||
+                data.type == 'SymbolWeight' ||
+                data.type == 'IntValWeight'
+            ) {
                 const arr = parseValWeight(data, isAdmin);
                 if (!arr) {
-                    throw new Error('Invalid ' + data.type + ' data. - ' + data.fileName);
+                    throw new Error(
+                        'Invalid ' + data.type + ' data. - ' + data.fileName
+                    );
                 }
 
                 // console.log(arr);
@@ -336,10 +357,15 @@ function genLogicFileData(repository, isAdmin) {
                     type: data.type,
                     data: arr,
                 };
-            } else if (data.type == 'IntValMappingFile' || data.type == 'StringValMappingFile') {
+            } else if (
+                data.type == 'IntValMappingFile' ||
+                data.type == 'StringValMappingFile'
+            ) {
                 const arr = parseValMapping(data);
                 if (!arr) {
-                    throw new Error('Invalid ' + data.type + ' data. - ' + data.fileName);
+                    throw new Error(
+                        'Invalid ' + data.type + ' data. - ' + data.fileName
+                    );
                 }
 
                 // console.log(arr);
@@ -358,4 +384,4 @@ function genLogicFileData(repository, isAdmin) {
     return arrFiles;
 }
 
-exports.genLogicFileData = genLogicFileData
+exports.genLogicFileData = genLogicFileData;
