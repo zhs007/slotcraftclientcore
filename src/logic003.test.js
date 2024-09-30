@@ -1,241 +1,241 @@
-const { SCLogicMgr2 } = require("./logicmgr2.js");
-const { parseSlotCraftJson } = require("./utils.js");
+const { SCLogicMgr2 } = require('./logicmgr2.js');
+const { parseSlotCraftJson } = require('./utils.js');
 
-test("logic test 003", async () => {
+test('logic test 003', async () => {
     const logic = new SCLogicMgr2();
 
     const statedata = {
-        "bg-spin": {
-            list: ["bg-spin"],
-            module: "SpinModule",
-            performance: "",
+        'bg-spin': {
+            list: ['bg-spin'],
+            module: 'SpinModule',
+            performance: '',
         },
-        "bg-blueeffect": {
+        'bg-blueeffect': {
             list: [
-                "bg-blue2red",
-                "bg-blue2green",
-                "bg-green2red",
-                "bg-green2blue",
-                "bg-red2green",
-                "bg-red2blue",
+                'bg-blue2red',
+                'bg-blue2green',
+                'bg-green2red',
+                'bg-green2blue',
+                'bg-red2green',
+                'bg-red2blue',
             ],
-            module: "SymChangeModule",
-            performance: "2",
+            module: 'SymChangeModule',
+            performance: '2',
         },
-        "bg-addwl": {
-            list: ["bg-addwl"],
-            module: "SymChangeModule",
-            performance: "0",
+        'bg-addwl': {
+            list: ['bg-addwl'],
+            module: 'SymChangeModule',
+            performance: '0',
         },
-        "bg-pay": {
-            list: ["bg-payred", "bg-payblue", "bg-paygreen"],
-            module: "ShowTopModule",
-            performance: "",
+        'bg-pay': {
+            list: ['bg-payred', 'bg-payblue', 'bg-paygreen'],
+            module: 'ShowTopModule',
+            performance: '',
         },
-        "bg-blue": {
-            list: ["bg-blue"],
-            module: "SymCollectCoinModule",
-            performance: "0",
+        'bg-blue': {
+            list: ['bg-blue'],
+            module: 'SymCollectCoinModule',
+            performance: '0',
         },
-        "bg-green": {
-            list: ["bg-green"],
-            module: "SymCollectCoinModule",
-            performance: "2",
+        'bg-green': {
+            list: ['bg-green'],
+            module: 'SymCollectCoinModule',
+            performance: '2',
         },
-        "bg-red": {
-            list: ["bg-red"],
-            module: "SymCollectCoinModule",
-            performance: "1",
+        'bg-red': {
+            list: ['bg-red'],
+            module: 'SymCollectCoinModule',
+            performance: '1',
         },
-        "bg-redmul": {
-            list: ["bg-redeffect"],
-            module: "WinMultiModule",
-            performance: "1",
+        'bg-redmul': {
+            list: ['bg-redeffect'],
+            module: 'WinMultiModule',
+            performance: '1',
         },
-        "bg-remove": {
-            list: ["bg-remove"],
-            module: "SymRemoveModule",
-            performance: "",
+        'bg-remove': {
+            list: ['bg-remove'],
+            module: 'SymRemoveModule',
+            performance: '',
         },
-        "bg-dropdown": {
-            list: ["bg-dropdown"],
-            module: "SymDropdownModule",
-            performance: "",
+        'bg-dropdown': {
+            list: ['bg-dropdown'],
+            module: 'SymDropdownModule',
+            performance: '',
         },
-        "bg-refill": {
-            list: ["bg-refill"],
-            module: "SymRefillModule",
-            performance: "",
+        'bg-refill': {
+            list: ['bg-refill'],
+            module: 'SymRefillModule',
+            performance: '',
         },
-        "bg-win": {
-            list: ["bg-piggybank"],
-            module: "WinAniModule",
-            performance: "",
+        'bg-win': {
+            list: ['bg-piggybank'],
+            module: 'WinAniModule',
+            performance: '',
         },
-        "bg-fgtrigger": {
-            list: ["bg-fgtrigger"],
-            module: "FgModule",
-            performance: "",
+        'bg-fgtrigger': {
+            list: ['bg-fgtrigger'],
+            module: 'FgModule',
+            performance: '',
         },
-        "fg-spin": {
-            list: ["fg-spin"],
-            module: "SpinModule",
-            performance: "",
+        'fg-spin': {
+            list: ['fg-spin'],
+            module: 'SpinModule',
+            performance: '',
         },
-        "fg-blueeffect": {
+        'fg-blueeffect': {
             list: [
-                "fg-green2red",
-                "fg-green2blue",
-                "fg-red2green",
-                "fg-red2blue",
-                "fg-blue2green",
-                "fg-blue2red",
+                'fg-green2red',
+                'fg-green2blue',
+                'fg-red2green',
+                'fg-red2blue',
+                'fg-blue2green',
+                'fg-blue2red',
             ],
-            module: "SymChangeModule",
-            performance: "2",
+            module: 'SymChangeModule',
+            performance: '2',
         },
-        "fg-addwl": {
-            list: ["fg-addw"],
-            module: "SymChangeModule",
-            performance: "0",
+        'fg-addwl': {
+            list: ['fg-addw'],
+            module: 'SymChangeModule',
+            performance: '0',
         },
-        "fg-pay": {
-            list: ["fg-paygreen", "fg-payred", "fg-payblue"],
-            module: "ShowTopModule",
-            performance: "",
+        'fg-pay': {
+            list: ['fg-paygreen', 'fg-payred', 'fg-payblue'],
+            module: 'ShowTopModule',
+            performance: '',
         },
-        "fg-blue": {
-            list: ["fg-blue"],
-            module: "SymCollectCoinModule",
-            performance: "0",
+        'fg-blue': {
+            list: ['fg-blue'],
+            module: 'SymCollectCoinModule',
+            performance: '0',
         },
-        "fg-green": {
-            list: ["fg-green"],
-            module: "SymCollectCoinModule",
-            performance: "2",
+        'fg-green': {
+            list: ['fg-green'],
+            module: 'SymCollectCoinModule',
+            performance: '2',
         },
-        "fg-red": {
-            list: ["fg-red"],
-            module: "SymCollectCoinModule",
-            performance: "1",
+        'fg-red': {
+            list: ['fg-red'],
+            module: 'SymCollectCoinModule',
+            performance: '1',
         },
-        "fg-redmul": {
-            list: ["fg-redeffect"],
-            module: "WinMultiModule",
-            performance: "1",
+        'fg-redmul': {
+            list: ['fg-redeffect'],
+            module: 'WinMultiModule',
+            performance: '1',
         },
-        "fg-remove": {
-            list: ["fg-remove"],
-            module: "SymRemoveModule",
-            performance: "",
+        'fg-remove': {
+            list: ['fg-remove'],
+            module: 'SymRemoveModule',
+            performance: '',
         },
-        "fg-dropdown": {
-            list: ["fg-dropdown"],
-            module: "SymDropdownModule",
-            performance: "",
+        'fg-dropdown': {
+            list: ['fg-dropdown'],
+            module: 'SymDropdownModule',
+            performance: '',
         },
-        "fg-refill": {
-            list: ["fg-refill"],
-            module: "SymRefillModule",
-            performance: "",
+        'fg-refill': {
+            list: ['fg-refill'],
+            module: 'SymRefillModule',
+            performance: '',
         },
-        "fg-win": {
-            list: ["fg-piggybank"],
-            module: "WinAniModule",
-            performance: "",
+        'fg-win': {
+            list: ['fg-piggybank'],
+            module: 'WinAniModule',
+            performance: '',
         },
-        "fg-fgtrigger": {
-            list: ["fg-fgtrigger"],
-            module: "FreeExtraModule",
-            performance: "",
+        'fg-fgtrigger': {
+            list: ['fg-fgtrigger'],
+            module: 'FreeExtraModule',
+            performance: '',
         },
         fg: {
-            list: ["fg-start"],
-            module: "FgExitModule",
-            performance: "",
+            list: ['fg-start'],
+            module: 'FgExitModule',
+            performance: '',
             bquick: false,
             toui: true,
-            exitmodule: "FgExitModule",
+            exitmodule: 'FgExitModule',
         },
     };
     const statelist = [
-        "bg-spin",
-        "bg-dropdown",
-        "bg-refill",
-        "bg-blueeffect",
-        "bg-addwl",
-        "bg-pay",
-        "bg-blue",
-        "bg-green",
-        "bg-red",
-        "bg-redmul",
-        "bg-remove",
-        "bg-win",
-        "bg-fgtrigger",
-        "fg-spin",
-        "fg-dropdown",
-        "fg-refill",
-        "fg-blueeffect",
-        "fg-addwl",
-        "fg-pay",
-        "fg-blue",
-        "fg-green",
-        "fg-red",
-        "fg-redmul",
-        "fg-remove",
-        "fg-win",
-        "fg-fgtrigger",
-        "fg",
+        'bg-spin',
+        'bg-dropdown',
+        'bg-refill',
+        'bg-blueeffect',
+        'bg-addwl',
+        'bg-pay',
+        'bg-blue',
+        'bg-green',
+        'bg-red',
+        'bg-redmul',
+        'bg-remove',
+        'bg-win',
+        'bg-fgtrigger',
+        'fg-spin',
+        'fg-dropdown',
+        'fg-refill',
+        'fg-blueeffect',
+        'fg-addwl',
+        'fg-pay',
+        'fg-blue',
+        'fg-green',
+        'fg-red',
+        'fg-redmul',
+        'fg-remove',
+        'fg-win',
+        'fg-fgtrigger',
+        'fg',
     ];
 
     const gamecfg = {
         10: {
             mapComponents: {
-                "fg-greeneffect": {
+                'fg-greeneffect': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "fg-greenbranch",
+                        jumpToComponent: 'fg-greenbranch',
                     },
                 },
-                "fg-blue2red": {
+                'fg-blue2red': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["BH", "BM", "BM2", "BL"],
-                        targetSymbols: ["RH", "RM", "RM2", "RL"],
-                        mask: "",
+                        srcSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        targetSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        mask: '',
                     },
                 },
-                "bg-greeneffect": {
+                'bg-greeneffect': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "bg-greenbranch",
+                        jumpToComponent: 'bg-greenbranch',
                     },
                 },
-                "fg-refill": {
+                'fg-refill': {
                     config: {
-                        defaultNextComponent: "fg-greeneffect",
+                        defaultNextComponent: 'fg-greeneffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "refillSymbols",
+                        componentType: 'refillSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         isNeedProcSymbolVals: false,
@@ -243,119 +243,119 @@ test("logic test 003", async () => {
                         defaultSymbolVal: 0,
                     },
                 },
-                "fg-payred": {
+                'fg-payred': {
                     config: {
-                        defaultNextComponent: "fg-red",
+                        defaultNextComponent: 'fg-red',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["RH", "RM", "RM2", "RL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['RH', 'RM', 'RM2', 'RL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "fg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'fg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["fg-red.valueNum"],
-                                componentVals: ["fg-payred.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['fg-red.valueNum'],
+                                componentVals: ['fg-payred.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-blue2green": {
+                'fg-blue2green': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["BH", "BM", "BM2", "BL"],
-                        targetSymbols: ["GH", "GM", "GM2", "GL"],
-                        mask: "",
+                        srcSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        targetSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        mask: '',
                     },
                 },
-                "bg-redeffect": {
+                'bg-redeffect': {
                     config: {
-                        defaultNextComponent: "bg-paygreen",
+                        defaultNextComponent: 'bg-paygreen',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "bg-rollmulti",
+                        jumpToComponent: 'bg-rollmulti',
                     },
                 },
-                "bg-piggybank": {
+                'bg-piggybank': {
                     config: {
-                        defaultNextComponent: "fg-start",
+                        defaultNextComponent: 'fg-start',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "piggyBank",
+                        componentType: 'piggyBank',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         winMulti: 0,
-                        type: "none",
+                        type: 'none',
                     },
                 },
-                "bg-red": {
+                'bg-red': {
                     config: {
-                        defaultNextComponent: "bg-redeffect",
+                        defaultNextComponent: 'bg-redeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["bg-redeffect.queue"],
+                                    strParams: ['bg-redeffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "bg-refill": {
+                'bg-refill': {
                     config: {
-                        defaultNextComponent: "bg-greeneffect",
+                        defaultNextComponent: 'bg-greeneffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "refillSymbols",
+                        componentType: 'refillSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         isNeedProcSymbolVals: false,
@@ -363,53 +363,53 @@ test("logic test 003", async () => {
                         defaultSymbolVal: 0,
                     },
                 },
-                "fg-blue": {
+                'fg-blue': {
                     config: {
-                        defaultNextComponent: "fg-payred",
+                        defaultNextComponent: 'fg-payred',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["fg-blueeffect.queue"],
+                                    strParams: ['fg-blueeffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "bg-spin": {
+                'bg-spin': {
                     config: {
-                        defaultNextComponent: "bg-payblue",
+                        defaultNextComponent: 'bg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "basicReels",
+                        componentType: 'basicReels',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        reelSet: "reels2-001",
+                        reelSet: 'reels2-001',
                         isExpandReel: false,
                         awards: null,
                     },
                 },
-                "bg-dropdown": {
+                'bg-dropdown': {
                     config: {
-                        defaultNextComponent: "bg-refill",
+                        defaultNextComponent: 'bg-refill',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "dropDownSymbols",
+                        componentType: 'dropDownSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         holdSymbols: null,
@@ -417,756 +417,756 @@ test("logic test 003", async () => {
                         emptySymbolVal: 0,
                     },
                 },
-                "fg-green2red": {
+                'fg-green2red': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["GH", "GM", "GM2", "GL"],
-                        targetSymbols: ["RH", "RM", "RM2", "RL"],
-                        mask: "",
+                        srcSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        targetSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        mask: '',
                     },
                 },
-                "fg-blueeffect": {
+                'fg-blueeffect': {
                     config: {
-                        defaultNextComponent: "fg-payblue",
+                        defaultNextComponent: 'fg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "fg-addw",
+                        jumpToComponent: 'fg-addw',
                     },
                 },
-                "bg-blueeffect": {
+                'bg-blueeffect': {
                     config: {
-                        defaultNextComponent: "bg-payblue",
+                        defaultNextComponent: 'bg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "bg-addwl",
+                        jumpToComponent: 'bg-addwl',
                     },
                 },
-                "bg-red2blue": {
+                'bg-red2blue': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["RH", "RM", "RM2", "RL"],
-                        targetSymbols: ["BH", "BM", "BM2", "BL"],
-                        mask: "",
+                        srcSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        targetSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        mask: '',
                     },
                 },
-                "fg-green2blue": {
+                'fg-green2blue': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["GH", "GM", "GM2", "GL"],
-                        targetSymbols: ["BH", "BM", "BM2", "BL"],
-                        mask: "",
+                        srcSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        targetSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        mask: '',
                     },
                 },
-                "bg-greenbranch": {
+                'bg-greenbranch': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "weightBranch",
+                        componentType: 'weightBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        weight: "greenweight",
+                        weight: 'greenweight',
                         mapBranchs: {
-                            "red to green": {
+                            'red to green': {
                                 awards: null,
-                                jumpToComponent: "bg-red2green",
+                                jumpToComponent: 'bg-red2green',
                             },
-                            "red to blue": {
+                            'red to blue': {
                                 awards: null,
-                                jumpToComponent: "bg-red2blue",
+                                jumpToComponent: 'bg-red2blue',
                             },
-                            "blue to red": {
+                            'blue to red': {
                                 awards: null,
-                                jumpToComponent: "bg-blue2red",
+                                jumpToComponent: 'bg-blue2red',
                             },
-                            "green to red": {
+                            'green to red': {
                                 awards: null,
-                                jumpToComponent: "bg-green2red",
+                                jumpToComponent: 'bg-green2red',
                             },
-                            "green to blue": {
+                            'green to blue': {
                                 awards: null,
-                                jumpToComponent: "bg-green2blue",
+                                jumpToComponent: 'bg-green2blue',
                             },
-                            "blue to  green": {
+                            'blue to  green': {
                                 awards: null,
-                                jumpToComponent: "bg-blue2green",
+                                jumpToComponent: 'bg-blue2green',
                             },
                         },
                     },
                 },
-                "bg-blue2green": {
+                'bg-blue2green': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["BH", "BM", "BM2", "BL"],
-                        targetSymbols: ["GH", "GM", "GM2", "GL"],
-                        mask: "",
+                        srcSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        targetSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        mask: '',
                     },
                 },
-                "fg-addw": {
+                'fg-addw': {
                     config: {
-                        defaultNextComponent: "fg-payblue",
+                        defaultNextComponent: 'fg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "addSymbols",
+                        componentType: 'addSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "WL",
+                        symbol: 'WL',
                         symbolNum: 0,
-                        symbolNumWeight: "blueweight",
-                        ignoreSymbols: ["WL", "SC"],
+                        symbolNumWeight: 'blueweight',
+                        ignoreSymbols: ['WL', 'SC'],
                     },
                 },
-                "fg-paygreen": {
+                'fg-paygreen': {
                     config: {
-                        defaultNextComponent: "fg-green",
+                        defaultNextComponent: 'fg-green',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["GH", "GM", "GM2", "GL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['GH', 'GM', 'GM2', 'GL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "fg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'fg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["fg-green.valueNum"],
-                                componentVals: ["fg-paygreen.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['fg-green.valueNum'],
+                                componentVals: ['fg-paygreen.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-greenbranch": {
+                'fg-greenbranch': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "weightBranch",
+                        componentType: 'weightBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        weight: "greenweight",
+                        weight: 'greenweight',
                         mapBranchs: {
-                            "red to blue": {
+                            'red to blue': {
                                 awards: null,
-                                jumpToComponent: "fg-red2blue",
+                                jumpToComponent: 'fg-red2blue',
                             },
-                            "blue to red": {
+                            'blue to red': {
                                 awards: null,
-                                jumpToComponent: "fg-blue2red",
+                                jumpToComponent: 'fg-blue2red',
                             },
-                            "green to red": {
+                            'green to red': {
                                 awards: null,
-                                jumpToComponent: "fg-green2red",
+                                jumpToComponent: 'fg-green2red',
                             },
-                            "green to blue": {
+                            'green to blue': {
                                 awards: null,
-                                jumpToComponent: "fg-green2blue",
+                                jumpToComponent: 'fg-green2blue',
                             },
-                            "blue to  green": {
+                            'blue to  green': {
                                 awards: null,
-                                jumpToComponent: "fg-blue2green",
+                                jumpToComponent: 'fg-blue2green',
                             },
-                            "red to green": {
+                            'red to green': {
                                 awards: null,
-                                jumpToComponent: "fg-red2green",
+                                jumpToComponent: 'fg-red2green',
                             },
                         },
                     },
                 },
-                "fg-piggybank": {
+                'fg-piggybank': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "piggyBank",
+                        componentType: 'piggyBank',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         winMulti: 0,
-                        type: "none",
+                        type: 'none',
                     },
                 },
-                "bg-addwl": {
+                'bg-addwl': {
                     config: {
-                        defaultNextComponent: "bg-payblue",
+                        defaultNextComponent: 'bg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "addSymbols",
+                        componentType: 'addSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "WL",
+                        symbol: 'WL',
                         symbolNum: 0,
-                        symbolNumWeight: "blueweight",
-                        ignoreSymbols: ["WL", "SC"],
+                        symbolNumWeight: 'blueweight',
+                        ignoreSymbols: ['WL', 'SC'],
                     },
                 },
-                "fg-start": {
+                'fg-start': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "respin",
+                        componentType: 'respin',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        mainComponent: "fg-spin",
+                        mainComponent: 'fg-spin',
                     },
                 },
-                "fg-payblue": {
+                'fg-payblue': {
                     config: {
-                        defaultNextComponent: "fg-blue",
+                        defaultNextComponent: 'fg-blue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["BH", "BM", "BM2", "BL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['BH', 'BM', 'BM2', 'BL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "fg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'fg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["fg-blue.valueNum"],
-                                componentVals: ["fg-payblue.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['fg-blue.valueNum'],
+                                componentVals: ['fg-payblue.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-red2blue": {
+                'fg-red2blue': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["RH", "RM", "RM2", "RL"],
-                        targetSymbols: ["BH", "BM", "BM2", "BL"],
-                        mask: "",
+                        srcSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        targetSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        mask: '',
                     },
                 },
-                "bg-rollmulti": {
+                'bg-rollmulti': {
                     config: {
-                        defaultNextComponent: "bg-paygreen",
+                        defaultNextComponent: 'bg-paygreen',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "rollNumber",
+                        componentType: 'rollNumber',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        weight: "redweight",
+                        weight: 'redweight',
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["bg-piggybank.winMulti"],
-                                componentVals: ["bg-rollmulti.outputInt"],
-                                onTriggerRespin: "",
+                                strParams: ['bg-piggybank.winMulti'],
+                                componentVals: ['bg-rollmulti.outputInt'],
+                                onTriggerRespin: '',
                             },
                         ],
                     },
                 },
-                "bg-respin": {
+                'bg-respin': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "respin",
+                        componentType: 'respin',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        mainComponent: "bg-dropdown",
+                        mainComponent: 'bg-dropdown',
                     },
                 },
-                "bg-paygreen": {
+                'bg-paygreen': {
                     config: {
-                        defaultNextComponent: "bg-green",
+                        defaultNextComponent: 'bg-green',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["GH", "GM", "GM2", "GL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['GH', 'GM', 'GM2', 'GL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "bg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'bg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["bg-green.valueNum"],
-                                componentVals: ["bg-paygreen.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['bg-green.valueNum'],
+                                componentVals: ['bg-paygreen.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-green": {
+                'fg-green': {
                     config: {
-                        defaultNextComponent: "fg-remove",
+                        defaultNextComponent: 'fg-remove',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["fg-greeneffect.queue"],
+                                    strParams: ['fg-greeneffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "fg-spin": {
+                'fg-spin': {
                     config: {
-                        defaultNextComponent: "fg-payblue",
+                        defaultNextComponent: 'fg-payblue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "basicReels",
+                        componentType: 'basicReels',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        reelSet: "reels2-001",
+                        reelSet: 'reels2-001',
                         isExpandReel: false,
                         awards: [
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [0],
-                                strParams: ["fg-piggybank.savedMoney"],
+                                strParams: ['fg-piggybank.savedMoney'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [0],
-                                strParams: ["fg-blue.valueNum"],
+                                strParams: ['fg-blue.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [0],
-                                strParams: ["fg-red.valueNum"],
+                                strParams: ['fg-red.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [0],
-                                strParams: ["fg-green.valueNum"],
+                                strParams: ['fg-green.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                         ],
                     },
                 },
-                "fg-rollmulti": {
+                'fg-rollmulti': {
                     config: {
-                        defaultNextComponent: "fg-paygreen",
+                        defaultNextComponent: 'fg-paygreen',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "rollNumber",
+                        componentType: 'rollNumber',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        weight: "redweight",
+                        weight: 'redweight',
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["fg-piggybank.winMulti"],
-                                componentVals: ["fg-rollmulti.outputInt"],
-                                onTriggerRespin: "",
+                                strParams: ['fg-piggybank.winMulti'],
+                                componentVals: ['fg-rollmulti.outputInt'],
+                                onTriggerRespin: '',
                             },
                         ],
                     },
                 },
-                "bg-blue2red": {
+                'bg-blue2red': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["BH", "BM", "BM2", "BL"],
-                        targetSymbols: ["RH", "RM", "RM2", "RL"],
-                        mask: "",
+                        srcSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        targetSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        mask: '',
                     },
                 },
-                "bg-green2red": {
+                'bg-green2red': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["GH", "GM", "GM2", "GL"],
-                        targetSymbols: ["RH", "RM", "RM2", "RL"],
-                        mask: "",
+                        srcSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        targetSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        mask: '',
                     },
                 },
-                "fg-remove": {
+                'fg-remove': {
                     config: {
-                        defaultNextComponent: "fg-fgtrigger",
+                        defaultNextComponent: 'fg-fgtrigger',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "removeSymbols",
+                        componentType: 'removeSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "fg-respin",
+                        jumpToComponent: 'fg-respin',
                         targetComponents: [
-                            "fg-payblue",
-                            "fg-payred",
-                            "fg-paygreen",
+                            'fg-payblue',
+                            'fg-payred',
+                            'fg-paygreen',
                         ],
                         ignoreSymbols: null,
                         isNeedProcSymbolVals: false,
                         emptySymbolVal: 0,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: [1],
-                                strParams: ["fg-respin.lastRespinNum"],
+                                strParams: ['fg-respin.lastRespinNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                         ],
                     },
                 },
-                "bg-red2green": {
+                'bg-red2green': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["RH", "RM", "RM2", "RL"],
-                        targetSymbols: ["GH", "GM", "GM2", "GL"],
-                        mask: "",
+                        srcSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        targetSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        mask: '',
                     },
                 },
-                "fg-fgtrigger": {
+                'fg-fgtrigger': {
                     config: {
-                        defaultNextComponent: "fg-piggybank",
+                        defaultNextComponent: 'fg-piggybank',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["SC"],
-                        type: "countscatter",
-                        betType: "noPay",
-                        symbolValsMulti: "",
+                        symbols: ['SC'],
+                        type: 'countscatter',
+                        betType: 'noPay',
+                        symbolValsMulti: '',
                         minNum: 4,
                         wildSymbols: null,
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "",
+                        jumpToComponent: '',
+                        piggyBankComponent: '',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [1],
-                                strParams: ["fg-blue.valueNum"],
+                                strParams: ['fg-blue.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [1],
-                                strParams: ["fg-red.valueNum"],
+                                strParams: ['fg-red.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                             {
-                                awardType: "setComponentConfigIntVal",
+                                awardType: 'setComponentConfigIntVal',
                                 vals: [1],
-                                strParams: ["fg-green.valueNum"],
+                                strParams: ['fg-green.valueNum'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: true,
-                        respinComponent: "fg-start",
+                        respinComponent: 'fg-start',
                         respinNum: 10,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-respin": {
+                'fg-respin': {
                     config: {
-                        defaultNextComponent: "",
+                        defaultNextComponent: '',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "respin",
+                        componentType: 'respin',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        mainComponent: "fg-dropdown",
+                        mainComponent: 'fg-dropdown',
                     },
                 },
-                "bg-payblue": {
+                'bg-payblue': {
                     config: {
-                        defaultNextComponent: "bg-blue",
+                        defaultNextComponent: 'bg-blue',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["BH", "BM", "BM2", "BL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['BH', 'BM', 'BM2', 'BL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "bg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'bg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["bg-blue.valueNum"],
-                                componentVals: ["bg-payblue.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['bg-blue.valueNum'],
+                                componentVals: ['bg-payblue.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "bg-blue": {
+                'bg-blue': {
                     config: {
-                        defaultNextComponent: "bg-payred",
+                        defaultNextComponent: 'bg-payred',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["bg-blueeffect.queue"],
+                                    strParams: ['bg-blueeffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "bg-payred": {
+                'bg-payred': {
                     config: {
-                        defaultNextComponent: "bg-red",
+                        defaultNextComponent: 'bg-red',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["RH", "RM", "RM2", "RL"],
-                        type: "scatters",
-                        betType: "bet",
-                        symbolValsMulti: "",
+                        symbols: ['RH', 'RM', 'RM2', 'RL'],
+                        type: 'scatters',
+                        betType: 'bet',
+                        symbolValsMulti: '',
                         minNum: 0,
-                        wildSymbols: ["WL"],
+                        wildSymbols: ['WL'],
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "bg-piggybank",
+                        jumpToComponent: '',
+                        piggyBankComponent: 'bg-piggybank',
                         forceToNext: false,
                         awards: [
                             {
-                                awardType: "chgComponentConfigIntVal",
+                                awardType: 'chgComponentConfigIntVal',
                                 vals: null,
-                                strParams: ["bg-red.valueNum"],
-                                componentVals: ["bg-payred.symbolNum"],
-                                onTriggerRespin: "",
+                                strParams: ['bg-red.valueNum'],
+                                componentVals: ['bg-payred.symbolNum'],
+                                onTriggerRespin: '',
                             },
                         ],
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: false,
-                        respinComponent: "",
+                        respinComponent: '',
                         respinNum: 0,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "fg-red": {
+                'fg-red': {
                     config: {
-                        defaultNextComponent: "fg-redeffect",
+                        defaultNextComponent: 'fg-redeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["fg-redeffect.queue"],
+                                    strParams: ['fg-redeffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "fg-dropdown": {
+                'fg-dropdown': {
                     config: {
-                        defaultNextComponent: "fg-refill",
+                        defaultNextComponent: 'fg-refill',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "dropDownSymbols",
+                        componentType: 'dropDownSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
                         holdSymbols: null,
@@ -1174,132 +1174,132 @@ test("logic test 003", async () => {
                         emptySymbolVal: 0,
                     },
                 },
-                "fg-red2green": {
+                'fg-red2green': {
                     config: {
-                        defaultNextComponent: "fg-blueeffect",
+                        defaultNextComponent: 'fg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["RH", "RM", "RM2", "RL"],
-                        targetSymbols: ["GH", "GM", "GM2", "GL"],
-                        mask: "",
+                        srcSymbols: ['RH', 'RM', 'RM2', 'RL'],
+                        targetSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        mask: '',
                     },
                 },
-                "bg-green": {
+                'bg-green': {
                     config: {
-                        defaultNextComponent: "bg-remove",
+                        defaultNextComponent: 'bg-remove',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "collector",
+                        componentType: 'collector',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbol: "",
+                        symbol: '',
                         maxVal: 20,
                         perLevelAwards: null,
                         mapSPLevelAwards: {
-                            "-1": [
+                            '-1': [
                                 {
-                                    awardType: "chgComponentConfigIntVal",
+                                    awardType: 'chgComponentConfigIntVal',
                                     vals: [1],
-                                    strParams: ["bg-greeneffect.queue"],
+                                    strParams: ['bg-greeneffect.queue'],
                                     componentVals: null,
-                                    onTriggerRespin: "",
+                                    onTriggerRespin: '',
                                 },
                             ],
                         },
                         isCycle: true,
                     },
                 },
-                "bg-remove": {
+                'bg-remove': {
                     config: {
-                        defaultNextComponent: "bg-fgtrigger",
+                        defaultNextComponent: 'bg-fgtrigger',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "removeSymbols",
+                        componentType: 'removeSymbols',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "bg-respin",
+                        jumpToComponent: 'bg-respin',
                         targetComponents: [
-                            "bg-payblue",
-                            "bg-payred",
-                            "bg-paygreen",
+                            'bg-payblue',
+                            'bg-payred',
+                            'bg-paygreen',
                         ],
                         ignoreSymbols: null,
                         isNeedProcSymbolVals: false,
                         emptySymbolVal: 0,
                         awards: [
                             {
-                                awardType: "respinTimes",
+                                awardType: 'respinTimes',
                                 vals: [1],
-                                strParams: ["bg-respin"],
+                                strParams: ['bg-respin'],
                                 componentVals: null,
-                                onTriggerRespin: "",
+                                onTriggerRespin: '',
                             },
                         ],
                     },
                 },
-                "bg-fgtrigger": {
+                'bg-fgtrigger': {
                     config: {
-                        defaultNextComponent: "bg-piggybank",
+                        defaultNextComponent: 'bg-piggybank',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "scatterTrigger",
+                        componentType: 'scatterTrigger',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        symbols: ["SC"],
-                        type: "countscatter",
-                        betType: "noPay",
-                        symbolValsMulti: "",
+                        symbols: ['SC'],
+                        type: 'countscatter',
+                        betType: 'noPay',
+                        symbolValsMulti: '',
                         minNum: 4,
                         wildSymbols: null,
                         posArea: null,
-                        countScatterPayAs: "",
+                        countScatterPayAs: '',
                         winMulti: 1,
-                        jumpToComponent: "",
-                        piggyBankComponent: "",
+                        jumpToComponent: '',
+                        piggyBankComponent: '',
                         forceToNext: false,
                         awards: null,
                         symbolAwardsWeights: null,
-                        targetMask: "",
+                        targetMask: '',
                         isReverse: false,
                         isAddRespinMode: true,
-                        respinComponent: "fg-start",
+                        respinComponent: 'fg-start',
                         respinNum: 10,
-                        respinNumWeight: "",
+                        respinNumWeight: '',
                         respinNumWithScatterNum: null,
                         respinNumWeightWithScatterNum: null,
                     },
                 },
-                "bg-green2blue": {
+                'bg-green2blue': {
                     config: {
-                        defaultNextComponent: "bg-blueeffect",
+                        defaultNextComponent: 'bg-blueeffect',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "replaceSymbolGroup",
+                        componentType: 'replaceSymbolGroup',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        srcSymbols: ["GH", "GM", "GM2", "GL"],
-                        targetSymbols: ["BH", "BM", "BM2", "BL"],
-                        mask: "",
+                        srcSymbols: ['GH', 'GM', 'GM2', 'GL'],
+                        targetSymbols: ['BH', 'BM', 'BM2', 'BL'],
+                        mask: '',
                     },
                 },
-                "fg-redeffect": {
+                'fg-redeffect': {
                     config: {
-                        defaultNextComponent: "fg-paygreen",
+                        defaultNextComponent: 'fg-paygreen',
                         tagRNG: null,
                         initStrVals: null,
                         useFileMapping: false,
-                        componentType: "queueBranch",
+                        componentType: 'queueBranch',
                         targetScenes3: null,
                         targetOtherScenes3: null,
-                        jumpToComponent: "fg-rollmulti",
+                        jumpToComponent: 'fg-rollmulti',
                     },
                 },
             },
@@ -1307,8 +1307,8 @@ test("logic test 003", async () => {
         },
     };
     const msg = {
-        msgid: "gamemoduleinfo",
-        gamemodulename: "penguindynasty",
+        msgid: 'gamemoduleinfo',
+        gamemodulename: 'penguindynasty',
         gameid: 61131,
         gmi: {
             defaultScene: {
@@ -1399,25 +1399,25 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "bg-spin",
-                                    "bg-blue",
-                                    "bg-red",
-                                    "bg-redeffect",
-                                    "bg-green",
-                                    "bg-fgtrigger",
+                                    'bg-spin',
+                                    'bg-blue',
+                                    'bg-red',
+                                    'bg-redeffect',
+                                    'bg-green',
+                                    'bg-fgtrigger',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "bg-green": {
+                                    'bg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "bg-fgtrigger": {
+                                    'bg-fgtrigger': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1429,18 +1429,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 4,
                                         wildNum: 0,
                                         respinNum: 10,
                                         wins: 0,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -1453,7 +1453,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 10,
                                         totalRespinNum: 0,
@@ -1464,10 +1464,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "bg-spin": {
+                                    'bg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -1479,24 +1479,24 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "bg-blue": {
+                                    'bg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "bg-red": {
+                                    'bg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "bg-redeffect": {
+                                    'bg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1508,11 +1508,11 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
                                 },
                                 mapVals: {
@@ -1521,14 +1521,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: '',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -1587,26 +1587,26 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1618,15 +1618,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -1639,7 +1639,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 9,
                                         totalRespinNum: 0,
@@ -1650,10 +1650,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -1665,24 +1665,24 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1694,11 +1694,11 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
                                 },
                                 mapVals: {
@@ -1707,14 +1707,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -1803,21 +1803,21 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-payblue",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-payblue',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -1830,7 +1830,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 8,
                                         totalRespinNum: 0,
@@ -1841,16 +1841,16 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 9,
                                         newCollector: 9,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1862,19 +1862,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -1886,12 +1886,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-payblue": {
+                                    'fg-payblue': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1903,24 +1903,24 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 9,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 2,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -1932,13 +1932,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 9,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -1950,15 +1950,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -1971,7 +1971,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -1982,8 +1982,8 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
                                 },
                                 mapVals: {
@@ -1992,14 +1992,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -2112,23 +2112,23 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-blueeffect",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-blueeffect',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2140,13 +2140,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -2158,12 +2158,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -2175,12 +2175,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2192,25 +2192,25 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 9,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2222,19 +2222,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2246,15 +2246,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 2,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2267,7 +2267,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -2278,10 +2278,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2294,7 +2294,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 8,
                                         totalRespinNum: 0,
@@ -2305,8 +2305,8 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
                                 },
                                 mapVals: {
@@ -2315,14 +2315,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -2415,21 +2415,21 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-payred",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-payred',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -2441,12 +2441,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-payred": {
+                                    'fg-payred': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2458,18 +2458,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 8,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 2,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2481,15 +2481,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 2,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2502,7 +2502,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 7,
                                         totalRespinNum: 0,
@@ -2513,22 +2513,22 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 8,
                                         newCollector: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2540,19 +2540,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -2564,13 +2564,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2583,7 +2583,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -2594,8 +2594,8 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
                                 },
                                 mapVals: {
@@ -2604,14 +2604,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -2732,23 +2732,23 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-blueeffect",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-blueeffect',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -2760,12 +2760,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2777,19 +2777,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2801,19 +2801,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2825,15 +2825,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 2,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2846,7 +2846,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 7,
                                         totalRespinNum: 0,
@@ -2857,10 +2857,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -2873,7 +2873,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -2884,10 +2884,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -2899,12 +2899,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -2916,17 +2916,17 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 8,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -2935,14 +2935,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -3001,32 +3001,32 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3038,19 +3038,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3062,15 +3062,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3083,7 +3083,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -3094,10 +3094,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3110,7 +3110,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 6,
                                         totalRespinNum: 0,
@@ -3121,10 +3121,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -3136,10 +3136,10 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
                                 },
                                 mapVals: {
@@ -3148,14 +3148,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -3214,20 +3214,20 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -3239,24 +3239,24 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3268,19 +3268,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3292,15 +3292,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3313,7 +3313,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -3324,10 +3324,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3340,7 +3340,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 5,
                                         totalRespinNum: 0,
@@ -3351,8 +3351,8 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
                                 },
                                 mapVals: {
@@ -3361,14 +3361,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -3427,26 +3427,26 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3458,19 +3458,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3482,15 +3482,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3503,7 +3503,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -3514,10 +3514,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3530,7 +3530,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 4,
                                         totalRespinNum: 0,
@@ -3541,10 +3541,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -3556,16 +3556,16 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -3574,14 +3574,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -3686,21 +3686,21 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-paygreen",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-paygreen',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3712,19 +3712,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 20,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3736,15 +3736,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3757,7 +3757,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -3768,10 +3768,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3783,13 +3783,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -3802,7 +3802,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 3,
                                         totalRespinNum: 0,
@@ -3813,16 +3813,16 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-paygreen": {
+                                    'fg-paygreen': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -3834,18 +3834,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 20,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 13,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -3857,13 +3857,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 20,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -3875,16 +3875,16 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -3893,14 +3893,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -4070,26 +4070,26 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-greenbranch",
-                                    "fg-green2blue",
-                                    "fg-blueeffect",
-                                    "fg-payblue",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-greenbranch',
+                                    'fg-green2blue',
+                                    'fg-blueeffect',
+                                    'fg-payblue',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-green2blue": {
+                                    'fg-green2blue': {
                                         basicComponentData: {
                                             usedScenes: [3],
                                             usedOtherScenes: [],
@@ -4101,12 +4101,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-payblue": {
+                                    'fg-payblue': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4118,18 +4118,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 8,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 2,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4141,19 +4141,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4165,15 +4165,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4186,7 +4186,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -4197,10 +4197,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -4212,12 +4212,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-greenbranch": {
+                                    'fg-greenbranch': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4229,13 +4229,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        value: "green to blue",
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.WeightBranchData",
+                                        value: 'green to blue',
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.WeightBranchData',
                                     },
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4247,13 +4247,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [4],
                                             usedOtherScenes: [],
@@ -4265,13 +4265,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4283,19 +4283,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 8,
                                         newCollector: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4308,7 +4308,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 3,
                                         totalRespinNum: 0,
@@ -4319,10 +4319,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -4334,16 +4334,16 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -4352,14 +4352,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -4472,23 +4472,23 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-blueeffect",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-blueeffect',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4500,15 +4500,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 15,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4521,7 +4521,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 3,
                                         totalRespinNum: 0,
@@ -4532,10 +4532,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4548,7 +4548,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -4559,10 +4559,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4574,19 +4574,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4598,19 +4598,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -4622,12 +4622,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -4639,12 +4639,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4656,17 +4656,17 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 8,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -4675,14 +4675,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -4741,20 +4741,20 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4767,7 +4767,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 2,
                                         totalRespinNum: 0,
@@ -4778,22 +4778,22 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4807,15 +4807,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -4828,7 +4828,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -4839,10 +4839,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -4854,18 +4854,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4877,13 +4877,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -4895,11 +4895,11 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
                                 },
                                 mapVals: {
@@ -4908,14 +4908,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -4974,20 +4974,20 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
-                                respinComponents: ["fg-start"],
+                                respinComponents: ['fg-start'],
                                 mapComponents: {
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -4999,18 +4999,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5022,13 +5022,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5042,15 +5042,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5063,7 +5063,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -5074,10 +5074,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5089,13 +5089,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5108,7 +5108,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -5119,20 +5119,20 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
                                 },
                                 mapVals: {
@@ -5141,14 +5141,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-start",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-start',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -5237,27 +5237,27 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-start",
-                                    "fg-spin",
-                                    "fg-blue",
-                                    "fg-payred",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-start',
+                                    'fg-spin',
+                                    'fg-blue',
+                                    'fg-payred',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-payred": {
+                                    'fg-payred': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5269,18 +5269,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 8,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 2,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5292,19 +5292,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5317,7 +5317,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -5328,10 +5328,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5343,13 +5343,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-spin": {
+                                    'fg-spin': {
                                         basicComponentData: {
                                             usedScenes: [0],
                                             usedOtherScenes: [],
@@ -5361,18 +5361,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 8,
                                         newCollector: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -5384,13 +5384,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 8,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5404,15 +5404,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5425,7 +5425,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -5436,8 +5436,8 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
                                 },
                                 mapVals: {
@@ -5446,14 +5446,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-start",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-start',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -5596,30 +5596,30 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-blueeffect",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-paygreen",
-                                    "fg-green",
-                                    "fg-remove",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-blueeffect',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-paygreen',
+                                    'fg-green',
+                                    'fg-remove',
                                 ],
-                                respinComponents: ["fg-start", "fg-respin"],
+                                respinComponents: ['fg-start', 'fg-respin'],
                                 mapComponents: {
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 9,
                                         newCollector: 9,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5631,19 +5631,19 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 8,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5655,13 +5655,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-start": {
+                                    'fg-start': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5674,7 +5674,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -5685,10 +5685,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5702,15 +5702,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 0,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -5722,12 +5722,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -5739,18 +5739,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-remove": {
+                                    'fg-remove': {
                                         basicComponentData: {
                                             usedScenes: [3],
                                             usedOtherScenes: [],
@@ -5762,13 +5762,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         removedNum: 9,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RemoveSymbolsData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RemoveSymbolsData',
                                     },
-                                    "fg-paygreen": {
+                                    'fg-paygreen': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5780,18 +5780,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        nextComponent: "",
+                                        nextComponent: '',
                                         symbolNum: 9,
                                         wildNum: 0,
                                         respinNum: 0,
                                         wins: 2,
                                         winMulti: 1,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.ScatterTriggerData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.ScatterTriggerData',
                                     },
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5804,7 +5804,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 1,
                                         totalRespinNum: 0,
@@ -5815,10 +5815,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -5830,11 +5830,11 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
                                 },
                                 mapVals: {
@@ -5843,14 +5843,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "fg-respin",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: 'fg-respin',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -5963,23 +5963,23 @@ test("logic test 003", async () => {
                             ],
                             mulPos: [],
                             prizeScenes: [],
-                            curGameMod: "basic",
+                            curGameMod: 'basic',
                             curGameModParam: {
                                 historyComponents: [
-                                    "fg-respin",
-                                    "fg-dropdown",
-                                    "fg-refill",
-                                    "fg-greeneffect",
-                                    "fg-blueeffect",
-                                    "fg-blue",
-                                    "fg-red",
-                                    "fg-redeffect",
-                                    "fg-green",
-                                    "fg-piggybank",
+                                    'fg-respin',
+                                    'fg-dropdown',
+                                    'fg-refill',
+                                    'fg-greeneffect',
+                                    'fg-blueeffect',
+                                    'fg-blue',
+                                    'fg-red',
+                                    'fg-redeffect',
+                                    'fg-green',
+                                    'fg-piggybank',
                                 ],
                                 respinComponents: [],
                                 mapComponents: {
-                                    "fg-respin": {
+                                    'fg-respin': {
                                         triggerRespinNum: [],
                                         basicComponentData: {
                                             usedScenes: [],
@@ -5992,7 +5992,7 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         lastRespinNum: 0,
                                         totalRespinNum: 0,
@@ -6003,10 +6003,10 @@ test("logic test 003", async () => {
                                         retriggerAddRespinNum: 0,
                                         lastTriggerNum: 0,
                                         curTriggerNum: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.RespinData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.RespinData',
                                     },
-                                    "fg-refill": {
+                                    'fg-refill': {
                                         basicComponentData: {
                                             usedScenes: [2],
                                             usedOtherScenes: [],
@@ -6018,12 +6018,12 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-greeneffect": {
+                                    'fg-greeneffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -6035,13 +6035,13 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-blueeffect": {
+                                    'fg-blueeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -6053,25 +6053,25 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
-                                    "fg-red": {
+                                    'fg-red': {
                                         val: 8,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-green": {
+                                    'fg-green': {
                                         val: 9,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-piggybank": {
+                                    'fg-piggybank': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -6085,15 +6085,15 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         wins: 4,
                                         winMulti: 1,
                                         savedMoney: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.PiggyBankData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.PiggyBankData',
                                     },
-                                    "fg-dropdown": {
+                                    'fg-dropdown': {
                                         basicComponentData: {
                                             usedScenes: [1],
                                             usedOtherScenes: [],
@@ -6105,18 +6105,18 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.BasicComponentData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.BasicComponentData',
                                     },
-                                    "fg-blue": {
+                                    'fg-blue': {
                                         val: 0,
                                         newCollector: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.CollectorData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.CollectorData',
                                     },
-                                    "fg-redeffect": {
+                                    'fg-redeffect': {
                                         basicComponentData: {
                                             usedScenes: [],
                                             usedOtherScenes: [],
@@ -6128,11 +6128,11 @@ test("logic test 003", async () => {
                                             targetScene: 0,
                                             runIndex: 0,
                                             output: 0,
-                                            strOutput: "",
+                                            strOutput: '',
                                         },
                                         queue: 0,
-                                        "@type":
-                                            "type.googleapis.com/sgc7pb.QueueBranchData",
+                                        '@type':
+                                            'type.googleapis.com/sgc7pb.QueueBranchData',
                                     },
                                 },
                                 mapVals: {
@@ -6141,14 +6141,14 @@ test("logic test 003", async () => {
                                     7: 0,
                                 },
                                 mapStrVals: {},
-                                firstComponent: "fg-respin",
-                                nextStepFirstComponent: "",
-                                "@type": "type.googleapis.com/sgc7pb.GameParam",
+                                firstComponent: 'fg-respin',
+                                nextStepFirstComponent: '',
+                                '@type': 'type.googleapis.com/sgc7pb.GameParam',
                             },
-                            nextGameMod: "basic",
+                            nextGameMod: 'basic',
                             curIndex: 0,
                             parentIndex: 0,
-                            modType: "",
+                            modType: '',
                             prizeCoinWin: 0,
                             prizeCashWin: 0,
                             jackpotCoinWin: 0,
@@ -6161,10 +6161,10 @@ test("logic test 003", async () => {
                 nextCommandParams: [],
                 playerState: {
                     public: {
-                        curGameMod: "basic",
+                        curGameMod: 'basic',
                         nextM: 0,
-                        "@type":
-                            "type.googleapis.com/sgc7pb.BasicPlayerPublicState",
+                        '@type':
+                            'type.googleapis.com/sgc7pb.BasicPlayerPublicState',
                     },
                 },
                 finished: true,
@@ -6205,7 +6205,7 @@ test("logic test 003", async () => {
 
     await logic.onMessage(msg).then(() => {
         expect(fgNum).toBe(1);
-        
-        console.log("Done!");
+
+        console.log('Done!');
     });
 });

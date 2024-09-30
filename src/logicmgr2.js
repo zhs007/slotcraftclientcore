@@ -4,8 +4,8 @@ const {
     ScGameStep,
     SCLogicGameResult2,
     LogicGameResult2,
-} = require("./logicstate2.js");
-const { isSameScene } = require("./utils.js");
+} = require('./logicstate2.js');
+const { isSameScene } = require('./utils.js');
 
 class SCLogicMgr2 {
     constructor() {
@@ -24,7 +24,7 @@ class SCLogicMgr2 {
 
         this.curGameResult2 = null;
         this.curStateWins = 0;
-        this.version = 'v1.1.19';
+        this.version = 'v1.1.22';
     }
 
     addListener(listener) {

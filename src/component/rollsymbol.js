@@ -23,10 +23,13 @@ class SCRollSymbolComponent extends SCBaseComponent {
                 this.componentinfo.symbolCodes.length > 0
             ) {
                 this.curstate.symbolCodes = [];
-                this.curstate.symbolNums = this.componentinfo.symbolCodes.length;
+                this.curstate.symbolNums =
+                    this.componentinfo.symbolCodes.length;
 
                 for (var ii = 0; ii < this.curstate.symbolNums; ii += 1) {
-                    this.curstate.symbolCodes.push(this.componentinfo.symbolCodes[ii]);
+                    this.curstate.symbolCodes.push(
+                        this.componentinfo.symbolCodes[ii]
+                    );
                 }
             }
         }

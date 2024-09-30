@@ -11,7 +11,7 @@ const {
     isTriggerFGModule,
     isChgSymbolsComponent,
     genPosWithChgSymbols,
-} = require("./utils.js");
+} = require('./utils.js');
 
 // LogicState2 是 SlotCraft Client 最基础的class
 // 逻辑非常简单，就是缓存 stateData 数据里最新的数据，一种数据只会缓存一个。
@@ -46,13 +46,13 @@ class LogicState2 {
 
                 // 这2个数据很特殊，直接取就好了
                 if (
-                    this.mapComponentData[val]["@type"] ==
-                    "type.googleapis.com/sgc7pb.RespinData"
+                    this.mapComponentData[val]['@type'] ==
+                    'type.googleapis.com/sgc7pb.RespinData'
                 ) {
                     this.respin = this.mapComponentData[val];
                 } else if (
-                    this.mapComponentData[val]["@type"] ==
-                    "type.googleapis.com/sgc7pb.CollectorData"
+                    this.mapComponentData[val]['@type'] ==
+                    'type.googleapis.com/sgc7pb.CollectorData'
                 ) {
                     this.collector = this.mapComponentData[val];
                 }
@@ -66,13 +66,13 @@ class LogicState2 {
 
         // 能进入这个分支，就不可能一个component都获取不到
         if (this.mapComponentData.length == 0) {
-            throw new Error("_parseResult fail.");
+            throw new Error('_parseResult fail.');
         }
 
         const historyComponents =
             msgResult.clientData.curGameModParam.historyComponents;
-        let sceneComponent = "";
-        let otherSceneComponent = "";
+        let sceneComponent = '';
+        let otherSceneComponent = '';
 
         // 根据服务器执行顺序遍历component，理论上应该用最新的数据，wins是合并操作
         for (const c of historyComponents) {
@@ -109,7 +109,7 @@ class LogicState2 {
             }
         }
 
-        if (sceneComponent != "") {
+        if (sceneComponent != '') {
             const curSceneIndex =
                 this.mapComponentData[sceneComponent].basicComponentData
                     .usedScenes[
@@ -135,7 +135,7 @@ class LogicState2 {
             }
         }
 
-        if (otherSceneComponent != "") {
+        if (otherSceneComponent != '') {
             this.otherScene = parseMsgOtherScene(
                 msgResult.clientData,
                 this.mapComponentData[otherSceneComponent].basicComponentData
@@ -163,16 +163,15 @@ class LogicState2 {
     isNeedTotalWins() {
         return isNeedTotalWinsModule(this.curStateData.module);
     }
-
 }
 
-class GameStep{
+class GameStep {
     constructor(gr2) {
         this.gameResult = gr2;
-        this.totalWins=0;
-        this.lstStateData=[];
-        this.toUiStateData=null;
-        this.exitStateData=null;
+        this.totalWins = 0;
+        this.lstStateData = [];
+        this.toUiStateData = null;
+        this.exitStateData = null;
     }
 
     calcTotalWins(cashwin) {
@@ -182,11 +181,11 @@ class GameStep{
         return this.totalWins;
     }
     parseGameStep(curStep) {
-        let curStepStates=[];
-        let lststatelen=curStep.lstStates.length;
-        for(let i=0;i<lststatelen;i++){
-            let stateName=curStep.lstStates[i];
-            let stateData=curStep.mapStates[stateName];
+        let curStepStates = [];
+        let lststatelen = curStep.lstStates.length;
+        for (let i = 0; i < lststatelen; i++) {
+            let stateName = curStep.lstStates[i];
+            let stateData = curStep.mapStates[stateName];
             curStepStates.push(stateData);
 
             if (stateData.isNeedTotalWins()) {
@@ -195,59 +194,56 @@ class GameStep{
             }
 
             //一个step中，toui、exitmodule应该是唯一state，如果多次出现，这里逻辑会覆盖
-            if (stateData.curStateData.toui&&stateData.respin) {
-                this.toUiStateData=stateData;
+            if (stateData.curStateData.toui && stateData.respin) {
+                this.toUiStateData = stateData;
             }
-            if(stateData.curStateData.exitmodule){
+            if (stateData.curStateData.exitmodule) {
                 stateData.totalWins = this.gameResult.totalWins;
-                this.exitStateData=stateData;
+                this.exitStateData = stateData;
             }
         }
         this.lstStateData.push(curStepStates);
     }
     //刷新Fg UI逻辑，在于不需要弹出免费或者额外免费时就刷新UI，而是等下一step旋转时刷新UI
-    async _gameStepRunLogic(gr2, mgr2,runingindex) {
-
+    async _gameStepRunLogic(gr2, mgr2, runingindex) {
         //step的头
-        if(this.toUiStateData){
+        if (this.toUiStateData) {
             mgr2._onUIFGNum(
                 this.toUiStateData.respin.curRespinNum,
                 this.toUiStateData.respin.curRespinNum +
-                this.toUiStateData.respin.lastRespinNum
-                    //-this.mapStates[statename].respin.curAddRespinNum
+                    this.toUiStateData.respin.lastRespinNum
+                //-this.mapStates[statename].respin.curAddRespinNum
             );
         }
 
-        let lststatelen0=this.lstStateData.length;
-        for (let si0 = 0; si0 <lststatelen0; si0++) {
+        let lststatelen0 = this.lstStateData.length;
+        for (let si0 = 0; si0 < lststatelen0; si0++) {
             const curstepdata = this.lstStateData[si0];
-            let lststatelen=curstepdata.length;
-            for (let si = 0; si <lststatelen; si++) {
-                const statedata = curstepdata[si];        
-                if(statedata.curStateData.exitmodule){
+            let lststatelen = curstepdata.length;
+            for (let si = 0; si < lststatelen; si++) {
+                const statedata = curstepdata[si];
+                if (statedata.curStateData.exitmodule) {
                     //这里写的有点绝对，暂时够用
                     continue;
                 }
-                if(statedata.curStateData.triggerspin){
-                await mgr2._onEvent(gr2, curstepdata, null).catch((err) => {
-                    console.error(" got " + err);
-                });
+                if (statedata.curStateData.triggerspin) {
+                    await mgr2._onEvent(gr2, curstepdata, null).catch((err) => {
+                        console.error(' got ' + err);
+                    });
                 }
                 await mgr2
-                ._onEvent(gr2, curstepdata, statedata)
-                .catch((err) => {
-                    console.error(" got " + err);
-                });
+                    ._onEvent(gr2, curstepdata, statedata)
+                    .catch((err) => {
+                        console.error(' got ' + err);
+                    });
             }
         }
-        let isEndStep=(runingindex==this.gameResult.getgameStepCount()-1);
+        let isEndStep = runingindex == this.gameResult.getgameStepCount() - 1;
         //补发exitStateData
-        if(isEndStep&&this.exitStateData!=null){
-            const exitstate=this.exitStateData;
-            await mgr2
-            ._onEvent(gr2, this, exitstate)
-            .catch((err) => {
-                console.error(" got " + err);
+        if (isEndStep && this.exitStateData != null) {
+            const exitstate = this.exitStateData;
+            await mgr2._onEvent(gr2, this, exitstate).catch((err) => {
+                console.error(' got ' + err);
             });
         }
     }
@@ -305,7 +301,10 @@ class LogicStep2 {
             //     }
             // }
 
-            if (this.mapStates[statename]&&this.mapStates[statename].isInComponents(historyComponents)) {
+            if (
+                this.mapStates[statename] &&
+                this.mapStates[statename].isInComponents(historyComponents)
+            ) {
                 this.lstStates.push(statename);
             }
         }
@@ -314,7 +313,7 @@ class LogicStep2 {
 
 // LogicGameResult2 是 SlotCraft Client 最基础的class之一，一个game result可以理解为一次spin的返回
 // game result一定是一组step，至少有1个
- class LogicGameResult2 {
+class LogicGameResult2 {
     constructor(msgdata, mgr2) {
         this.mgr2 = mgr2;
 
@@ -343,12 +342,12 @@ class LogicStep2 {
             this._parseResults();
         } else {
             // Throw an error if the message data is invalid
-            throw new Error("Invalid message data.");
+            throw new Error('Invalid message data.');
         }
     }
 
     _parseResults() {
-        var gameStep=null;
+        var gameStep = null;
         for (let i = 0; i < this.curResults.length; i++) {
             const curStep = new LogicStep2(
                 this,
@@ -357,22 +356,24 @@ class LogicStep2 {
                 this.curBet
             );
             const curResult = this.curResults[i];
-            const curGameModParam=curResult.clientData.curGameModParam;
-            let firstComponent=curGameModParam.firstComponent;
-            let nextStepFirstComponent=curGameModParam.nextStepFirstComponent;
-            if(firstComponent==""||firstComponent=="fg-start"){
-                gameStep=new GameStep(this);
+            const curGameModParam = curResult.clientData.curGameModParam;
+            let firstComponent = curGameModParam.firstComponent;
+            let nextStepFirstComponent = curGameModParam.nextStepFirstComponent;
+            if (firstComponent == '' || firstComponent == 'fg-start') {
+                gameStep = new GameStep(this);
             }
             gameStep?.calcTotalWins(curResult.cashWin);
             gameStep?.parseGameStep(curStep);
 
-            if(nextStepFirstComponent==""||nextStepFirstComponent=="fg-start"){
+            if (
+                nextStepFirstComponent == '' ||
+                nextStepFirstComponent == 'fg-start'
+            ) {
                 this.lstSteps.push(gameStep);
             }
-
         }
     }
-    getgameStepCount(){
+    getgameStepCount() {
         return this.lstSteps.length;
     }
     //刷新wins逻辑，在于每个step结算时自动刷新，由于客户端可能提前刷新(弹出结算等)，所以win在step开始时就可以把值加上
@@ -382,12 +383,11 @@ class LogicStep2 {
         for (let i = 0; i < steplen; i++) {
             let step = this.lstSteps[i];
             this.mgr2.curStateWins += step.getTotalWins();
-            await step._gameStepRunLogic(this, this.mgr2,i).catch((err) => {
-                console.error(" got " + err);
+            await step._gameStepRunLogic(this, this.mgr2, i).catch((err) => {
+                console.error(' got ' + err);
             });
             this.mgr2._onUIWins(this.mgr2.curStateWins);
         }
-
     }
 }
 

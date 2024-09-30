@@ -1,8 +1,5 @@
-
-
 function parseCell(logicData, cell) {
     if (cell.shape == 'custom-node-width-start') {
-
     } else if (cell.shape == 'custom-node') {
         let name = '';
         if (cell.componentValues) {
@@ -13,8 +10,14 @@ function parseCell(logicData, cell) {
 
         const type = cell.label;
 
-        if (logicData.mapComponents[name] && logicData.mapComponents[name].type != type) {
-            throw new Error('There already exists a component with the same name but a different type (in different bet method). - ' + name);
+        if (
+            logicData.mapComponents[name] &&
+            logicData.mapComponents[name].type != type
+        ) {
+            throw new Error(
+                'There already exists a component with the same name but a different type (in different bet method). - ' +
+                    name
+            );
         }
 
         logicData.mapComponents[name] = {
@@ -84,4 +87,4 @@ function genLogicData(betMethods) {
     return logicData;
 }
 
-exports.genLogicData = genLogicData
+exports.genLogicData = genLogicData;

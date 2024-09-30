@@ -15,10 +15,20 @@ class SCBaseComponent {
     isActive(clientdata, info) {
         // 有新的scene
         if (this._hasScene(info)) {
-            if (info.basicComponentData.usedScenes[0] == 0 || (info.basicComponentData.usedScenes[0] >= 1 &&
-                !isSameScene(parseMsgScene(clientdata, info.basicComponentData.usedScenes[0] - 1),
-                    parseMsgScene(clientdata, info.basicComponentData.usedScenes[0])))) {
-
+            if (
+                info.basicComponentData.usedScenes[0] == 0 ||
+                (info.basicComponentData.usedScenes[0] >= 1 &&
+                    !isSameScene(
+                        parseMsgScene(
+                            clientdata,
+                            info.basicComponentData.usedScenes[0] - 1
+                        ),
+                        parseMsgScene(
+                            clientdata,
+                            info.basicComponentData.usedScenes[0]
+                        )
+                    ))
+            ) {
                 return true;
             }
         }
@@ -49,11 +59,11 @@ class SCBaseComponent {
 
         if (this.hasPos()) {
             this.initPos();
-        }        
+        }
     }
 
     // 添加特有的数据
-    addData(clientdata, componentinfo, curstate) { }
+    addData(clientdata, componentinfo, curstate) {}
 
     // 初始化
     init(clientdata, componentinfo, curstate) {
@@ -78,7 +88,10 @@ class SCBaseComponent {
 
         var sindex = this.componentinfo.basicComponentData.usedScenes[0];
 
-        if (!this.clientdata.scenes || this.clientdata.scenes.length <= sindex) {
+        if (
+            !this.clientdata.scenes ||
+            this.clientdata.scenes.length <= sindex
+        ) {
             return false;
         }
 
@@ -111,7 +124,10 @@ class SCBaseComponent {
 
         var sindex = this.componentinfo.basicComponentData.usedOtherScenes[0];
 
-        if (!this.clientdata.otherScenes || this.clientdata.otherScenes.length <= sindex) {
+        if (
+            !this.clientdata.otherScenes ||
+            this.clientdata.otherScenes.length <= sindex
+        ) {
             return false;
         }
 
@@ -176,7 +192,7 @@ class SCBaseComponent {
         if (this.curstate) {
             this.curstate.initPos(this.componentinfo.pos);
         }
-    }    
+    }
 
     _hasScene(info) {
         return (
@@ -203,7 +219,7 @@ class SCBaseComponent {
     }
 
     _hasnextComponent(info) {
-        return info.nextComponent != "";
+        return info.nextComponent != '';
     }
 
     _hasPos(info) {
