@@ -24,7 +24,7 @@ class SCLogicMgr2 {
 
         this.curGameResult2 = null;
         this.curStateWins = 0;
-        this.version = 'v1.1.22';
+        this.version = 'v1.1.24';
     }
 
     addListener(listener) {
@@ -35,7 +35,9 @@ class SCLogicMgr2 {
         this.callbackWins = callbackWins;
         this.callbackFGNum = callbackFGNum;
     }
-
+    getCurMsg() {
+        return this.curMsg;
+    }
     // 收到配置数据
     onConfig(cfgdata, statedata, statelist) {
         this.cfgdata = cfgdata;
@@ -45,6 +47,7 @@ class SCLogicMgr2 {
 
     // 收到新的消息，这里 then 是逻辑全部处理完后的事件
     async onMessage(msgdata) {
+        this.curMsg = msgdata;
         this.curGameResult2 = new LogicGameResult2(msgdata, this);
 
         await this.curGameResult2._resultRunLogic();
