@@ -1,6 +1,6 @@
-const { parseSlotCraftJson } = require('./utils.js');
+const { parseSlotCraftJson } = require('../src/index.js');
 
-test('parseSlotCraftJson', () => {
+
     let obj = [
         {
             "name": "bg-spin",
@@ -170,14 +170,9 @@ test('parseSlotCraftJson', () => {
     ];
 
     let statecfg = parseSlotCraftJson(obj);
-    expect(statecfg).not.toBe(null);
-    expect(statecfg.statelist.length).toBe(3);
-    expect(statecfg.statedata).not.toBe(null);
+
 
     let num = 0;
     for (const k in statecfg.statedata) {
         num++;
     }
-
-    expect(num).toBe(statecfg.statelist.length);
-});
