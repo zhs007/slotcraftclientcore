@@ -15,6 +15,12 @@
             "request": "launch",
             "name": "penguindynasty",
             "program": "${workspaceFolder}/test/penguindynasty.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "parseSlotCraftJson",
+            "program": "${workspaceFolder}/samples/parseSlotCraftJson.js"
         }
     ]
 }

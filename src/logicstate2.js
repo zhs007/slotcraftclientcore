@@ -227,9 +227,16 @@ class GameStep {
                     continue;
                 }
                 if (statedata.curStateData.triggerspin) {
-                    await mgr2._onEvent(gr2, curstepdata, null).catch((err) => {
-                        console.error(' got ' + err);
-                    });
+                    // await mgr2._onEvent(gr2, curstepdata, null).catch((err) => {
+                    //     console.error(' got ' + err);
+                    // });
+                    await mgr2
+                        ._onEvent(gr2, curstepdata, {
+                            curStateData: { module: 'StepStart' },
+                        })
+                        .catch((err) => {
+                            console.error(' got ' + err);
+                        });
                 }
                 await mgr2
                     ._onEvent(gr2, curstepdata, statedata)
@@ -237,6 +244,13 @@ class GameStep {
                         console.error(' got ' + err);
                     });
             }
+            await mgr2
+                ._onEvent(gr2, curstepdata, {
+                    curStateData: { module: 'StepEnd' },
+                })
+                .catch((err) => {
+                    console.error(' got ' + err);
+                });
         }
         let isEndStep = runingindex == this.gameResult.getgameStepCount() - 1;
         //补发exitStateData
