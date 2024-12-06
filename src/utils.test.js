@@ -3,170 +3,170 @@ const { parseSlotCraftJson } = require('./utils.js');
 test('parseSlotCraftJson', () => {
     let obj = [
         {
-            name: 'bg-spin',
-            component: [
+            "name": "bg-spin",
+            "component": [
                 {
-                    value: 'bg-spin',
-                    type: 'BasicReels',
-                },
+                    "value": "bg-spin",
+                    "type": "BasicReels"
+                }
             ],
-            module: 'Spin',
-            instance: 0,
-            key: '0.6253469051750875',
+            "module": "Spin",
+            "instance": 0,
+            "key": "0.6253469051750875"
         },
         {
-            name: 'bg-paylines',
-            component: [
+            "name": "bg-paylines",
+            "component": [
                 {
-                    value: 'bg-paylines',
-                    type: 'LinesTrigger',
-                },
+                    "value": "bg-paylines",
+                    "type": "LinesTrigger"
+                }
             ],
-            module: 'ShowSymbolWins',
-            instance: 0,
-            key: '0.28235249411651275',
+            "module": "ShowSymbolWins",
+            "instance": 0,
+            "key": "0.28235249411651275"
         },
         {
-            name: 'bg-paysc',
-            component: [
+            "name": "bg-paysc",
+            "component": [
                 {
-                    value: 'bg-paysc',
-                    type: 'ScatterTrigger',
-                },
+                    "value": "bg-paysc",
+                    "type": "ScatterTrigger"
+                }
             ],
-            module: 'ShowSymbolWins',
-            instance: 0,
-            key: '0.5762625317356089',
+            "module": "ShowSymbolWins",
+            "instance": 0,
+            "key": "0.5762625317356089"
         },
         {
-            name: 'fg-start',
-            component: [
+            "name": "fg-start",
+            "component": [
                 {
-                    value: 'fg-start',
-                    type: 'Respin',
-                },
+                    "value": "fg-start",
+                    "type": "Respin"
+                }
             ],
-            instance: 0,
-            trigger: 'onStart',
-            key: '0.8207540557799426',
-            toUI: 'notToUI',
-            forceTotalNum: 0,
-            module: 'StartFreeGame',
+            "instance": 0,
+            "trigger": "onStart",
+            "key": "0.8207540557799426",
+            "toUI": "notToUI",
+            "forceTotalNum": 0,
+            "module": "StartFreeGame"
         },
         {
-            name: 'fg-spin',
-            component: [
+            "name": "fg-spin",
+            "component": [
                 {
-                    value: 'fg-spin',
-                    type: 'BasicReels',
-                },
+                    "value": "fg-spin",
+                    "type": "BasicReels"
+                }
             ],
-            instance: 0,
-            key: '0.20942574181717744',
-            module: 'Spin',
+            "instance": 0,
+            "key": "0.20942574181717744",
+            "module": "Spin"
         },
         {
-            name: 'fg-syms',
-            component: [
+            "name": "fg-syms",
+            "component": [
                 {
-                    value: 'fg-syms',
-                    type: 'SymbolCollection',
-                },
+                    "value": "fg-syms",
+                    "type": "SymbolCollection"
+                }
             ],
-            instance: 0,
-            key: '0.8762186802044967',
+            "instance": 0,
+            "key": "0.8762186802044967"
         },
         {
-            name: 'fg-paylines',
-            component: [
+            "name": "fg-paylines",
+            "component": [
                 {
-                    value: 'fg-paylines',
-                    type: 'LinesTrigger',
-                },
+                    "value": "fg-paylines",
+                    "type": "LinesTrigger"
+                }
             ],
-            instance: 0,
-            key: '0.054364424303539494',
-            module: 'ShowSymbolWins',
+            "instance": 0,
+            "key": "0.054364424303539494",
+            "module": "ShowSymbolWins"
         },
         {
-            name: 'fg-paysc',
-            component: [
+            "name": "fg-paysc",
+            "component": [
                 {
-                    value: 'fg-paysc',
-                    type: 'ScatterTrigger',
-                },
+                    "value": "fg-paysc",
+                    "type": "ScatterTrigger"
+                }
             ],
-            instance: 0,
-            key: '0.9815368758927097',
-            module: 'ShowSymbolWins',
+            "instance": 0,
+            "key": "0.9815368758927097",
+            "module": "ShowSymbolWins"
         },
         {
-            name: 'fg-bookof',
-            component: [
+            "name": "fg-bookof",
+            "component": [
                 {
-                    value: 'fg-bookof',
-                    type: 'Mask',
-                },
+                    "value": "fg-bookof",
+                    "type": "Mask"
+                }
             ],
-            instance: 0,
-            key: '0.2898162289599038',
+            "instance": 0,
+            "key": "0.2898162289599038"
         },
         {
-            name: 'fg-checkbookof',
-            component: [
+            "name": "fg-checkbookof",
+            "component": [
                 {
-                    value: 'fg-checkbookof',
-                    type: 'ScatterTrigger',
-                },
+                    "value": "fg-checkbookof",
+                    "type": "ScatterTrigger"
+                }
             ],
-            instance: 0,
-            key: '0.7581954539894376',
+            "instance": 0,
+            "key": "0.7581954539894376"
         },
         {
-            name: 'fg-replacereel',
-            component: [
+            "name": "fg-replacereel",
+            "component": [
                 {
-                    value: 'fg-replacereel',
-                    type: 'ReplaceReelWithMask',
-                },
+                    "value": "fg-replacereel",
+                    "type": "ReplaceReelWithMask"
+                }
             ],
-            instance: 0,
-            key: '0.9992387853092546',
+            "instance": 0,
+            "key": "0.9992387853092546"
         },
         {
-            name: 'fg-paybookof',
-            component: [
+            "name": "fg-paybookof",
+            "component": [
                 {
-                    value: 'fg-paybookof',
-                    type: 'LinesTrigger',
-                },
+                    "value": "fg-paybookof",
+                    "type": "LinesTrigger"
+                }
             ],
-            instance: 0,
-            key: '0.09181108062322019',
-            module: 'ShowSymbolWins',
+            "instance": 0,
+            "key": "0.09181108062322019",
+            "module": "ShowSymbolWins"
         },
         {
-            name: 'fg-rollsym',
-            component: [
+            "name": "fg-rollsym",
+            "component": [
                 {
-                    value: 'fg-rollsym',
-                    type: 'RollSymbol',
-                },
+                    "value": "fg-rollsym",
+                    "type": "RollSymbol"
+                }
             ],
-            instance: 0,
-            key: '0.5909221763871129',
+            "instance": 0,
+            "key": "0.5909221763871129"
         },
         {
-            name: 'bg-rollsym',
-            component: [
+            "name": "bg-rollsym",
+            "component": [
                 {
-                    value: 'bg-rollsym',
-                    type: 'RollSymbol',
-                },
+                    "value": "bg-rollsym",
+                    "type": "RollSymbol"
+                }
             ],
-            instance: 0,
-            key: '0.7654487207518088',
-        },
+            "instance": 0,
+            "key": "0.7654487207518088"
+        }
     ];
 
     let statecfg = parseSlotCraftJson(obj);
