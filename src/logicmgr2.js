@@ -24,7 +24,7 @@ class SCLogicMgr2 {
 
         this.curGameResult2 = null;
         this.curStateWins = 0;
-        this.version = 'v1.1.26';
+        this.version = 'v1.1.27';
     }
 
     addListener(listener) {
@@ -35,9 +35,11 @@ class SCLogicMgr2 {
         this.callbackWins = callbackWins;
         this.callbackFGNum = callbackFGNum;
     }
+
     getCurMsg() {
         return this.curMsg;
     }
+
     // 收到配置数据
     onConfig(cfgdata, statedata, statelist) {
         this.cfgdata = cfgdata;
@@ -45,6 +47,45 @@ class SCLogicMgr2 {
         this.statelist = statelist;
     }
 
+    onResumeMessage(msgdata, modulekey) {
+        if (
+            msgdata &&
+            msgdata.gmi &&
+            msgdata.gmi.replyPlay &&
+            msgdata.gmi.replyPlay.results
+        ) {
+            let results = msgdata.gmi.replyPlay.results;
+            return this._parseResumeMessage(results, modulekey);
+        }
+        return false;
+    }
+    _moduleComponent(modulekey) {
+        let lstcomponent = [];
+        for (let key in this.statedata) {
+            let state = this.statedata[key];
+            if (state[modulekey]) {
+                lstcomponent = lstcomponent.concat(state['list']);
+            }
+        }
+        return lstcomponent;
+    }
+    _parseResumeMessage(results, modulekey) {
+        let modulecomponents = this._moduleComponent(modulekey);
+        if (modulecomponents.length == 0) {
+            return false;
+        }
+        for (let i = results.length - 1; i >= 0; i--) {
+            const curResult = results[i];
+            const curGameModParam = curResult.clientData.curGameModParam;
+            let mapComponents = curGameModParam.mapComponents;
+            for (let mkey in mapComponents) {
+                if (modulecomponents.indexOf(mkey) >= 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     // 收到新的消息，这里 then 是逻辑全部处理完后的事件
     async onMessage(msgdata) {
         this.curMsg = msgdata;
