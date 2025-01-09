@@ -186,7 +186,12 @@ class GameStep {
         for (let i = 0; i < lststatelen; i++) {
             let stateName = curStep.lstStates[i];
             let stateData = curStep.mapStates[stateName];
-            curStepStates.push(stateData);
+            // curStepStates.push(stateData);
+            this._pushCurStepStates(
+                this.gameResult.mgr2,
+                curStepStates,
+                stateData
+            );
 
             if (stateData.isNeedTotalWins()) {
                 // 否则，如果还需要总赢得的话，只可能是单局总赢得
@@ -204,6 +209,50 @@ class GameStep {
         }
         this.lstStateData.push(curStepStates);
     }
+
+    // 对添加到list的state进行过滤，若mgr2中的IsIgnoreState为true，则不添加state
+    _pushCurStepStates(mgr2, lstStates, state) {
+        let isIgnore = mgr2.isIgnoreState;
+        if (state.curStateData.ignorestate) {
+            let hasResult = false; // 是否已有结果
+            if (state.mapComponentData) {
+                for (const key of state.curStateData.list) {
+                    let data = state.mapComponentData[key];
+                    if (data && data.value && data.value != '') {
+                        hasResult = true;
+                        break;
+                    }
+                }
+            }
+
+            // 收到免费选择结果时，删除StateList中已存在的不包含结果的SelectFreeState，以保证客户端仅会收到一个包含结果的SelectFreeState
+            if (hasResult)
+                this._removeAllStepStateByName(state.curStateData.module);
+
+            // 此处的逻辑为，第一个没有结果的SelectFree会加入到list中，并将mgr2.isIgnoreState置为true
+            // 后续消息中有结果的SelectFree会将mgr2.isIgnoreState置为false，并加入list中
+            mgr2.isIgnoreState = !hasResult;
+            if (isIgnore && !mgr2.isIgnoreState) isIgnore = false;
+        }
+
+        if (!isIgnore) {
+            lstStates.push(state);
+        }
+    }
+
+    // 删除statelist已存在的相同state
+    _removeAllStepStateByName(stateName) {
+        for (let step of this.gameResult.lstSteps) {
+            for (let lstStates of step.lstStateData) {
+                for (let i = lstStates.length - 1; i >= 0; i--) {
+                    if (lstStates[i].curStateData.module == stateName) {
+                        lstStates.splice(i, 1);
+                    }
+                }
+            }
+        }
+    }
+
     //刷新Fg UI逻辑，在于不需要弹出免费或者额外免费时就刷新UI，而是等下一step旋转时刷新UI
     async _gameStepRunLogic(gr2, mgr2, runingindex) {
         //step的头
@@ -226,6 +275,7 @@ class GameStep {
                     //这里写的有点绝对，暂时够用
                     continue;
                 }
+
                 if (statedata.curStateData.triggerspin) {
                     // await mgr2._onEvent(gr2, curstepdata, null).catch((err) => {
                     //     console.error(' got ' + err);
@@ -373,19 +423,26 @@ class LogicGameResult2 {
             const curGameModParam = curResult.clientData.curGameModParam;
             let firstComponent = curGameModParam.firstComponent;
             let nextStepFirstComponent = curGameModParam.nextStepFirstComponent;
-            if (firstComponent == '' || firstComponent == 'fg-start') {
+            if (this._gameStepNewOrEnd(firstComponent)) {
                 gameStep = new GameStep(this);
             }
             gameStep?.calcTotalWins(curResult.cashWin);
             gameStep?.parseGameStep(curStep);
 
-            if (
-                nextStepFirstComponent == '' ||
-                nextStepFirstComponent == 'fg-start'
-            ) {
+            if (this._gameStepNewOrEnd(nextStepFirstComponent)) {
                 this.lstSteps.push(gameStep);
             }
         }
+    }
+    _gameStepNewOrEnd(componentname) {
+        if (
+            componentname == '' ||
+            componentname == 'fg-start' ||
+            this.mgr2.CheckStateTriggerKey(componentname, 'creategamestep')
+        ) {
+            return true;
+        }
+        return false;
     }
     getgameStepCount() {
         return this.lstSteps.length;

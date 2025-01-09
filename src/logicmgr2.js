@@ -24,7 +24,9 @@ class SCLogicMgr2 {
 
         this.curGameResult2 = null;
         this.curStateWins = 0;
-        this.version = 'v1.1.27';
+        this.isIgnoreState = false; // 是否处于忽略State的状态
+
+        this.version = 'v1.1.28';
     }
 
     addListener(listener) {
@@ -45,8 +47,33 @@ class SCLogicMgr2 {
         this.cfgdata = cfgdata;
         this.statedata = statedata;
         this.statelist = statelist;
+        this._resetStateData();
     }
-
+    _resetStateData() {
+        for (const key in this.statedata) {
+            var curStateData = this.statedata[key];
+            if (curStateData.module == 'FgExitModule') {
+                curStateData.bquick = false;
+                curStateData.toui = true;
+                curStateData.exitmodule = curStateData.module;
+            }
+            if (curStateData.module == 'SpinModule') {
+                curStateData.triggerspin = true;
+            }
+        }
+    }
+    CheckStateTriggerKey(commponname, triggerkey) {
+        for (const key in this.statedata) {
+            const curStateData = this.statedata[key];
+            if (
+                curStateData.list &&
+                curStateData.list.indexOf(commponname) >= 0
+            ) {
+                return curStateData[triggerkey];
+            }
+        }
+        return false;
+    }
     onResumeMessage(msgdata, modulekey) {
         if (
             msgdata &&

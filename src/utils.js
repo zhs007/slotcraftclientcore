@@ -111,9 +111,12 @@ function parseSlotCraftJson(objModule) {
                 statecfg.statedata[curmod.name].toui = true;
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
             }
+            if (curmod.module == 'SpinModule') {
+                statecfg.statedata[curmod.name].triggerspin = true;
+            }
 
             if (curmod.trigger) {
-                statecfg.statedata[curmod.name].trigger = curmod.trigger;
+                statecfg.statedata[curmod.name].trigger = trigger;
             }
 
             statecfg.statelist.push(curmod.name);
