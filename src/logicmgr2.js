@@ -26,7 +26,7 @@ class SCLogicMgr2 {
         this.curStateWins = 0;
         this.isIgnoreState = false; // 是否处于忽略State的状态
 
-        this.version = 'v1.1.28';
+        this.version = 'v1.1.29';
     }
 
     addListener(listener) {
@@ -52,12 +52,12 @@ class SCLogicMgr2 {
     _resetStateData() {
         for (const key in this.statedata) {
             var curStateData = this.statedata[key];
-            if (curStateData.module == 'FgExitModule') {
+            if (curStateData.module == 'FreeGameEnding') {
                 curStateData.bquick = false;
                 curStateData.toui = true;
                 curStateData.exitmodule = curStateData.module;
             }
-            if (curStateData.module == 'SpinModule') {
+            if (curStateData.module == 'Spin') {
                 curStateData.triggerspin = true;
             }
         }
