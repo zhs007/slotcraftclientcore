@@ -180,13 +180,21 @@ class GameStep {
     getTotalWins() {
         return this.totalWins;
     }
+    // 解析游戏步骤
     parseGameStep(curStep) {
+        // 定义当前步骤的状态数组
         let curStepStates = [];
+        // 获取当前步骤的状态长度
         let lststatelen = curStep.lstStates.length;
+        let singlenames = [];
+        // 遍历当前步骤的状态
         for (let i = 0; i < lststatelen; i++) {
+            // 获取当前状态的名字
             let stateName = curStep.lstStates[i];
+            // 获取当前状态的数据
             let stateData = curStep.mapStates[stateName];
             // curStepStates.push(stateData);
+            // 将当前状态的数据添加到当前步骤的状态数组中
             this._pushCurStepStates(
                 this.gameResult.mgr2,
                 curStepStates,
@@ -197,7 +205,10 @@ class GameStep {
                 // 否则，如果还需要总赢得的话，只可能是单局总赢得
                 stateData.totalWins = this.getTotalWins();
             }
-
+            //这里记录但step中得singlestate名字，晚些从后遍历，跳过第一个，其他全删
+            if (stateData.curStateData.stepsingle) {
+                singlenames.push(stateData.curStateData.module);
+            }
             //一个step中，toui、exitmodule应该是唯一state，如果多次出现，这里逻辑会覆盖
             if (stateData.curStateData.toui && stateData.respin) {
                 this.toUiStateData = stateData;
@@ -208,8 +219,26 @@ class GameStep {
             }
         }
         this.lstStateData.push(curStepStates);
+        this._singleReCheck(singlenames);
     }
-
+    _singleReCheck(singlenames) {
+        //逻辑上跳过倒数第一个，其他全删
+        let needremove = [];
+        for (let i = this.lstStateData.length - 1; i >= 0; i--) {
+            let curstates = this.lstStateData[i];
+            for (let j = curstates.length - 1; j >= 0; j--) {
+                let curStateData = curstates[j];
+                let modulename = curStateData.curStateData.module;
+                if (needremove.indexOf(modulename) >= 0) {
+                    curstates.splice(j, 1);
+                    continue;
+                }
+                if (singlenames.indexOf(modulename) >= 0) {
+                    needremove.push(modulename);
+                }
+            }
+        }
+    }
     // 对添加到list的state进行过滤，若mgr2中的IsIgnoreState为true，则不添加state
     _pushCurStepStates(mgr2, lstStates, state) {
         let isIgnore = mgr2.isIgnoreState;
@@ -260,8 +289,8 @@ class GameStep {
             mgr2._onUIFGNum(
                 this.toUiStateData.respin.curRespinNum,
                 this.toUiStateData.respin.curRespinNum +
-                    this.toUiStateData.respin.lastRespinNum
-                //-this.mapStates[statename].respin.curAddRespinNum
+                    this.toUiStateData.respin.lastRespinNum -
+                    this.toUiStateData.respin.curAddRespinNum
             );
         }
 

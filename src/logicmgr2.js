@@ -26,7 +26,7 @@ class SCLogicMgr2 {
         this.curStateWins = 0;
         this.isIgnoreState = false; // 是否处于忽略State的状态
 
-        this.version = 'v1.1.29';
+        this.version = 'v1.1.30';
     }
 
     addListener(listener) {
@@ -59,6 +59,9 @@ class SCLogicMgr2 {
             }
             if (curStateData.module == 'Spin') {
                 curStateData.triggerspin = true;
+            }
+            if (curStateData.module == 'ShowBigWins') {
+                curStateData.stepsingle = true;
             }
         }
     }
