@@ -105,14 +105,16 @@ function parseSlotCraftJson(objModule) {
                 module: curmod.module,
                 performance: '',
             };
-
-            if (curmod.module == 'FgExitModule') {
+            if (curmod.module == 'FreeGameEnding') {
                 statecfg.statedata[curmod.name].bquick = false;
                 statecfg.statedata[curmod.name].toui = true;
                 statecfg.statedata[curmod.name].exitmodule = curmod.module;
             }
-            if (curmod.module == 'SpinModule') {
+            if (curmod.module == 'Spin') {
                 statecfg.statedata[curmod.name].triggerspin = true;
+            }
+            if (curmod.module == 'ShowBigWins') {
+                statecfg.statedata[curmod.name].stepsingle = true;
             }
 
             if (curmod.trigger) {
