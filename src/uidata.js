@@ -32,10 +32,9 @@ class SCUIData {
     isNextFreeGame = () => {
         if (this.bNextStep) {
             if (
-                this.nextType == 'freespin' ||
-                this.nextType == 'FgModule' ||
-                this.nextType == 'FreeExtraModule' ||
-                this.nextType == 'FgExitModule'
+                this.nextType == 'StartFreeGame' ||
+                this.nextType == 'RetriggerFreeGame' ||
+                this.nextType == 'FreeGameEnding'
             ) {
                 return true;
             }
