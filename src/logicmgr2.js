@@ -26,7 +26,7 @@ class SCLogicMgr2 {
         this.curStateWins = 0;
         this.isIgnoreState = false; // 是否处于忽略State的状态
 
-        this.version = 'v1.1.30';
+        this.version = 'v1.1.31';
     }
 
     addListener(listener) {

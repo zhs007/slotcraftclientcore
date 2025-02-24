@@ -170,21 +170,21 @@ function isMainRespin(results, respinName) {
 
 // isNeedTotalWinsModule - 判断模块是否需要totalwin，WinAniModule和FgExitModule需要
 function isNeedTotalWinsModule(modName) {
-    return modName == 'FgExitModule' || modName == 'WinAniModule';
+    return modName == 'FreeGameEnding' || modName == 'ShowBigWins';
 }
 
 // isFGEndingModule - 判断模块是否是FG结束模块，FgExitModule
 function isFGEndingModule(modName) {
-    return modName == 'FgExitModule';
+    return modName == 'FreeGameEnding';
 }
 
 // isRetriggerFGModule - 判断模块是否是再次触发FG模块，FreeExtraModule
 function isRetriggerFGModule(modName) {
-    return modName == 'FreeExtraModule';
+    return modName == 'RetriggerFreeGame';
 }
 
 function isTriggerFGModule(modName) {
-    return modName == 'FgModule';
+    return modName == 'StartFreeGame';
 }
 
 function getMainRespinNames(stateData) {
@@ -289,6 +289,13 @@ function isChgSymbolsComponent(componentCfgData) {
 
 // genPosWithChgSymbols - 本地生成pos数据
 function genPosWithChgSymbols(clientData, sceneIndex, componentCfgData) {
+    if (
+        !componentCfgData ||
+        !componentCfgData.config ||
+        !componentCfgData.config.symbols
+    ) {
+        return [];
+    }
     const scene = parseMsgScene(clientData, sceneIndex);
     let pos = [];
     for (let x = 0; x < scene.length; x++) {
