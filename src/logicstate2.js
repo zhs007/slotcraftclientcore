@@ -295,8 +295,9 @@ class GameStep {
         }
 
         let lststatelen0 = this.lstStateData.length;
+        let curstepdata = [];
         for (let si0 = 0; si0 < lststatelen0; si0++) {
-            const curstepdata = this.lstStateData[si0];
+            curstepdata = this.lstStateData[si0];
             let lststatelen = curstepdata.length;
             for (let si = 0; si < lststatelen; si++) {
                 const statedata = curstepdata[si];
