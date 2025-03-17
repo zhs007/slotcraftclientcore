@@ -113,8 +113,8 @@ class LogicState2 {
             const curSceneIndex =
                 this.mapComponentData[sceneComponent].basicComponentData
                     .usedScenes[
-                this.mapComponentData[sceneComponent].basicComponentData
-                    .usedScenes.length - 1
+                    this.mapComponentData[sceneComponent].basicComponentData
+                        .usedScenes.length - 1
                 ];
             this.scene = parseMsgScene(msgResult.clientData, curSceneIndex);
 
@@ -140,8 +140,8 @@ class LogicState2 {
                 msgResult.clientData,
                 this.mapComponentData[otherSceneComponent].basicComponentData
                     .usedOtherScenes[
-                this.mapComponentData[otherSceneComponent]
-                    .basicComponentData.usedOtherScenes.length - 1
+                    this.mapComponentData[otherSceneComponent]
+                        .basicComponentData.usedOtherScenes.length - 1
                 ]
             );
         }
@@ -195,7 +195,11 @@ class GameStep {
             let stateData = curStep.mapStates[stateName];
             // curStepStates.push(stateData);
             // 将当前状态的数据添加到当前步骤的状态数组中
-            this._pushCurStepStates(this.gameResult.mgr2, curStepStates, stateData);
+            this._pushCurStepStates(
+                this.gameResult.mgr2,
+                curStepStates,
+                stateData
+            );
 
             if (stateData.isNeedTotalWins()) {
                 // 否则，如果还需要总赢得的话，只可能是单局总赢得
@@ -243,7 +247,7 @@ class GameStep {
             if (state.mapComponentData) {
                 for (const key of state.curStateData.list) {
                     let data = state.mapComponentData[key];
-                    if (data && data.value && data.value != "") {
+                    if (data && data.value && data.value != '') {
                         hasResult = true;
                         break;
                     }
@@ -257,8 +261,7 @@ class GameStep {
             // 此处的逻辑为，第一个没有结果的SelectFree会加入到list中，并将mgr2.isIgnoreState置为true
             // 后续消息中有结果的SelectFree会将mgr2.isIgnoreState置为false，并加入list中
             mgr2.isIgnoreState = !hasResult;
-            if (isIgnore && !mgr2.isIgnoreState)
-                isIgnore = false;
+            if (isIgnore && !mgr2.isIgnoreState) isIgnore = false;
         }
 
         if (!isIgnore) {
@@ -286,8 +289,8 @@ class GameStep {
             mgr2._onUIFGNum(
                 this.toUiStateData.respin.curRespinNum,
                 this.toUiStateData.respin.curRespinNum +
-                this.toUiStateData.respin.lastRespinNum
-                - this.toUiStateData.respin.curAddRespinNum
+                    this.toUiStateData.respin.lastRespinNum -
+                    this.toUiStateData.respin.curAddRespinNum
             );
         }
 
@@ -308,7 +311,9 @@ class GameStep {
                     //     console.error(' got ' + err);
                     // });
                     await mgr2
-                        ._onEvent(gr2, curstepdata, { "curStateData": { "module": "StepStart" } })
+                        ._onEvent(gr2, curstepdata, {
+                            curStateData: { module: 'StepStart' },
+                        })
                         .catch((err) => {
                             console.error(' got ' + err);
                         });
@@ -321,7 +326,7 @@ class GameStep {
             }
         }
         await mgr2
-            ._onEvent(gr2, curstepdata, { "curStateData": { "module": "StepEnd" } })
+            ._onEvent(gr2, curstepdata, { curStateData: { module: 'StepEnd' } })
             .catch((err) => {
                 console.error(' got ' + err);
             });
@@ -458,7 +463,11 @@ class LogicGameResult2 {
         }
     }
     _gameStepNewOrEnd(componentname) {
-        if (componentname == '' || componentname == 'fg-start' || this.mgr2.CheckStateTriggerKey(componentname, "creategamestep")) {
+        if (
+            componentname == '' ||
+            componentname == 'fg-start' ||
+            this.mgr2.CheckStateTriggerKey(componentname, 'creategamestep')
+        ) {
             return true;
         }
         return false;
