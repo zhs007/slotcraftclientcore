@@ -323,14 +323,12 @@ class GameStep {
                         console.error(' got ' + err);
                     });
             }
-            await mgr2
-                ._onEvent(gr2, curstepdata, {
-                    curStateData: { module: 'StepEnd' },
-                })
-                .catch((err) => {
-                    console.error(' got ' + err);
-                });
         }
+        await mgr2
+            ._onEvent(gr2, curstepdata, { curStateData: { module: 'StepEnd' } })
+            .catch((err) => {
+                console.error(' got ' + err);
+            });
         let isEndStep = runingindex == this.gameResult.getgameStepCount() - 1;
         //补发exitStateData
         if (isEndStep && this.exitStateData != null) {
