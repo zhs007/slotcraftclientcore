@@ -27,7 +27,8 @@ class SCLogicMgr2 {
         this.isIgnoreState = false; // 是否处于忽略State的状态
 
         // this.version = 'v1.1.31'; pre
-        this.version = 'v1.1.33'; // 2025.03.17
+        // this.version = 'v1.1.33'; // 2025.03.17
+        this.version = 'v1.1.34'; // 2025.04.17
     }
 
     addListener(listener) {
@@ -69,18 +70,14 @@ class SCLogicMgr2 {
     CheckStateTriggerKey(commponname, triggerkey) {
         for (const key in this.statedata) {
             const curStateData = this.statedata[key];
-            if (
-                curStateData.list &&
-                curStateData.list.indexOf(commponname) >= 0
-            ) {
+            if (curStateData.list && curStateData.list.indexOf(commponname) >= 0) {
                 return curStateData[triggerkey];
             }
         }
         return false;
     }
     onResumeMessage(msgdata, modulekey) {
-        if (
-            msgdata &&
+        if (msgdata &&
             msgdata.gmi &&
             msgdata.gmi.replyPlay &&
             msgdata.gmi.replyPlay.results
