@@ -328,14 +328,28 @@ class GameStep {
             .catch((err) => {
                 console.error(' got ' + err);
             });
+
+        //不管普通或者免费都得过一遍，普通局面时，需要调用isOutWinLimit限制金额
+        let isoutlimit= mgr2.isOutWinLimit()   
         let isEndStep = runingindex == this.gameResult.getgameStepCount() - 1;
-        //补发exitStateData
-        if (isEndStep && this.exitStateData != null) {
-            const exitstate = this.exitStateData;
-            await mgr2._onEvent(gr2, this, exitstate).catch((err) => {
-                console.error(' got ' + err);
-            });
-        }
+
+        // 达到最大结算都需要弹出中间层面板,不管是否免费
+        if(isoutlimit){
+            mgr2._onUIWinLimit();
+        }    
+        //有结算状态时，最后一轮或者达到最大结算都需要弹出
+        if(this.exitStateData != null){
+            if(isoutlimit){
+                let maxwin=mgr2.getWinLimitNumber();
+                this.exitStateData.totalWins=maxwin;
+            }
+            if (isoutlimit||isEndStep) {
+                const exitstate = this.exitStateData;
+                await mgr2._onEvent(gr2, this, exitstate).catch((err) => {
+                    console.error(' got ' + err);
+                });
+            }
+        }      
     }
 }
 
@@ -480,6 +494,11 @@ class LogicGameResult2 {
                 console.error(' got ' + err);
             });
             this.mgr2._onUIWins(this.mgr2.curStateWins);
+            //step._gameStepRunLogic中同时会检查最大赢得，如果超出，isOutWinLimit判断中，curStateWins已被修正。
+            //故，_onUIWins所以以上代码先调用没问题
+            if(this.mgr2.isOutWinLimit()){
+                return;
+            }
         }
     }
 }

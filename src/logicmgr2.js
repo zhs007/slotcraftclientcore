@@ -16,6 +16,7 @@ class SCLogicMgr2 {
         this.lstGameResult2Listener = []; // async func(gameResult2, step2, state2)
         this.callbackFGNum = null; // callback(curNum, totalNum)
         this.callbackWins = null; // callback(wins)
+        this.callwinLimitTip = null; // callback(winlimit)
 
         this.curMsg = null;
         this.cunMsgIndex = 0;
@@ -25,19 +26,34 @@ class SCLogicMgr2 {
         this.curGameResult2 = null;
         this.curStateWins = 0;
         this.isIgnoreState = false; // 是否处于忽略State的状态
+        this.maxwinLimitNUmber=-1;
 
-        // this.version = 'v1.1.31'; pre
+        // this.version = 'v1.1.31'; 
         // this.version = 'v1.1.33'; // 2025.03.17
-        this.version = 'v1.1.34'; // 2025.04.17
+        // this.version = 'v1.1.34'; // 2025.04.17
+        this.version = 'v1.1.35'; // 2025.05.16
     }
 
     addListener(listener) {
         this.lstGameResult2Listener.push(listener);
     }
-
-    setUIFrameworksFuncs(callbackWins, callbackFGNum) {
+    setWinLimitNumber(limit) {
+        this.maxwinLimitNUmber=limit;
+    }
+    getWinLimitNumber() {
+        return this.maxwinLimitNUmber;
+    }
+    isOutWinLimit() {
+        if(this.maxwinLimitNUmber <=0||this.curStateWins < this.maxwinLimitNUmber) {
+            return false;
+        }
+        this.curStateWins=this.maxwinLimitNUmber;
+        return true;
+    }
+    setUIFrameworksFuncs(callbackWins, callbackFGNum,callwinlimit) {
         this.callbackWins = callbackWins;
         this.callbackFGNum = callbackFGNum;
+        this.callwinLimitTip=callwinlimit;
     }
 
     getCurMsg() {
@@ -128,7 +144,12 @@ class SCLogicMgr2 {
             await this.lstGameResult2Listener[ii](gameResult2, step2, state2);
         }
     }
-
+    // 内部接口，外部不要用，调用中间层得超出赢得最大限制
+    _onUIWinLimit() {
+        if (this.callwinLimitTip) {
+            this.callwinLimitTip();
+        }
+    }
     // 内部接口，外部不要用，通知UI刷新wins
     _onUIWins(curWins) {
         if (this.callbackWins) {
