@@ -432,6 +432,13 @@ class LogicGameResult2 {
 
     // 解析消息
     _parseMsg(msgdata) {
+
+
+        if (msgdata && msgdata.gmi && msgdata.gmi.maxWinLimit&& msgdata.gmi.maxWinLimit>0) {
+            this.mgr2.setWinLimitNumber(msgdata.gmi.maxWinLimit);
+        }
+
+
         // Check if msgdata exists and has the properties gmi, replyPlay and results
         if (
             msgdata &&
