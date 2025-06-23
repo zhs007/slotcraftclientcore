@@ -17,7 +17,7 @@ const config = {
     },
     devServer: {
         open: true,
-        host: 'localhost',
+        host: '0.0.0.0',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -50,7 +50,6 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-
         config.plugins.push(new MiniCssExtractPlugin());
     } else {
         config.mode = 'development';
