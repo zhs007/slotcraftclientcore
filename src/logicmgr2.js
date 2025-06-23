@@ -32,7 +32,8 @@ class SCLogicMgr2 {
         // this.version = 'v1.1.33'; // 2025.03.17
         // this.version = 'v1.1.34'; // 2025.04.17
         // this.version = 'v1.1.35'; // 2025.05.16
-        this.version = 'v1.1.36'; // 2025.05.19
+        //this.version = 'v1.1.36'; // 2025.05.19
+        this.version = 'v1.1.37'; // 2025.06.23  //对mac safari 兼容性优化
     }
 
     addListener(listener) {
